@@ -21,7 +21,7 @@ public:
   };
   StateChanFrame(QWidget *parent = 0);
   ~StateChanFrame();
-  void SetButState(DeviceBut* but, DbObjectClass::Dev &dv );
+  void SetButState(DeviceBut* but, DbObjectClass::Dev *dv );
   void updateState( );
 public slots:  
   void changeDirection( const int & _id );

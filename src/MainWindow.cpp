@@ -1,5 +1,6 @@
 #include "include/MainWindow.h"
 #include <unistd.h>
+#include "include/blinkingclass.h"
 
 ////////////////////////////////////////////////////////////////////
 MainWindow::MainWindow( bool multDisp, QWidget *parent ) : QMainWindow(parent)
@@ -19,7 +20,12 @@ MainWindow::MainWindow( bool multDisp, QWidget *parent ) : QMainWindow(parent)
     updTimer = new QTimer ( this );
     connect( updTimer, SIGNAL(timeout()), this, SLOT(start()) ) ;
     updTimer->start( 1000 );
-    
+
+    BlinkingClass * blnk = new BlinkingClass(  1000 );
+
+    blnk->addFrame( rigthFrame );
+    blnk->addFrame( mainF );
+    blnk->addFrame( objpa );
 };
 ////////////////////////////////////////////////////////////////////
 MainWindow::~MainWindow()

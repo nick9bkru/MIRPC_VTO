@@ -26,7 +26,8 @@ SOURCES += \
     src/dbobjectclass.cpp \
     src/ChanButton.cpp \
     src/ObjectPA.cpp \
-    src/blinkingclass.cpp
+    src/blinkingclass.cpp \
+    src/butparent.cpp
 
 HEADERS  += \
     include/StateChanFrame.h \
@@ -42,7 +43,8 @@ HEADERS  += \
     include/ObjectPA.h \
     include/MainFrame.h \
     include/util/Singleton.h \
-    include/blinkingclass.h
+    include/blinkingclass.h \
+    include/butparent.h
 
 FORMS    += \
     ui/rightWidget.ui \

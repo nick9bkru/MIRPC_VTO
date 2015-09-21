@@ -32,6 +32,7 @@ class DbObjectClass : public DBClass
     {
       QString name;
       int sost;
+      int err;
       bool operator==( const struct DevStruct & left);
       bool operator!=( const struct DevStruct & left);
       struct DevStruct operator=( const struct DevStruct & left);
@@ -82,6 +83,7 @@ class DbObjectClass : public DBClass
     /// получаем оборудование стойки
     //////////////////////////////////////////////////////////////////////////
     VecStandDev getStandDev( );
+    VecStandDev getCPU ();
   protected:
 
   private:

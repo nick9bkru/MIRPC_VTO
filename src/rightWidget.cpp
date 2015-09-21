@@ -26,11 +26,13 @@ void rightWidget::createPCBut()
    for ( auto &it : Dev)
   {
       DeviceBut* but = new DeviceBut ( this  );
+      but->setMinimumWidth(70);
       SetButState ( but, it);
       gridPc->addWidget( but, num / CountRow , num % CountRow);
       DevBut.push_back( but );
       num++;
   }
+
 };
 
 /////////////////////////////////////////////////////
@@ -48,6 +50,7 @@ void rightWidget::deleteAllBut()
 void rightWidget::SetButState(DeviceBut* but, DbObjectClass::StandDev &dv )
 {
     but->setText( dv.name );
+    but->setError( dv.err );
 
 };
 

@@ -1,9 +1,10 @@
 #include "include/ChanButton.h"
+#include <QDebug>
 
-ChanButton::ChanButton( QWidget *parent, int _id  ) : QPushButton (parent), id ( _id ),
-    colr(GREY)
+ChanButton::ChanButton( QWidget *parent, int _id  ) : ButParent (parent), id ( _id )
 {
-    setObjectName ( QString( "%1" ).arg( id ) );
+   // setObjectName ( QString( "%1" ).arg( id ) );
+    qDebug () << objectName();
     QPushButton::setText( QString( "%1" ).arg( id + 1 ) );
         menu = new QMenu ( this );
     menu->addAction ( QString::fromUtf8 ("Изменить название объекта" ) );
@@ -31,7 +32,7 @@ void ChanButton::mousePressEvent ( QMouseEvent * e )
     menu->move( QCursor::pos().x(), QCursor::pos().y() );
   } else 
     {
-      QPushButton::mousePressEvent ( e );
+      ButParent::mousePressEvent ( e );
     };
 };
 
@@ -53,57 +54,3 @@ void ChanButton::slotChange(QAction*)
   
 };
 
-void ChanButton::setText (const QString &str)
-{
-  qDebug( "ChanButton::setText" );
-  QPushButton::setText( str );
-};
-
-void ChanButton::setColor( CLR color , bool blink )
-{
-  //qDebug( "ChanButton::setText" );
-    if ( ! blink )
-    {
-        colr = color;
-    };
-    QString clr;
-    switch (color) {
-    case GREEN:
-           clr = "background-color: rgb(49,242,55);";
-        break;
-    case RED:
-            clr = "background-color: rgb(242,0,0);";
-        break;
-    case GREY:
-            clr = "background-color: rgb(240,240,240);";
-        break;
-    default:
-        clr = "background-color: rgb(255,255,255);";
-        break;
-    }
-  setStyleSheet( clr );
-
-};
-
-void ChanButton::setError( bool b )
-{
-    if ( !b )
-    {
-         setColor ( colr );
-         blink = false;
-    } else
-    {
-        blink = true;
-    }
-
-}
-
-void ChanButton::slotBlink ( )
-{
-    if ( blink )
-    {
-        static CLR _color = colr;
-        _color = (_color == colr)  ? RED  : colr ;
-        setColor( _color , true);
-    }
-};

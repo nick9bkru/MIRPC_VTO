@@ -25,7 +25,7 @@ void StateChanFrame::createStateBut( )
   for ( auto &it : Dev)
   {
       DeviceBut* but = new DeviceBut ( this  );
-      SetButState ( but, it);
+      SetButState ( but, &it);
       StateChanGrid->addWidget( but, num / CountRow , num % CountRow);
       StateBut.push_back( but );
       num++;
@@ -54,9 +54,11 @@ void StateChanFrame::changeTextDir(  )
  NumChanLabel->setText( QString::fromUtf8 ("Объект № %1").arg( id + 1 ) );
 };
 /////////////////////////////////////////////////////
-void StateChanFrame::SetButState(DeviceBut* but, DbObjectClass::Dev &dv )
+void StateChanFrame::SetButState(DeviceBut* but, DbObjectClass::Dev *dv )
 {
-    but->setText( dv.name );
+    but->setText( dv->name );
+    but->setColor( DeviceBut::GREY );
+    but->setError( dv->err == DeviceBut::ERR );
 
 };
 /////////////////////////////////////////////////////
@@ -70,7 +72,7 @@ void StateChanFrame::updateState( )
     {
         if ( (*itnew) != (*itOld) )
         {
-            SetButState ( (*itBut) ,  (*itnew));
+            SetButState ( (*itBut) ,  &(*itnew) );
             (*itOld) = (*itnew) ;
         }
     }

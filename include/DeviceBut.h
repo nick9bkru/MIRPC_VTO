@@ -1,18 +1,12 @@
 #ifndef DEVICEBUT_H
 #define DEVICEBUT_H
 
-#include <QPushButton>
+#include "include/butparent.h"
 
-class DeviceBut : public QPushButton
+class DeviceBut : public ButParent
 {
     Q_OBJECT
 public:
-    enum CLR
-    {
-        GREEN = 0,
-        RED,
-        GEY
-    };
     enum STATE
     {
         NORM= 0,
@@ -24,9 +18,6 @@ public:
     };
 
   DeviceBut( QWidget * parent = 0 );
-  void setColor( CLR color );
-  void setText (const QString &str);
-  void setState (const QString &str);
 private:
 
 };

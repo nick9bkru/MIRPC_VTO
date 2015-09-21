@@ -56,7 +56,7 @@ DbObjectClass::VecDev DbObjectClass::getDev (int id)
     isOpened ();
     VecDev ret;
     Dev buf;
-    QString str = std::move( QString("select  name, sost from  sost_objects where id_obj= %1 order by index;" ).arg( id ) );
+    QString str = std::move( QString("select  name, sost, err from  sost_objects where id_obj= %1 order by index;" ).arg( id ) );
     QSqlQuery query ( str );
 
     if ( query.lastError().isValid())
@@ -69,6 +69,7 @@ DbObjectClass::VecDev DbObjectClass::getDev (int id)
        // buf.name = query.value(0).toInt();
         buf.name = query.value(0).toString();
         buf.sost = query.value(1).toInt();
+        buf.err = query.value(2).toInt();
         ret.push_back( buf );
     }
 
@@ -80,7 +81,7 @@ DbObjectClass::VecStandDev DbObjectClass::getStandDev( )
     isOpened ();
     VecStandDev ret;
     StandDev buf;
-    QString str = "select name, err from  stand_device order by index ;" ;
+    QString str = "select name, err from  stand_device where type = 1 order by index ;" ;
     QSqlQuery query ( str );
 
     if ( query.lastError().isValid())
@@ -97,6 +98,32 @@ DbObjectClass::VecStandDev DbObjectClass::getStandDev( )
         ret.push_back( buf );
     };
     return std::move( ret );
+};
+
+DbObjectClass::VecStandDev DbObjectClass::getCPU ()
+{
+    isOpened ();
+    VecStandDev ret;
+    StandDev buf;
+    QString str = "select name, err from  stand_device where type = 2 order by index ;" ;
+
+    QSqlQuery query ( str );
+
+    if ( query.lastError().isValid())
+    {
+        throw ( std::string (" ERROR : ") +  str.toStdString() + (QString (" ::  %1").arg( query.lastError() .type() )).toStdString() );
+         qDebug() << query.lastError();
+    }
+
+    while (query.next())
+    {
+       // buf.name = query.value(0).toInt();
+        buf.name = query.value(0).toString();
+        buf.err = query.value(1).toInt();
+        ret.push_back( buf );
+    };
+    return std::move( ret );
+
 };
 
  //////////////////////////////////////////////////////////////////////////
@@ -128,7 +155,7 @@ bool DbObjectClass::Dev::operator!=( const DbObjectClass::Dev & left)
 
 bool DbObjectClass::Dev::operator==( const DbObjectClass::Dev & left)
 {
-  bool b =  ( left.name == name ) && ( left.sost == sost );
+  bool b =  ( left.name == name ) && ( left.sost == sost ) && (left.err == err) ;
   return b ;
 };
 
@@ -137,7 +164,7 @@ DbObjectClass::Dev DbObjectClass::Dev::operator=( const DbObjectClass::Dev & lef
 
     name=left.name;
     sost = left.sost;
-
+    err = left.err;
    return *this;
 };
  //////////////////////////////////////////////////////////////////////////

@@ -1,4 +1,5 @@
 #include "include/MainFrame.h"
+
 #include "include/util/Singleton.h"
 
 MainFrame::MainFrame( QWidget *parent ): QFrame(parent), Ui::mainFrame()
@@ -11,8 +12,6 @@ MainFrame::MainFrame( QWidget *parent ): QFrame(parent), Ui::mainFrame()
  // setFrameStyle(QFrame::Box | QFrame:: Raised);
   stateChan = new StateChanFrame( StateChanWidget );
   ChanButSig = new QSignalMapper ( this );
-  timerBlink = new QTimer ( this );
-  timerBlink->start( 1000 );
    connect( ChanButSig, SIGNAL(mapped( const int & )),
              this, SLOT( ChanButClicked( const int & )));
   connect( ChanButSig, SIGNAL(mapped( const int & )),
@@ -50,7 +49,6 @@ void MainFrame::createChBut()
     gridChannel->addWidget( b , i, j);
     ChanButSig->setMapping(  b , b ->getId() );
     connect( ChanBut [ num ] , SIGNAL( clicked() ), ChanButSig, SLOT(map()));
-    connect( timerBlink,  SIGNAL(	timeout () ), b , SLOT (slotBlink () ) ) ;
 
     num++;
   };
@@ -68,8 +66,8 @@ void MainFrame::setButState(ChanButton * b, const DbObjectClass::Obj *obj)
 {
   b->setText( obj->name );
   b->setColor( ChanButton::GREY );
-  b->setError( obj->err == ChanButton::ERR );
-  if ( obj->err == ChanButton::ERR  )
+  b->setError( obj->err );
+  if ( obj->err )
   {
     stateChan->changeDirection( b->getId() );
   };

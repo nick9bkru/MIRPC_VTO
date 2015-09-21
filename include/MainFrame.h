@@ -41,7 +41,6 @@ private:
 
   //состояние всех кналов
   DbObjectClass::VecObj Obj;
-  QTimer * timerBlink;
 
 public slots:
   void ChanButClicked( const int & id );

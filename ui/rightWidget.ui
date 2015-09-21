@@ -99,7 +99,7 @@
       </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
+      <layout class="QHBoxLayout" name="CPUButLayout">
        <item>
         <widget class="QPushButton" name="pow220">
          <property name="maximumSize">
