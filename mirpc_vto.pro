@@ -22,12 +22,15 @@ SOURCES += \
     src/DeviceBut.cpp \
     src/ClockFrame.cpp \
     src/SetNameDialog.cpp \
-    src/dbclass.cpp \
-    src/dbobjectclass.cpp \
     src/ChanButton.cpp \
     src/ObjectPA.cpp \
     src/blinkingclass.cpp \
-    src/butparent.cpp
+    src/butparent.cpp \
+    src/StandBut.cpp \
+    src/db/dbclass.cpp \
+    src/db/dbMainObject.cpp \
+    src/db/dbStandDevice.cpp \
+    src/db/dbStateChan.cpp
 
 HEADERS  += \
     include/StateChanFrame.h \
@@ -38,13 +41,17 @@ HEADERS  += \
     include/ChanButton.h \
     include/SetNameDialog.h \
     include/MainWindow.h \
-    include/dbclass.h \
-    include/dbobjectclass.h \
     include/ObjectPA.h \
     include/MainFrame.h \
     include/util/Singleton.h \
     include/blinkingclass.h \
-    include/butparent.h
+    include/butparent.h \
+    include/db/dbclass.h \
+    include/db/dbMainObject.h \
+    include/db/dbStandDevice.h \
+    include/db/dbStateChan.h \
+    include/StandBut.h \
+    include/style.h
 
 FORMS    += \
     ui/rightWidget.ui \
@@ -53,3 +60,6 @@ FORMS    += \
     ui/StateChanFrame.ui \
     ui/mainFrame.ui \
     ui/ObjectPA.ui
+
+OTHER_FILES += \
+    style.qss

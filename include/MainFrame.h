@@ -9,7 +9,7 @@
 #include "StateChanFrame.h"
 #include "ChanButton.h"
 #include "SetNameDialog.h"
-#include "dbobjectclass.h"
+#include "include/db/dbMainObject.h"
 #include "define.h"
 
 class MainFrame: public QFrame, public Ui::mainFrame
@@ -27,7 +27,7 @@ public:
     // фрэйм с обородуванием объекта
    StateChanFrame* stateChan ;
 private:
-  void setButState(ChanButton * b, const DbObjectClass::Obj *obj);
+  void setButState(ChanButton * b, const dbMainObject::Obj *obj);
   //рисуем отображение каналов
   void createChBut();
 
@@ -35,15 +35,16 @@ private:
   
   QSignalMapper *ChanButSig;
 
-  DbObjectClass * db ;
+  dbMainObject * db ;
 
 
 
   //состояние всех кналов
-  DbObjectClass::VecObj Obj;
+  dbMainObject::VecObj Obj;
 
 public slots:
-  void ChanButClicked( const int & id );
+  void setBlinkSlot ( const int & id, const bool & blink) ;
+  void ChanButClicked ( const int & id );
 };
 
 #endif // MainFrame_H

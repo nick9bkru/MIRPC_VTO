@@ -1,5 +1,5 @@
 #include "include/MainFrame.h"
-
+#include "include/ClockFrame.h"
 #include "include/util/Singleton.h"
 
 MainFrame::MainFrame( QWidget *parent ): QFrame(parent), Ui::mainFrame()
@@ -7,10 +7,14 @@ MainFrame::MainFrame( QWidget *parent ): QFrame(parent), Ui::mainFrame()
   qDebug( "MainFrame::MainFrame" );
   setupUi(this);
   
-  db = &Util::Singleton<DbObjectClass>::getInstance();
+
+  db = new dbMainObject();
 
  // setFrameStyle(QFrame::Box | QFrame:: Raised);
   stateChan = new StateChanFrame( StateChanWidget );
+
+  connect( stateChan, SIGNAL ( signalBlink( const int &, const bool &) ),
+           this, SLOT (setBlinkSlot ( const int & , const bool & ) ));
   ChanButSig = new QSignalMapper ( this );
    connect( ChanButSig, SIGNAL(mapped( const int & )),
              this, SLOT( ChanButClicked( const int & )));
@@ -18,13 +22,14 @@ MainFrame::MainFrame( QWidget *parent ): QFrame(parent), Ui::mainFrame()
              stateChan, SLOT( changeDirection( const int & )));
 //   
   createChBut();
-
+  new  ClockFrame ( TimeWidget );
 }
 
 MainFrame::~MainFrame()
 {
     for( auto &it : ChanBut )
     {
+
      delete it;
     };
 }
@@ -48,8 +53,7 @@ void MainFrame::createChBut()
     ChanBut.push_back( b );
     gridChannel->addWidget( b , i, j);
     ChanButSig->setMapping(  b , b ->getId() );
-    connect( ChanBut [ num ] , SIGNAL( clicked() ), ChanButSig, SLOT(map()));
-
+    connect( b, SIGNAL( clicked() ), ChanButSig, SLOT(map()));
     num++;
   };
 
@@ -62,21 +66,23 @@ void MainFrame::ChanButClicked( const int & id)
 };
 
 /////////////////////////////////////////////////////
-void MainFrame::setButState(ChanButton * b, const DbObjectClass::Obj *obj)
+void MainFrame::setButState(ChanButton * b, const dbMainObject::Obj *obj)
 {
   b->setText( obj->name );
   b->setColor( ChanButton::GREY );
   b->setError( obj->err );
-  if ( obj->err )
+  if ( obj->err != ChanButton::NORM )
   {
     stateChan->changeDirection( b->getId() );
+    b->setBlink( obj->err == ChanButton::BLINK );
   };
+
 };
 /////////////////////////////////////////////////////
 void MainFrame::updateState( )
 {
     //qDebug( "MainFrame::updateState");
-    DbObjectClass::VecObj _obj = std::move ( db->getObject() );
+    dbMainObject::VecObj _obj = std::move ( db->getObject() );
     auto itOld = std::begin ( Obj );
     auto itnew = std::begin ( _obj ) ;
     auto itBut = std::begin ( ChanBut ) ;
@@ -90,3 +96,9 @@ void MainFrame::updateState( )
     }
 };
 
+/////////////////////////////////////////////////////
+void MainFrame::setBlinkSlot ( const int & id, const bool & blink)
+{
+ qDebug() << "void MainFrame::NotBlinkSlot id =" << id  ;
+ ChanBut [ id ] ->setBlink( blink );
+}

@@ -3,11 +3,11 @@
 
 #include "DeviceBut.h"
 #include <vector>
+#include <QSignalMapper>
 
 #include "ui_StateChanFrame.h"
 #include "include/define.h"
-#include "include/dbobjectclass.h"
-
+#include "include/db/dbStateChan.h"
 
 
 class StateChanFrame : public QFrame, Ui::ChanFrame
@@ -16,15 +16,28 @@ class StateChanFrame : public QFrame, Ui::ChanFrame
 public:
   enum
   {
-    CountBut = 15,
-    CountRow = 3
+    CountRow = 4
   };
   StateChanFrame(QWidget *parent = 0);
   ~StateChanFrame();
-  void SetButState(DeviceBut* but, DbObjectClass::Dev *dv );
+  void SetButState(DeviceBut* but, BDStateChan::Dev *dv );
   void updateState( );
+  /**
+   * @brief isBlinkMainBut
+   * @return
+   * мигать или нет кнопкой на MainFrame
+   */
+  bool isBlinkMainBut ();
 public slots:  
   void changeDirection( const int & _id );
+  /**
+  * @brief clickSlot
+  * Нажатие на клавишу , после чего проверяем есть ли мигающие кнопки
+  */
+  void clickSlot(QObject *_but );
+
+signals:
+  void signalBlink(const int & _id ,const bool & blink  );
 private:
   /**
    * удаляем все кнопки 
@@ -34,7 +47,9 @@ private:
   std::vector <DeviceBut*> StateBut;
   void changeTextDir( );
   int id;
-  DbObjectClass::VecDev Dev;
+  BDStateChan * db;
+  BDStateChan::VecDev Dev;
+  QSignalMapper * ClickerMap;
 };
 
 #endif // STATECHANFRAME_H

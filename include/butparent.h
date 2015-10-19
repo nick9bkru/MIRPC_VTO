@@ -6,6 +6,7 @@
 
 class ButParent: public QPushButton
 {
+    Q_OBJECT
 public:
     enum CLR //цвет
     {
@@ -17,7 +18,8 @@ public:
     void setColor( CLR color , bool err = false );
     void setError( bool b = true );
     bool isErr () const ;
-    bool isClicked () const ;
+    bool isBlink() const ;
+    void setBlink ( bool on = true );
     /**
      * слот для установки текста на кнопке
      */
@@ -26,12 +28,11 @@ public:
     CLR getColor () const ;
     void mousePressEvent ( QMouseEvent * e );
 private :
-
     CLR color;
     //ошибка
     bool err ;
     //нажата или нет
-    bool clck ;
+    bool blink ;
 };
 
 #endif // BUTPARENT_H

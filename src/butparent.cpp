@@ -1,9 +1,10 @@
 #include "include/butparent.h"
-
+#include <QDebug>
 ButParent::ButParent( QWidget *parent ): QPushButton (parent),color(GREY),
-  err( false ), clck (false)
+  err( false ), blink (true)
 {
-    setObjectName ( "Button" );
+   setObjectName ( "Button" );
+
 }
 
 void ButParent::setError( bool b  )
@@ -11,18 +12,21 @@ void ButParent::setError( bool b  )
     if ( !b )
     {
          setColor ( color );
-    }
+    } else
+        {
+           setColor ( RED, true);
+        };
     err = b;
-    clck = false;
+    setBlink ( true );
 };
 
 bool ButParent::isErr () const
 {
     return err;
 };
-bool ButParent::isClicked () const
+bool ButParent::isBlink () const
 {
-    return clck;
+    return blink;
 };
 
 ButParent::CLR ButParent::getColor () const
@@ -30,8 +34,14 @@ ButParent::CLR ButParent::getColor () const
     return color;
 };
 
+void ButParent::setBlink ( bool on )
+{
+  blink = on ;
+};
+
 void ButParent::setColor( CLR clr , bool err)
 {
+   // qDebug(  ) << style() ;
     if ( !err )
         color = clr ;
  // qDebug( "ChanButton::setText" );
@@ -50,7 +60,7 @@ void ButParent::setColor( CLR clr , bool err)
         sclr = "background-color: rgb(255,255,255);";
         break;
     }
-  setStyleSheet( sclr );
+  //setStyleSheet( sclr );
 };
 
 
@@ -58,7 +68,7 @@ void ButParent::mousePressEvent ( QMouseEvent * e )
 {
   if ( e->buttons() & Qt::LeftButton )
   {
-    clck = true;
+      setBlink ( false );
     if ( isErr ( ) )
      setColor( RED , true );
 
@@ -72,5 +82,4 @@ void ButParent::setText (const QString &str)
   //qDebug( "ButParent::setText" );
   QPushButton::setText( str );
 };
-
 

@@ -6,11 +6,12 @@ rightWidget::rightWidget ( QWidget *parent ): QFrame(parent),Ui::rigthFrame()
 {
   qDebug( "rightWidget::rightWidget" );
   setupUi(this);
+  db = new dbStandDevice ();
   labelName->setFrameStyle(QFrame::Box | QFrame:: Raised) ;
   createPCBut();
 
-  // new  ClockFrame ( TimeWidget );
-  
+ // setStyleSheet("border: 100px solid #0800f2;");
+  setLineWidth(2);
 };
 /////////////////////////////////////////////////////
 rightWidget::~rightWidget ( )
@@ -22,10 +23,10 @@ void rightWidget::createPCBut()
 {
     int num = 0;
     deleteAllBut();
-    Dev= std::move(Util::Singleton<DbObjectClass>::getInstance().getStandDev());
+    Dev= std::move( db-> getStandDev());
    for ( auto &it : Dev)
   {
-      DeviceBut* but = new DeviceBut ( this  );
+      StandBut* but = new StandBut ( this  );
       but->setMinimumWidth(70);
       SetButState ( but, it);
       gridPc->addWidget( but, num / CountRow , num % CountRow);
@@ -47,7 +48,7 @@ void rightWidget::deleteAllBut()
 };
 
 /////////////////////////////////////////////////////
-void rightWidget::SetButState(DeviceBut* but, DbObjectClass::StandDev &dv )
+void rightWidget::SetButState(StandBut* but, dbStandDevice::StandDev &dv )
 {
     but->setText( dv.name );
     but->setError( dv.err );
@@ -57,7 +58,7 @@ void rightWidget::SetButState(DeviceBut* but, DbObjectClass::StandDev &dv )
 /////////////////////////////////////////////////////
 void rightWidget::updateState( )
 {
-    DbObjectClass::VecStandDev _dev= std::move(Util::Singleton<DbObjectClass>::getInstance().getStandDev());
+    dbStandDevice::VecStandDev _dev= std::move( db-> getStandDev() );
     auto itOld = std::begin ( Dev );
     auto itnew = std::begin ( _dev ) ;
     auto itBut = std::begin ( DevBut ) ;

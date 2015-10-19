@@ -17,7 +17,8 @@ public:
     enum SOST
     {
         NORM = 0,
-        ERR
+        ERR,
+        BLINK
     };
 
   ChanButton(QWidget *parent = 0, int _id = 0 );

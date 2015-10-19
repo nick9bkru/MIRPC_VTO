@@ -3,23 +3,22 @@
 
 #include <vector>
 
-#include "DeviceBut.h"
+#include "include/StandBut.h"
 
 #include "ui_rightWidget.h"
-#include "include/ClockFrame.h"
-#include "include/dbobjectclass.h"
+
+#include "include/db/dbStandDevice.h"
 
 class rightWidget: public QFrame, Ui::rigthFrame
 {
 public :
 enum 
 {
-  CountPc = 20,
-  CountRow = 5
+  CountRow = 3
 };
   rightWidget ( QWidget *parent = 0 );
   ~rightWidget ( );
-  void SetButState(DeviceBut* but, DbObjectClass::StandDev &dv );
+  void SetButState(StandBut* but, dbStandDevice::StandDev &dv );
   void updateState( );
 private:
   /**
@@ -28,10 +27,12 @@ private:
   void deleteAllBut();
 
   void createPCBut();
-  std::vector <DeviceBut*> DevBut;
+  std::vector <StandBut*> DevBut;
 
-   DbObjectClass::VecStandDev Dev;
+   dbStandDevice::VecStandDev Dev;
 
+   dbStandDevice * db ;
+    QFrame rigthFrame;
 };
 
 #endif // RIGHTWIDGET_H

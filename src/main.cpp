@@ -1,13 +1,14 @@
 #include <QApplication>
 #include "include/MainWindow.h"
-
-#include "include/dbobjectclass.h"
-
+#include "include/style.h"
+#include "include/db/dbclass.h"
 #include "include/define.h"
 #include "include/util/Singleton.h"
+#include <QFile>
 
 using namespace std;
 
+const QString StyleFile = "../mirpc_vto/style.qss";
 void start()
 {
   cout << "=============================" <<endl;
@@ -26,12 +27,9 @@ int main (int argc, char *argv[])
 
   start();
   UNUSED(argc);UNUSED(argv);
-  DbObjectClass * db;
  try
   {
-    db = new DbObjectClass ( "mir_pgdb");
-    Util::Singleton<DbObjectClass>::init( db ) ;
-
+     Util::Singleton<DBClass>::init(  new DBClass ( "mir_pgdb" ) ) ;
   }
   catch ( std::string & s)
   {
@@ -39,6 +37,10 @@ int main (int argc, char *argv[])
   }
 
   QApplication a(argc, argv);
+    QFile * file = new QFile ( StyleFile );
+    file->open( QFile::ReadOnly );
+    // qDebug() <<QLatin1String(file->readAll()) ;
+   a.setStyleSheet( QLatin1String(file->readAll()) );
     MainWindow w( argc > 2 );
     w.show();
     return a.exec();
