@@ -50,8 +50,7 @@ HEADERS  += \
     include/db/dbMainObject.h \
     include/db/dbStandDevice.h \
     include/db/dbStateChan.h \
-    include/StandBut.h \
-    include/style.h
+    include/StandBut.h
 
 FORMS    += \
     ui/rightWidget.ui \

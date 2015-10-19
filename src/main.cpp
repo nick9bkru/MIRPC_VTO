@@ -1,6 +1,5 @@
 #include <QApplication>
 #include "include/MainWindow.h"
-#include "include/style.h"
 #include "include/db/dbclass.h"
 #include "include/define.h"
 #include "include/util/Singleton.h"
