@@ -5,8 +5,7 @@ StateChanFrame::StateChanFrame( QWidget *parent ):  QFrame( parent ), Ui::ChanFr
 {
   qDebug( "StateChanFrame::StateChanFrame" );
   setupUi(this);
-  db = new BDStateChan ();
-  id = 0;
+  id = 1;
   ClickerMap = new QSignalMapper ( this );
   connect( ClickerMap , SIGNAL(mapped(  QObject * )),
              this, SLOT( clickSlot(  QObject * )));
@@ -20,12 +19,12 @@ StateChanFrame::StateChanFrame( QWidget *parent ):  QFrame( parent ), Ui::ChanFr
 StateChanFrame::~StateChanFrame()
 {
   qDebug( "StateChanFrame::~StateChanFrame" );
-  delete db;
+
  
 }
 /////////////////////////////////////////////////////
 void StateChanFrame::createStateBut( )
-{
+{/*
     int num = 0;
     deleteAllBut();
   Dev = std::move( db->getDev( id ) );
@@ -41,7 +40,7 @@ void StateChanFrame::createStateBut( )
       StateChanGrid->addWidget( but, num / CountRow , num % CountRow);
       StateBut.push_back( but );
       num++;
-  }
+  }*/
 };
 /////////////////////////////////////////////////////
 void StateChanFrame::deleteAllBut()
@@ -65,40 +64,21 @@ void StateChanFrame::changeDirection( const int & _id )
 /////////////////////////////////////////////////////
 void StateChanFrame::changeTextDir(  )
 {
- NumChanLabel->setText( QString::fromUtf8 ("Объект № %1").arg( id + 1 ) );
+ NumChanLabel->setText( QString::fromUtf8 ("Объект № %1").arg( id  ) );
 };
 /////////////////////////////////////////////////////
-void StateChanFrame::SetButState(DeviceBut* but, BDStateChan::Dev *dv )
-{
-    //qDebug() << dv->name ;
-    but->setText( dv->name );
-    but->setColor( DeviceBut::GREY );
-    but->setError( dv->err == DeviceBut::ERR );
 
-};
 /////////////////////////////////////////////////////
 void StateChanFrame::updateState( )
 {
-    BDStateChan::VecDev _dev= std::move( db->getDev( id ) );
-    auto itOld = std::begin ( Dev );
-    auto itnew = std::begin ( _dev ) ;
-    auto itBut = std::begin ( StateBut ) ;
-    for ( ; itnew != std::end( _dev ); itnew++, itOld++, itBut++)
-    {
-        if ( (*itnew) != (*itOld) )
-        {
-            SetButState ( (*itBut) ,  &(*itnew) );
-            (*itOld) = (*itnew) ;
-        }
-    }
+
 }
 
 /////////////////////////////////////////////////////
 void StateChanFrame::clickSlot( QObject * _but)
 {
   DeviceBut* but = (DeviceBut*) _but;
-  qDebug() << "void StateChanFrame::clickSlot( text = " << but->text();
-  db->setBlink( but->getIndex() ,  false ) ;
+//  qDebug() << "void StateChanFrame::clickSlot( text = " << but->text();
   if ( !isBlinkMainBut ())
   {
       emit signalBlink( id , false );

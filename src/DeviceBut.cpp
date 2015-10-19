@@ -13,3 +13,4 @@ int8_t DeviceBut::getIndex()
 {
     return index;
 };
+

@@ -17,6 +17,14 @@ public:
     bool isOpened ();
     bool isValid( QSqlQuery & query );
 
+    /**
+     * @brief createNotify Создаем notify
+     * @param notify название
+     * @param receiver приемник сигнала
+     * @param method слот
+     * @return
+     */
+    static bool createNotify(const QString &notify, const QObject * receiver, const char * method );
 protected:
     void initDB ();
 
@@ -25,6 +33,7 @@ private:
                 host,
                 user,
                 pass;
+
 };
 
 #endif // DBCLASS_H

@@ -495,13 +495,13 @@
     </layout>
    </widget>
   </widget>
-  <widget class="QWidget" name="StateChanWidget" native="true">
+  <widget class="QWidget" name="StateChanWidget1" native="true">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>60</y>
      <width>501</width>
-     <height>850</height>
+     <height>418</height>
     </rect>
    </property>
   </widget>
@@ -948,6 +948,16 @@
       </colorrole>
      </disabled>
     </palette>
+   </property>
+  </widget>
+  <widget class="QWidget" name="StateChanWidget2" native="true">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>492</y>
+     <width>501</width>
+     <height>418</height>
+    </rect>
    </property>
   </widget>
  </widget>

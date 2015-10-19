@@ -1,13 +1,24 @@
 #include "include/StandBut.h"
 #include <QFont>
 #include <QApplication>
-StandBut::StandBut( QWidget * parent ): ButParent(parent)
+#include <QDebug>
+StandBut::StandBut( DeviceClass* _dev, QWidget * parent ): ButParent( parent ), dev( _dev )
 {
-    setMinimumHeight( 50 );
+
+    setFixedHeight( 60 );
+    setFixedWidth( 83 );
     QFont f( QApplication::font( ) );
     f.setPointSize( 10 );
     setFont( f );
-    setMinimumWidth( 92 );
+    updState();
 
+    connect( dev, SIGNAL (changeState ( int16_t & )), this , SLOT ( updState() ) );
 }
 
+void StandBut::updState()
+{
+    //qDebug( ) << "void StandBut::updState() ";
+//    qDebug( ) << "dev->getName() " << dev->getName();
+//    qDebug( ) << "dev->getId() " << dev->getId();
+    setText( dev->getName() );
+};

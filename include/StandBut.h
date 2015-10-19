@@ -2,6 +2,7 @@
 #define STANDBUT_H
 
 #include "include/butparent.h"
+#include "include/DeviceClass.h"
 
 /**
  * @brief The StandBut class
@@ -11,13 +12,18 @@ class StandBut : public ButParent
 {
      Q_OBJECT
 public:
-    enum STATE
-    {
-        NORM= 0,
-        CALL
-    };
-    StandBut( QWidget * parent = 0 );
+    StandBut( DeviceClass* _dev,  QWidget * parent = 0 );
+public slots:
+    /**
+     * @brief updState обновить состояние кнопки
+     */
+    void updState();
 private:
+    /**
+     * @brief _dev
+     *указатель на класс с состоянием объекта
+     */
+    DeviceClass* dev;
 };
 
 #endif // STANDBUT_H

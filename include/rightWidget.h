@@ -1,16 +1,16 @@
 #ifndef RIGHTWIDGET_H
 #define RIGHTWIDGET_H
 
-#include <vector>
+#include <list>
 
 #include "include/StandBut.h"
 
 #include "ui_rightWidget.h"
-
-#include "include/db/dbStandDevice.h"
+#include "include/ObjectClass.h"
 
 class rightWidget: public QFrame, Ui::rigthFrame
 {
+    Q_OBJECT
 public :
 enum 
 {
@@ -18,20 +18,21 @@ enum
 };
   rightWidget ( QWidget *parent = 0 );
   ~rightWidget ( );
-  void SetButState(StandBut* but, dbStandDevice::StandDev &dv );
-  void updateState( );
+public slots:
+  void refresh( int16_t b );
 private:
+  /**
+   * @brief dev
+   * вектор с указателями на состояния всех кнопкок этого объекта !
+   */
+  ObjectClass::DevisesType * dev ;
   /**
    * удаляем все кнопки
    */
   void deleteAllBut();
 
-  void createPCBut();
-  std::vector <StandBut*> DevBut;
+  std::list <StandBut*> DevBut;
 
-   dbStandDevice::VecStandDev Dev;
-
-   dbStandDevice * db ;
     QFrame rigthFrame;
 };
 

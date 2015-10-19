@@ -19,11 +19,7 @@ public:
     {
       int id;
       QString name;
-      int sost;
-      int err;
-      bool operator==( const struct ObjStruct & left);
-      bool operator!=( const struct ObjStruct & left);
-      struct ObjStruct operator=( const struct ObjStruct & left);
+      int8_t chng;
      };
 
     typedef struct ObjStruct Obj;
@@ -43,8 +39,33 @@ public:
     //////////////////////////////////////////////////////////////////////////
     VecObj getObject ( );
 
+
+
+    //////////////////////////////////////////////////////////////////////////
+    /// \brief The ObjStruct struct
+    ///структура для описания состояния оборудования объекта
+    //////////////////////////////////////////////////////////////////////////
+    struct SObjDev
+    {
+      int16_t id;
+      QString name;
+    };
+    typedef struct SObjDev ObjDev;
+    typedef std::vector < ObjDev> VecObjDev;
+
+    //////////////////////////////////////////////////////////////////////////
+    /// \brief getDev
+    /// \param id номер объекта
+    /// \return VecObjDev
+    ///получаем оборудование объекта
+    //////////////////////////////////////////////////////////////////////////
+    VecObjDev getDev (int id);
+
+    typedef std::vector < int16_t> chngType;
+    chngType getChange();
 private:
     DBClass * db ;
+
 };
 
 #endif // DBMAINOBJECT_H

@@ -1,6 +1,6 @@
 #ifndef SINGLETON_H
 #define SINGLETON_H
-
+#include "include/util/MyException.h"
 
 namespace Util
 {
@@ -67,7 +67,7 @@ namespace Util
 	      destroyer.initialize( p);     
        } 
        else 
-	 throw ( std::string ( "void Singleton<T>::init ( T * p ) error !!! "));
+     throw ( MyException( std::string ( "void Singleton<T>::init ( T * p ) error !!! ") ) );
     };
 };
 #endif // SINGLETON_H

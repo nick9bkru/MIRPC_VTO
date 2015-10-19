@@ -8,6 +8,8 @@
 #include "include/rightWidget.h"
 #include "include/MainFrame.h"
 #include "include/ObjectPA.h"
+#include "include/notConnectionDb.h"
+
 
 
 class MainWindow: public QMainWindow
@@ -24,11 +26,14 @@ public:
 
 public  slots:
   void start();
+private slots:
+  void ShowNoConn (const bool &b);
 private:
   MainFrame * mainF ;
   rightWidget * rigthFrame ;
   ObjectPA * objpa;
   QTimer * updTimer;
+  notConnectionDb * NonConnDB;
 protected:
   
 };

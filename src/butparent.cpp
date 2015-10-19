@@ -1,12 +1,30 @@
 #include "include/butparent.h"
+
 #include <QDebug>
-ButParent::ButParent( QWidget *parent ): QPushButton (parent),color(GREY),
+
+#include <QFontMetrics>
+
+ButParent::ButParent( QWidget *parent ): QPushButton (parent), lbl(new QLabel ( parent )) ,color(GREY),
   err( false ), blink (true)
 {
    setObjectName ( "Button" );
+   lbl->setAlignment(Qt::AlignCenter);
+   lbl->setWordWrap( true );
+       setFixedHeight(lbl->height()*1.8);
 
+       layout = new QVBoxLayout(this);
+       layout->setSpacing(0);
+       layout->setContentsMargins(4,4,4,4);
+       layout->addWidget(lbl,0,Qt::AlignCenter);
+
+       setLayout(layout);
 }
+ButParent::~ButParent()
+{
 
+    delete layout;
+    delete lbl;
+};
 void ButParent::setError( bool b  )
 {
     if ( !b )
@@ -79,7 +97,15 @@ void ButParent::mousePressEvent ( QMouseEvent * e )
 
 void ButParent::setText (const QString &str)
 {
-  //qDebug( "ButParent::setText" );
-  QPushButton::setText( str );
+        lbl->setText( str );
 };
 
+void ButParent::setFont(const QFont &f)
+{
+  lbl->setFont (f );
+};
+
+QString ButParent::text () const
+{
+  return lbl->text();
+}

@@ -29,8 +29,12 @@ SOURCES += \
     src/StandBut.cpp \
     src/db/dbclass.cpp \
     src/db/dbMainObject.cpp \
-    src/db/dbStandDevice.cpp \
-    src/db/dbStateChan.cpp
+    src/DeviceClass.cpp \
+    src/ObjectClass.cpp \
+    src/ObjectsUpdater.cpp \
+    src/util/MyException.cpp \
+    src/db/dbFinder.cpp \
+    src/notConnectionDb.cpp
 
 HEADERS  += \
     include/StateChanFrame.h \
@@ -48,9 +52,14 @@ HEADERS  += \
     include/butparent.h \
     include/db/dbclass.h \
     include/db/dbMainObject.h \
-    include/db/dbStandDevice.h \
-    include/db/dbStateChan.h \
-    include/StandBut.h
+    include/StandBut.h \
+    include/frameborder.h \
+    include/DeviceClass.h \
+    include/ObjectClass.h \
+    include/ObjectsUpdater.h \
+    include/util/MyException.h \
+    include/db/dbFinder.h \
+    include/notConnectionDb.h
 
 FORMS    += \
     ui/rightWidget.ui \
@@ -58,7 +67,9 @@ FORMS    += \
     ui/SetName.ui \
     ui/StateChanFrame.ui \
     ui/mainFrame.ui \
-    ui/ObjectPA.ui
+    ui/ObjectPA.ui \
+    ui/notConnectionDb.ui
 
 OTHER_FILES += \
-    style.qss
+    style.qss \
+    mir_vto.conf

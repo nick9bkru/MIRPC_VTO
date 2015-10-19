@@ -3,6 +3,9 @@
 
 #include <QPushButton>
 #include <QMouseEvent>
+#include <QLabel>
+#include <QVBoxLayout>
+//#include <QFont>
 
 class ButParent: public QPushButton
 {
@@ -15,6 +18,7 @@ public:
         GREY
     };
     ButParent(QWidget *parent = 0);
+    virtual ~ButParent();
     void setColor( CLR color , bool err = false );
     void setError( bool b = true );
     bool isErr () const ;
@@ -27,7 +31,11 @@ public:
 
     CLR getColor () const ;
     void mousePressEvent ( QMouseEvent * e );
+    void setFont( const QFont & f);
+    QString text () const;
 private :
+    QVBoxLayout *layout;
+    QLabel *lbl;
     CLR color;
     //ошибка
     bool err ;

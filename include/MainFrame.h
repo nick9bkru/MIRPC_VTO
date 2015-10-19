@@ -25,7 +25,7 @@ public:
     ~MainFrame();
     void updateState( );
     // фрэйм с обородуванием объекта
-   StateChanFrame* stateChan ;
+   StateChanFrame* stateChan[2] ;
 private:
   void setButState(ChanButton * b, const dbMainObject::Obj *obj);
   //рисуем отображение каналов
@@ -40,9 +40,9 @@ private:
 
 
   //состояние всех кналов
-  dbMainObject::VecObj Obj;
-
+ // dbMainObject::VecObj Obj;
 public slots:
+
   void setBlinkSlot ( const int & id, const bool & blink) ;
   void ChanButClicked ( const int & id );
 };

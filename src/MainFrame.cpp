@@ -11,18 +11,24 @@ MainFrame::MainFrame( QWidget *parent ): QFrame(parent), Ui::mainFrame()
   db = new dbMainObject();
 
  // setFrameStyle(QFrame::Box | QFrame:: Raised);
-  stateChan = new StateChanFrame( StateChanWidget );
+  stateChan[0] = new StateChanFrame( StateChanWidget1 );
+  stateChan[1] = new StateChanFrame( StateChanWidget2 );
 
-  connect( stateChan, SIGNAL ( signalBlink( const int &, const bool &) ),
+  connect( stateChan[0] , SIGNAL ( signalBlink( const int &, const bool &) ),
            this, SLOT (setBlinkSlot ( const int & , const bool & ) ));
   ChanButSig = new QSignalMapper ( this );
    connect( ChanButSig, SIGNAL(mapped( const int & )),
              this, SLOT( ChanButClicked( const int & )));
   connect( ChanButSig, SIGNAL(mapped( const int & )),
-             stateChan, SLOT( changeDirection( const int & )));
-//   
+             stateChan[0] , SLOT( changeDirection( const int & )));
+//
   createChBut();
+
+  //часы !!
   new  ClockFrame ( TimeWidget );
+  QSqlQuery q;
+
+
 }
 
 MainFrame::~MainFrame()
@@ -38,62 +44,39 @@ MainFrame::~MainFrame()
 void MainFrame::createChBut()
 {
   const int row = 3;
-  int num = 0;
+  const int count_obj = 21;
   int i, j;
-  Obj = std::move ( db->getObject() );
 
-
-  for ( auto &it : Obj)
+  for ( int num = 0; num < count_obj;  num ++ )
   {
-    j = num % row;
-    i = num / row;
-    qDebug() << "id = " << it.id << " Name == " <<(it).name << " err == " << it.err ;
-    ChanButton * b = new ChanButton (  this, num );
-    setButState ( b,  &it);
-    ChanBut.push_back( b );
-    gridChannel->addWidget( b , i, j);
-    ChanButSig->setMapping(  b , b ->getId() );
-    connect( b, SIGNAL( clicked() ), ChanButSig, SLOT(map()));
-    num++;
-  };
-
+      j = num % row;
+      i = num / row;
+    // qDebug() << "id = " << it.id << " Name == " <<(it).name << " err == " << it.err ;
+      ChanButton * b = new ChanButton (  this, num + 1);
+    //  setButState ( b,  &it);
+      ChanBut.push_back( b );
+      gridChannel->addWidget( b , i, j);
+      ChanButSig->setMapping(  b , b ->getId() );
+      connect( b, SIGNAL( clicked() ), ChanButSig, SLOT(map()));
+  }
 };
 /////////////////////////////////////////////////////
 void MainFrame::ChanButClicked( const int & id)
 {
   qDebug( "MainFrame::ChanButClicked %d", id );
-  
 };
 
 /////////////////////////////////////////////////////
 void MainFrame::setButState(ChanButton * b, const dbMainObject::Obj *obj)
 {
-  b->setText( obj->name );
-  b->setColor( ChanButton::GREY );
-  b->setError( obj->err );
-  if ( obj->err != ChanButton::NORM )
-  {
-    stateChan->changeDirection( b->getId() );
-    b->setBlink( obj->err == ChanButton::BLINK );
-  };
-
+   // stateChan[0] ->changeDirection( b->getId() );
+    //b->setButState( obj );
 };
+
 /////////////////////////////////////////////////////
 void MainFrame::updateState( )
 {
-    //qDebug( "MainFrame::updateState");
-    dbMainObject::VecObj _obj = std::move ( db->getObject() );
-    auto itOld = std::begin ( Obj );
-    auto itnew = std::begin ( _obj ) ;
-    auto itBut = std::begin ( ChanBut ) ;
-    for ( ; itnew != std::end( _obj ); itnew++, itOld++, itBut++)
-    {
-        if ( (*itnew) != (*itOld) )
-        {
-            setButState ( (*itBut) ,  &(*itnew));
-            (*itOld) = (*itnew) ;
-        }
-    }
+
 };
 
 /////////////////////////////////////////////////////

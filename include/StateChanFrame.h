@@ -7,7 +7,6 @@
 
 #include "ui_StateChanFrame.h"
 #include "include/define.h"
-#include "include/db/dbStateChan.h"
 
 
 class StateChanFrame : public QFrame, Ui::ChanFrame
@@ -20,7 +19,6 @@ public:
   };
   StateChanFrame(QWidget *parent = 0);
   ~StateChanFrame();
-  void SetButState(DeviceBut* but, BDStateChan::Dev *dv );
   void updateState( );
   /**
    * @brief isBlinkMainBut
@@ -47,8 +45,7 @@ private:
   std::vector <DeviceBut*> StateBut;
   void changeTextDir( );
   int id;
-  BDStateChan * db;
-  BDStateChan::VecDev Dev;
+
   QSignalMapper * ClickerMap;
 };
 

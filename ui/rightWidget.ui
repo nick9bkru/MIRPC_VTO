@@ -520,7 +520,7 @@ p, li { white-space: pre-wrap; }
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QFrame" name="frame">
+   <widget class="FrameBorder" name="frame">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -607,7 +607,7 @@ p, li { white-space: pre-wrap; }
      </layout>
     </widget>
    </widget>
-   <widget class="QFrame" name="frame_2">
+   <widget class="FrameBorder" name="frame_2">
     <property name="geometry">
      <rect>
       <x>88</x>
@@ -661,9 +661,9 @@ p, li { white-space: pre-wrap; }
       <height>491</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridPc" rowstretch="0">
+    <layout class="QGridLayout" name="gridPc" rowminimumheight="0" columnminimumwidth="0">
      <property name="sizeConstraint">
-      <enum>QLayout::SetMaximumSize</enum>
+      <enum>QLayout::SetFixedSize</enum>
      </property>
      <property name="leftMargin">
       <number>8</number>
@@ -678,15 +678,23 @@ p, li { white-space: pre-wrap; }
       <number>5</number>
      </property>
      <property name="horizontalSpacing">
-      <number>15</number>
+      <number>18</number>
      </property>
      <property name="verticalSpacing">
-      <number>10</number>
+      <number>15</number>
      </property>
     </layout>
    </widget>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>FrameBorder</class>
+   <extends>QFrame</extends>
+   <header>include/frameborder.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
