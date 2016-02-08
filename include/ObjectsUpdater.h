@@ -9,10 +9,11 @@
 class ObjectsUpdater : public QObject
 {
     Q_OBJECT
-    const QString tbl[2] = { "OBJECTS" , "DEVICES" };
+    const QString tbl[3] = { "OBJECTS" , "DEVICES", "TEK_FAULT" };
     enum table {
         OBJECTS ,
-        DEVICES
+        DEVICES ,
+        FAULTS
     };
 
 public:
@@ -48,6 +49,7 @@ public slots:
      * @param name
      */
     void objNotify(  const QString & name  );
+    void faultNotify(const QString & );
 
     void newStateConn(const bool & b);
 private:

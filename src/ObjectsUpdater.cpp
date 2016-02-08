@@ -7,6 +7,8 @@ ObjectsUpdater::ObjectsUpdater(): dbCon ( false )
 {
     qDebug(  ) <<  "Create ObjectsUpdater::ObjectsUpdater()" ;
     dbObj = new dbMainObject;
+
+    dbObj->getFaults();
     for ( int i = 1; i < 23; i++ ) // первый это состояние объекта руководителя , остальные 21
     {
         Objects.push_back( new ObjectClass ("", i) );
@@ -33,7 +35,7 @@ void ObjectsUpdater::loadNotify()
     qDebug() << "ObjectsUpdater::loadNotify()" ;
     DBClass::createNotify( tbl [DEVICES] , this, SLOT(devNotify(const QString & )) );
    DBClass::createNotify( tbl [OBJECTS] , this, SLOT(objNotify(const QString & )) );
-
+    DBClass::createNotify( tbl [FAULTS] , this, SLOT(faultNotify(const QString & )) );
 };
 
 void ObjectsUpdater::devNotify(  const QString & name  )
@@ -65,6 +67,11 @@ void ObjectsUpdater::objNotify(  const QString & name  )
         qDebug() << e.what();
     };
 };
+
+void ObjectsUpdater::faultNotify(const QString & name )
+{
+    qDebug( ) << "Notify == "<< name ;
+}
 
 void ObjectsUpdater::updateAll()
 {
