@@ -77,7 +77,7 @@ void StateChanFrame::updateState( )
 /////////////////////////////////////////////////////
 void StateChanFrame::clickSlot( QObject * _but)
 {
-  DeviceBut* but = (DeviceBut*) _but;
+  _but=_but;
 //  qDebug() << "void StateChanFrame::clickSlot( text = " << but->text();
   if ( !isBlinkMainBut ())
   {

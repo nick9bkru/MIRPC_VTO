@@ -23,11 +23,9 @@ public:
     MainFrame( QWidget *parent = 0  );
 
     ~MainFrame();
-    void updateState( );
     // фрэйм с обородуванием объекта
    StateChanFrame* stateChan[2] ;
 private:
-  void setButState(ChanButton * b, const dbMainObject::Obj *obj);
   //рисуем отображение каналов
   void createChBut();
 

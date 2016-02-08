@@ -66,18 +66,6 @@ void MainFrame::ChanButClicked( const int & id)
   qDebug( "MainFrame::ChanButClicked %d", id );
 };
 
-/////////////////////////////////////////////////////
-void MainFrame::setButState(ChanButton * b, const dbMainObject::Obj *obj)
-{
-   // stateChan[0] ->changeDirection( b->getId() );
-    //b->setButState( obj );
-};
-
-/////////////////////////////////////////////////////
-void MainFrame::updateState( )
-{
-
-};
 
 /////////////////////////////////////////////////////
 void MainFrame::setBlinkSlot ( const int & id, const bool & blink)

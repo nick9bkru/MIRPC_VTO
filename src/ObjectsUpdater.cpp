@@ -107,7 +107,7 @@ void ObjectsUpdater::updateObjDev(ObjectClass *obj )
   dbMainObject::VecObjDev dev = std::move ( dbObj->getDev( obj->getId() ) ) ;
   ObjectClass::DevisesType * vecDev = obj->getDevices() ;
   qDebug () << "ObjectsUpdater::updateObjDev() ID = " << obj->getId() << " name == " << obj->getName() ;
-  if ( dev.size() < vecDev->size() )
+  if ( int( dev.size()) < vecDev->size() )
   {
     obj->removeDevices();
   };
