@@ -2,6 +2,8 @@
 #define DBMAINOBJECT_H
 
 #include "include/db/dbclass.h"
+#include <QString>
+#include <QDate>
 //////////////////////////////////////////////////
 /// \brief The dbMainObject class
 ///класс для чтения из БД информации о объектах ( MainFrame )
@@ -63,6 +65,24 @@ public:
 
     typedef std::vector < int16_t> chngType;
     chngType getChange();
+
+    /**
+     * @brief The SFaults struct
+     * структура для описания ошибки
+     */
+    struct SFault
+    {
+        QDate date;
+       int16_t id_obj;
+       int16_t id_dev;
+    };
+    typedef struct SFault Fault;
+    typedef std::vector < Fault> FaultsType;
+    /**
+     * @brief getFaults
+     * @return получаем вектор с ошибками
+     */
+    FaultsType getFaults();
 private:
     DBClass * db ;
 

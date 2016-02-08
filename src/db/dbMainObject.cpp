@@ -81,3 +81,20 @@ dbMainObject::chngType dbMainObject::getChange()
      }
     return std::move( ret );
 };
+
+dbMainObject::FaultsType dbMainObject::getFaults()
+{
+    FaultsType ret;
+    Fault buf;
+    QString str = "select dt,obj_num, dev_num from tek_faults order by dt;";
+    QSqlQuery query ( str );
+    db->isValid ( query );
+    while (query.next())
+    {
+        buf.date = query.value(0).toDate() ;
+        buf.id_obj = query.value(1).toInt() ;
+        buf.id_dev = query.value(2).toInt() ;
+        ret.push_back( buf );
+    }
+    return std::move( ret );
+};
