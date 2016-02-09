@@ -35,7 +35,8 @@ SOURCES += \
     src/util/MyException.cpp \
     src/db/dbFinder.cpp \
     src/notConnectionDb.cpp \
-    src/FaultsClass.cpp
+    src/FaultsClass.cpp \
+    src/UbdaterClass.cpp
 
 HEADERS  += \
     include/StateChanFrame.h \
@@ -61,7 +62,8 @@ HEADERS  += \
     include/util/MyException.h \
     include/db/dbFinder.h \
     include/notConnectionDb.h \
-    include/FaultsClass.h
+    include/FaultsClass.h \
+    include/UbdaterClass.h
 
 FORMS    += \
     ui/rightWidget.ui \

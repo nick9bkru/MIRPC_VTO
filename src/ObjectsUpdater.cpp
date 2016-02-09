@@ -1,25 +1,18 @@
 #include "include/ObjectsUpdater.h"
-#include "include/util/MyException.h"
-#include "include/db/dbFinder.h"
+
+
 #include <QDebug>
 
 ObjectsUpdater::ObjectsUpdater(): dbCon ( false )
 {
     qDebug(  ) <<  "Create ObjectsUpdater::ObjectsUpdater()" ;
     dbObj = new dbMainObject;
-
-    dbObj->getFaults();
     for ( int i = 1; i < 23; i++ ) // первый это состояние объекта руководителя , остальные 21
     {
         Objects.push_back( new ObjectClass ("", i) );
     };
 
-    dbFinder * f = new dbFinder ( 2000 ); //  2 секунды
-    connect( f, SIGNAL( dbConnect( const bool & ) ), this, SLOT(newStateConn( const bool & )) );
-    connect( f, SIGNAL( dbConnect( const bool & ) ), this, SIGNAL( dbConnect ( const bool &)) );
-    f->start();
-
-   //qDebug() << QSqlDatabase::database().driver()->subscribedToNotifications();
+       //qDebug() << QSqlDatabase::database().driver()->subscribedToNotifications();
 }
 
 ObjectsUpdater::~ObjectsUpdater()
@@ -28,62 +21,9 @@ ObjectsUpdater::~ObjectsUpdater()
     {
         delete it;
     }
+    delete dbObj;
 };
 
-void ObjectsUpdater::loadNotify()
-{
-    qDebug() << "ObjectsUpdater::loadNotify()" ;
-    DBClass::createNotify( tbl [DEVICES] , this, SLOT(devNotify(const QString & )) );
-   DBClass::createNotify( tbl [OBJECTS] , this, SLOT(objNotify(const QString & )) );
-    DBClass::createNotify( tbl [FAULTS] , this, SLOT(faultNotify(const QString & )) );
-};
-
-void ObjectsUpdater::devNotify(  const QString & name  )
-{
-    qDebug( ) << "Notify == "<< name ;
-    dbMainObject::chngType num = std::move ( dbObj->getChange() );
-    try
-    {
-      for ( auto &it : num )
-        {
-            updateObjDev( Objects[ it - 1  ] );
-        }
-    }
-    catch ( Util::MyException & e )
-    {
-        qDebug() << e.what();
-    };
-};
-
-void ObjectsUpdater::objNotify(  const QString & name  )
-{
-    qDebug( ) << "Notify == "<< name ;
-    try
-    {
-        updateObj();
-    }
-    catch ( Util::MyException & e )
-    {
-        qDebug() << e.what();
-    };
-};
-
-void ObjectsUpdater::faultNotify(const QString & name )
-{
-    qDebug( ) << "Notify == "<< name ;
-}
-
-void ObjectsUpdater::updateAll()
-{
-    try
-    {
-        updateObj( true );
-    }
-    catch ( Util::MyException & e )
-    {
-        qDebug() << e.what();
-    };
-};
 
 void ObjectsUpdater::updateObj( const bool first )
 {
@@ -149,11 +89,12 @@ ObjectClass* ObjectsUpdater::getObject ( int16_t id)
   return NULL;
 };
 
-void ObjectsUpdater::newStateConn( const bool & b)
+
+void ObjectsUpdater::updateDev( )
 {
-    if ( b )
-    {        
-        updateAll();
-        loadNotify();
-    }
-} ;
+    dbMainObject::chngType num = std::move ( dbObj->getChange() );
+    for ( auto &it : num )
+      {
+          updateObjDev( Objects[ it - 1  ] );
+      }
+};

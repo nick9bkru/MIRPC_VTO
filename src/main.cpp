@@ -6,6 +6,7 @@
 
 #include "include/ObjectsUpdater.h"
 
+
 #include <QFile>
 #include <QSettings>
 
@@ -44,17 +45,16 @@ int main (int argc, char *argv[])
                                                            settings->value( "db_user" ).toString() ) ) ; // имя пользователя
 
   // класс со всеми состояниями кнопок 
-
   Util::Singleton<ObjectsUpdater>::init(  new ObjectsUpdater() ) ;
+  UbdaterClass updClass;
 
-
-    QFile * file = new QFile ( settings->value( "StyleFile" ).toString() );
-    file->open( QFile::ReadOnly );
+  QFile * file = new QFile ( settings->value( "StyleFile" ).toString() );
+  file->open( QFile::ReadOnly );
     // qDebug() <<QLatin1String(file->readAll()) ;
    a.setStyleSheet( QLatin1String(file->readAll()) );
    delete file;
    delete settings;
-    MainWindow w( argc > 2 );
+    MainWindow w( argc > 2, &updClass );
     w.show();
     return a.exec();
   return 1;

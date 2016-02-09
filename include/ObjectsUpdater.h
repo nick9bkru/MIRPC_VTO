@@ -4,54 +4,18 @@
 #include "include/ObjectClass.h"
 #include "include/db/dbMainObject.h"
 #include <vector>
-#include <QObject>
-
-class ObjectsUpdater : public QObject
+class ObjectsUpdater
 {
-    Q_OBJECT
-    const QString tbl[3] = { "OBJECTS" , "DEVICES", "TEK_FAULT" };
-    enum table {
-        OBJECTS ,
-        DEVICES ,
-        FAULTS
-    };
 
 public:
 
     ObjectsUpdater();
     ~ObjectsUpdater();
-    void updateAll();
+   // void updateAll();
     void updateObj(const bool first = false);
+    void updateDev( );
   //  ObjType* getObject ( );
     ObjectClass* getObject ( int16_t id);
-signals:
-    /**
-     * @brief loseConnDb игнал о потере связи с БД
-     * если true - потерялся, false - нашелся
-     */
-    void loseConnDb( bool & );
-    /**
-     * @brief dbConnect
-     * сигнал о состоянии соединенеия с БД, если
-     * true - есть соединение
-     * false - нет соединения
-     */
-    void dbConnect ( const bool &);
-public slots:
-    /**
-     * @brief devNotify нотифай от изменения таблицы
-     * @param name
-     */
-    void devNotify(  const QString & name  );
-
-    /**
-     * @brief objNotify нотифай от изменения таблицы
-     * @param name
-     */
-    void objNotify(  const QString & name  );
-    void faultNotify(const QString & );
-
-    void newStateConn(const bool & b);
 private:
     /**
      * @brief updateObjev обновляем состояния объекта

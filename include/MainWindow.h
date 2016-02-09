@@ -9,7 +9,7 @@
 #include "include/MainFrame.h"
 #include "include/ObjectPA.h"
 #include "include/notConnectionDb.h"
-
+#include "include/UbdaterClass.h"
 
 
 class MainWindow: public QMainWindow
@@ -21,12 +21,12 @@ class MainWindow: public QMainWindow
      HeightScreen = 960
  };
 public:
-  MainWindow(bool multDisp = 0, QWidget *parent = 0);
+  MainWindow(bool multDisp , UbdaterClass *upb, QWidget *parent = 0);
   ~MainWindow();
 
 public  slots:
   void start();
-private slots:
+//private slots:
   void ShowNoConn (const bool &b);
 private:
   MainFrame * mainF ;

@@ -4,7 +4,7 @@
 #include "include/util/Singleton.h"
 #include "include/ObjectsUpdater.h"
 ////////////////////////////////////////////////////////////////////
-MainWindow::MainWindow( bool multDisp, QWidget *parent ) : QMainWindow(parent), NonConnDB( nullptr )
+MainWindow::MainWindow( bool multDisp,UbdaterClass *upb ,  QWidget *parent ) : QMainWindow(parent), NonConnDB( nullptr )
 {
     setGeometry (0 ,0 , ( 1 + multDisp * 1)*WidthScreen, HeightScreen);
 
@@ -29,7 +29,7 @@ MainWindow::MainWindow( bool multDisp, QWidget *parent ) : QMainWindow(parent), 
     blnk->addFrame( mainF );
     blnk->addFrame( objpa );
 
-    connect( &Util::Singleton<ObjectsUpdater>::getInstance(),
+    connect( upb,
             SIGNAL(dbConnect ( const bool &)),
                this, SLOT( ShowNoConn ( const bool &) ) );
 
