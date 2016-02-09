@@ -9,7 +9,7 @@
 
 #include <QFile>
 #include <QSettings>
-
+#include <memory>
 using namespace std;
 
 const QString confFile = "../mirpc_vto/mir_vto.conf";
@@ -25,21 +25,34 @@ void start()
   cout << "=============================" <<endl;
 
 }
+// добавил , что бы не надо было потом delete делать
+std::unique_ptr <QApplication> a;
+std::unique_ptr <QSettings> settings( new QSettings ( confFile , QSettings::NativeFormat ) );
+
+// загружаем стили
+void loadStyle( QString SFile)
+{
+    QFile * file = new QFile ( SFile );
+    file->open( QFile::ReadOnly );
+      // qDebug() <<QLatin1String(file->readAll()) ;
+    a->setStyleSheet( QLatin1String(file->readAll()) );
+     delete file;
+};
+
 
 int main (int argc, char *argv[])
 {
 
   start();
   UNUSED(argc);UNUSED(argv);
-  QApplication a(argc, argv);
 
-  QSettings * settings = new QSettings ( confFile , QSettings::NativeFormat );
+  a.reset( new QApplication (argc, argv) );
+
   if ( settings->status() != QSettings::NoError )
   {
     qDebug() << " Setting file not loaded error == " << settings->status() ;
     return -1;
   }
-  qDebug() << "!!!!!!!!! " <<settings->value( "db_adress" ).toString();
   Util::Singleton<DBClass>::init(  new DBClass ( settings->value( "db_name" ).toString(), // название БД
                                                          settings->value( "db_adress" ).toString(), // адрес хоста
                                                            settings->value( "db_user" ).toString() ) ) ; // имя пользователя
@@ -48,15 +61,9 @@ int main (int argc, char *argv[])
   Util::Singleton<ObjectsUpdater>::init(  new ObjectsUpdater() ) ;
   UbdaterClass updClass;
 
-  QFile * file = new QFile ( settings->value( "StyleFile" ).toString() );
-  file->open( QFile::ReadOnly );
-    // qDebug() <<QLatin1String(file->readAll()) ;
-   a.setStyleSheet( QLatin1String(file->readAll()) );
-   delete file;
-   delete settings;
-    MainWindow w( argc > 2, &updClass );
+   loadStyle( settings->value( "StyleFile" ).toString() );
+   MainWindow w( argc > 2, &updClass );
     w.show();
-    return a.exec();
-  return 1;
+  return a->exec();
 
 };
