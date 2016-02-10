@@ -11,7 +11,7 @@
 class dbMainObject
 {
 public:
-    dbMainObject();
+    dbMainObject( DBClass * db );
 
     //////////////////////////////////////////////////////////////////////////
     /// \brief The ObjStruct struct

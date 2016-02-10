@@ -1,10 +1,9 @@
 #include "include/db/dbMainObject.h"
 #include "include/util/Singleton.h"
 
-dbMainObject::dbMainObject()
+dbMainObject::dbMainObject (DBClass *_db) : db( _db)
 {
-    db = & Util::Singleton<DBClass>::getInstance();
-   };
+};
 
 
 dbMainObject::Obj dbMainObject::getObject ( int id )
