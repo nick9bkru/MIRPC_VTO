@@ -24,7 +24,7 @@ void BlinkingClass::blinkingSlot()
         QList<ButParent *> b = std::move( it->findChildren<ButParent *>("Button") );
         for ( auto & but : b)
         {
-            if ( but->isBlink () && but->isErr () )
+            if ( but->isBlink () )
             {
                 ButParent::CLR clr = red ? ButParent::CLR::RED : but->getColor ();
                 but->setColor ( clr, true );

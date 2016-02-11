@@ -11,8 +11,7 @@ MainFrame::MainFrame( QWidget *parent ): QFrame(parent), Ui::mainFrame()
   stateChan[0] = new StateChanFrame( StateChanWidget1 );
   stateChan[1] = new StateChanFrame( StateChanWidget2 );
 
-  connect( stateChan[0] , SIGNAL ( signalBlink( const int &, const bool &) ),
-           this, SLOT (setBlinkSlot ( const int & , const bool & ) ));
+
   ChanButSig = new QSignalMapper ( this );
    connect( ChanButSig, SIGNAL(mapped( const int & )),
              this, SLOT( ChanButClicked( const int & )));
@@ -62,11 +61,3 @@ void MainFrame::ChanButClicked( const int & id)
 {
   qDebug( "MainFrame::ChanButClicked %d", id );
 };
-
-
-/////////////////////////////////////////////////////
-void MainFrame::setBlinkSlot ( const int & id, const bool & blink)
-{
- qDebug() << "void MainFrame::NotBlinkSlot id =" << id  ;
- ChanBut [ id ] ->setBlink( blink );
-}

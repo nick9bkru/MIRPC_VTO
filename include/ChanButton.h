@@ -17,6 +17,7 @@ public:
   ChanButton(QWidget *parent = 0, int _id = 0 );
   ~ChanButton();
   int getId();
+  bool isBlink () const;
 private :
   int id;
   QMenu * menu;

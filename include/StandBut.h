@@ -13,6 +13,8 @@ class StandBut : public ButParent
      Q_OBJECT
 public:
     StandBut( DeviceClass* _dev,  QWidget * parent = 0 );
+
+    bool isBlink () const;
 public slots:
     /**
      * @brief updState обновить состояние кнопки

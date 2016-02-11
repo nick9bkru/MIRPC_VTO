@@ -1,7 +1,9 @@
 #include "include/ObjectClass.h"
+#include <algorithm>
 #include <QDebug>
 
-ObjectClass::ObjectClass(QString _name, int16_t _id) :	name ( _name ),id( _id ), conf( false ),rePaint ( false )
+ObjectClass::ObjectClass(QString _name, int16_t _id) :	name ( _name ),id( _id ), conf( false ),
+    rePaint ( false ), alarm ( false )
 {
      qDebug(  ) << "ObjectClass::ObjectClass id = " << id << " name = " << _name  ;
 }
@@ -90,7 +92,24 @@ void ObjectClass::emitRefresh()
 bool ObjectClass::setAlarmDev( const int16_t id_dev, const bool alarm )
 {
     auto dev = getDevice ( id_dev );
+
     if ( dev != NULL )
         dev->setAlarm( alarm );
-        return dev != NULL;
+    this->alarm = alarm;
+    if ( !alarm )
+    {
+        foreach (auto &it, Devices) {
+        if ( it->isAlarm() )
+          {
+           this->alarm = true;
+           break;
+           }
+         };
+    };
+    return dev != NULL;
+};
+
+bool ObjectClass::isAlarm() const
+{
+  return alarm;
 };

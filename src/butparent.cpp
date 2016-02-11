@@ -4,8 +4,7 @@
 
 #include <QFontMetrics>
 
-ButParent::ButParent( QWidget *parent ): QPushButton (parent), lbl(new QLabel ( parent )) ,color(GREY),
-  err( false ), blink (true)
+ButParent::ButParent( QWidget *parent ): QPushButton (parent), lbl(new QLabel ( parent )) ,color(DEFAULT)
 {
    setObjectName ( "Button" );
    lbl->setAlignment(Qt::AlignCenter);
@@ -18,6 +17,7 @@ ButParent::ButParent( QWidget *parent ): QPushButton (parent), lbl(new QLabel ( 
        layout->addWidget(lbl,0,Qt::AlignCenter);
 
        setLayout(layout);
+       defColor = styleSheet();
 }
 ButParent::~ButParent()
 {
@@ -25,26 +25,10 @@ ButParent::~ButParent()
     delete layout;
     delete lbl;
 };
-void ButParent::setError( bool b  )
-{
-    if ( !b )
-    {
-         setColor ( color );
-    } else
-        {
-           setColor ( RED, true);
-        };
-    err = b;
-    setBlink ( true );
-};
 
-bool ButParent::isErr () const
-{
-    return err;
-};
 bool ButParent::isBlink () const
 {
-    return blink;
+    return false; // ::TODO delete
 };
 
 ButParent::CLR ButParent::getColor () const
@@ -52,10 +36,7 @@ ButParent::CLR ButParent::getColor () const
     return color;
 };
 
-void ButParent::setBlink ( bool on )
-{
-  blink = on ;
-};
+
 
 void ButParent::setColor( CLR clr , bool err)
 {
@@ -74,11 +55,14 @@ void ButParent::setColor( CLR clr , bool err)
     case GREY:
             sclr = "background-color: rgb(240,240,240);";
         break;
+    case DEFAULT:
+            sclr = defColor;
+        break;
     default:
         sclr = "background-color: rgb(255,255,255);";
         break;
     }
-  //setStyleSheet( sclr );
+  setStyleSheet( sclr );
 };
 
 
@@ -86,9 +70,9 @@ void ButParent::mousePressEvent ( QMouseEvent * e )
 {
   if ( e->buttons() & Qt::LeftButton )
   {
-      setBlink ( false );
-    if ( isErr ( ) )
-     setColor( RED , true );
+      //setBlink ( false );
+  //  if ( isErr ( ) )
+    // setColor( RED , true );
 
   }
       QPushButton::mousePressEvent ( e );

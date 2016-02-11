@@ -40,7 +40,6 @@ private:
  // dbMainObject::VecObj Obj;
 public slots:
 
-  void setBlinkSlot ( const int & id, const bool & blink) ;
   void ChanButClicked ( const int & id );
 };
 

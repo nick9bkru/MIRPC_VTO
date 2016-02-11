@@ -5,6 +5,7 @@
 #include <QMouseEvent>
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QString>
 //#include <QFont>
 
 class ButParent: public QPushButton
@@ -15,15 +16,13 @@ public:
     {
         GREEN = 0,
         RED,
-        GREY
+        GREY,
+        DEFAULT
     };
     ButParent(QWidget *parent = 0);
     virtual ~ButParent();
     void setColor( CLR color , bool err = false );
-    void setError( bool b = true );
-    bool isErr () const ;
-    bool isBlink() const ;
-    void setBlink ( bool on = true );
+    virtual bool isBlink() const ;
     /**
      * слот для установки текста на кнопке
      */
@@ -37,10 +36,8 @@ private :
     QVBoxLayout *layout;
     QLabel *lbl;
     CLR color;
-    //ошибка
-    bool err ;
-    //нажата или нет
-    bool blink ;
+    QString defColor;
+protected:
 };
 
 #endif // BUTPARENT_H

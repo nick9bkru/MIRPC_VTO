@@ -60,6 +60,8 @@ public:
      * @return
      */
     bool setAlarmDev( const int16_t id_dev, const bool alarm );
+    bool isAlarm() const;
+
 signals:
     void change ( int16_t );
 private:
@@ -80,6 +82,7 @@ private:
     bool conf;
 
     bool rePaint;
+   bool alarm ;
 };
 
 #endif // OBJECTCLASS_H

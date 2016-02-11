@@ -22,3 +22,9 @@ void StandBut::updState()
 //    qDebug( ) << "dev->getId() " << dev->getId();
     setText( dev->getName() );
 };
+
+
+bool StandBut::isBlink () const
+{
+    return dev->isAlarm(); // ::TODO delete
+};

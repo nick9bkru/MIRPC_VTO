@@ -88,12 +88,12 @@ void StateChanFrame::clickSlot( QObject * _but)
 bool StateChanFrame::isBlinkMainBut ()
 {
     bool _emit = true ;
-    for( auto &it : StateBut )
-    {
-        if ( it -> isErr () && it -> isBlink () )
-        {
-            _emit = false ;
-        };
-    };
+//    for( auto &it : StateBut )
+//    {
+//        if ( it -> isErr () && it -> isBlink () )
+//        {
+//            _emit = false ;
+//        };
+//    };
     return _emit;
 };

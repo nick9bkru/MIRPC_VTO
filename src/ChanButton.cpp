@@ -83,3 +83,8 @@ void ChanButton::refresh()
   };
   setEnabled( obj->getConf() );
 }
+
+bool ChanButton::isBlink () const
+{
+    return obj->isAlarm(); // ::TODO delete
+};
