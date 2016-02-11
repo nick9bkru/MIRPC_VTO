@@ -6,9 +6,6 @@ MainFrame::MainFrame( QWidget *parent ): QFrame(parent), Ui::mainFrame()
 {
   qDebug( "MainFrame::MainFrame" );
   setupUi(this);
-  
-
-  db = new dbMainObject();
 
  // setFrameStyle(QFrame::Box | QFrame:: Raised);
   stateChan[0] = new StateChanFrame( StateChanWidget1 );

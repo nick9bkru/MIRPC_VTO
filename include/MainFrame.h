@@ -33,7 +33,6 @@ private:
   
   QSignalMapper *ChanButSig;
 
-  dbMainObject * db ;
 
 
 

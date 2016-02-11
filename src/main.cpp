@@ -1,6 +1,6 @@
 #include <QApplication>
 #include "include/MainWindow.h"
-#include "include/db/dbclass.h"
+#include "include/db/dbMainObject.h"
 #include "include/define.h"
 #include "include/util/Singleton.h"
 
@@ -53,13 +53,12 @@ int main (int argc, char *argv[])
     qDebug() << " Setting file not loaded error == " << settings->status() ;
     return -1;
   }
-  Util::Singleton<DBClass>::init(  new DBClass ( settings->value( "db_name" ).toString(), // название БД
-                                                         settings->value( "db_adress" ).toString(), // адрес хоста
-                                                           settings->value( "db_user" ).toString() ) ) ; // имя пользователя
+  std::unique_ptr <DBClass> db ( new DBClass ( settings->value( "db_name" ).toString(), // название БД
+                                  settings->value( "db_adress" ).toString(), // адрес хоста
+                                   settings->value( "db_user" ).toString() ) ) ; // имя пользователя
 
-  // класс со всеми состояниями кнопок 
-  Util::Singleton<ObjectsUpdater>::init(  new ObjectsUpdater() ) ;
-  UbdaterClass updClass;
+
+  UbdaterClass updClass ( db.get() );
 
    loadStyle( settings->value( "StyleFile" ).toString() );
    MainWindow w( argc > 2, &updClass );
