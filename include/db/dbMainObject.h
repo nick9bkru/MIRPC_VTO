@@ -2,6 +2,7 @@
 #define DBMAINOBJECT_H
 
 #include "include/db/dbclass.h"
+#include <QList>
 #include <QString>
 #include <QDate>
 //////////////////////////////////////////////////
@@ -75,9 +76,10 @@ public:
         QDate date;
        int16_t id_obj;
        int16_t id_dev;
+       bool operator==(const struct SFault& left);
     };
     typedef struct SFault Fault;
-    typedef std::vector < Fault> FaultsType;
+    typedef QList < Fault> FaultsType;
     /**
      * @brief getFaults
      * @return получаем вектор с ошибками

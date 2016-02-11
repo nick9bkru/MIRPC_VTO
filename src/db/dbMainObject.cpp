@@ -97,3 +97,8 @@ dbMainObject::FaultsType dbMainObject::getFaults()
     }
     return std::move( ret );
 };
+
+bool dbMainObject::Fault::operator==(const dbMainObject::Fault& left)
+{
+  return ( left.date == date ) && ( left.id_dev == id_dev ) && ( left.id_obj == id_obj );
+};
