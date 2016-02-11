@@ -86,3 +86,11 @@ void ObjectClass::emitRefresh()
     emit change ( -1 );
   }
 }
+
+bool ObjectClass::setAlarmDev( const int16_t id_dev, const bool alarm )
+{
+    auto dev = getDevice ( id_dev );
+    if ( dev != NULL )
+        dev->setAlarm( alarm );
+        return dev != NULL;
+};

@@ -53,6 +53,13 @@ public:
      * @brief emitRefresh если теребуется создает сигнал о перерисовки всего обеъкта
      */
     void emitRefresh()  ;
+    /**
+     * @brief setAlarmDev установить аварию устройства
+     * @param id_dev номер устройства
+     * @param alarm true - ключить, false - отключить
+     * @return
+     */
+    bool setAlarmDev( const int16_t id_dev, const bool alarm );
 signals:
     void change ( int16_t );
 private:

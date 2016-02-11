@@ -1,12 +1,16 @@
 #include "include/ObjectsUpdater.h"
-
+#include "include/util/MyException.h"
 
 #include <QDebug>
+ObjectsUpdater::ObjectsUpdater()
+{
+ throw Util::MyException(  "ObjectsUpdater::ObjectsUpdater() ERROR !!!!! " ) ;
+}
 
-ObjectsUpdater::ObjectsUpdater(): dbCon ( false )
+ObjectsUpdater::ObjectsUpdater(dbMainObject *_dbObj): dbObj ( _dbObj ) , dbCon ( false )
 {
     qDebug(  ) <<  "Create ObjectsUpdater::ObjectsUpdater()" ;
-    dbObj = new dbMainObject;
+//    dbObj = new dbMainObject;
     for ( int i = 1; i < 23; i++ ) // первый это состояние объекта руководителя , остальные 21
     {
         Objects.push_back( new ObjectClass ("", i) );
@@ -78,7 +82,7 @@ void ObjectsUpdater::updateObjDev(ObjectClass *obj )
 
 };
 
-ObjectClass* ObjectsUpdater::getObject ( int16_t id)
+ObjectClass* ObjectsUpdater::getObject ( int16_t id) const
 {
   for ( auto &it : Objects )
   {

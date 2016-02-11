@@ -4,6 +4,7 @@
 #include <QObject>
 #include "include/db/dbFinder.h"
 #include "include/ObjectsUpdater.h"
+#include "include/FaultsClass.h"
 /**
  * @brief The UbdaterClass class
  * Класс обновляющий все
@@ -18,7 +19,7 @@ class UbdaterClass: public QObject
         FAULTS
     };
 public:
-    UbdaterClass();
+    UbdaterClass(DBClass *bd);
     ~UbdaterClass();
 signals:
     /**
@@ -52,6 +53,7 @@ public slots:
     void newStateConn(const bool & b);
 private:
     ObjectsUpdater * objUpd;
+    FaultsClass * faultUpd;
     dbFinder * f;
     /**
      * @brief loadNotify

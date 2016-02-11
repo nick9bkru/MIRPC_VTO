@@ -3,11 +3,16 @@
 #include "include/util/Singleton.h"
 #include <QDebug>
 
-UbdaterClass::UbdaterClass()
+UbdaterClass::UbdaterClass( DBClass* bd )
 {
     qDebug(  ) <<  "Create UbdaterClass::UbdaterClass()" ;
 
-    objUpd = &Util::Singleton<ObjectsUpdater>::getInstance();
+    dbMainObject * dbMain = new dbMainObject ( bd );
+
+    objUpd = new ObjectsUpdater( dbMain );
+    Util::Singleton<ObjectsUpdater>::init(  objUpd ) ;
+    faultUpd = new FaultsClass ( dbMain, objUpd );
+
     f = new dbFinder ( 2000 ); //  2 секунды
     connect( f, SIGNAL( dbConnect( const bool & ) ), this, SLOT(newStateConn( const bool & )) );
     connect( f, SIGNAL( dbConnect( const bool & ) ), this, SIGNAL( dbConnect ( const bool &)) );
@@ -17,6 +22,7 @@ UbdaterClass::UbdaterClass()
 UbdaterClass::~UbdaterClass()
 {
     delete f;
+    delete objUpd;
 }
 
 void UbdaterClass::devNotify(  const QString & name  )
@@ -48,6 +54,15 @@ void UbdaterClass::objNotify(  const QString & name  )
 void UbdaterClass::faultNotify(const QString & name )
 {
     qDebug( ) << "Notify == "<< name ;
+    try
+    {
+          faultUpd->update();
+    }
+    catch ( Util::MyException & e )
+    {
+           qDebug() << e.what();
+    };
+
 }
 
 void UbdaterClass::newStateConn( const bool & b)
@@ -55,6 +70,7 @@ void UbdaterClass::newStateConn( const bool & b)
     if ( b )
     {
         objUpd->updateObj( true );
+        faultUpd->update();
         loadNotify();
     }
 } ;

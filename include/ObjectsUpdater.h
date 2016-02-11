@@ -8,14 +8,18 @@ class ObjectsUpdater
 {
 
 public:
-
+    /**
+     * @brief ObjectsUpdater
+     *конструктор для Singleton
+     */
     ObjectsUpdater();
+    ObjectsUpdater( dbMainObject * _dbObj );
     ~ObjectsUpdater();
    // void updateAll();
     void updateObj(const bool first = false);
     void updateDev( );
   //  ObjType* getObject ( );
-    ObjectClass* getObject ( int16_t id);
+    ObjectClass* getObject ( int16_t id) const;
 private:
     /**
      * @brief updateObjev обновляем состояния объекта
