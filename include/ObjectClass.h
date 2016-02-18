@@ -2,9 +2,10 @@
 #define OBJECTCLASS_H
 
 #include "include/DeviceClass.h"
+#include "include/baseDevice.h"
 #include <QMap>
 #include <QObject>
-class ObjectClass : public QObject
+class ObjectClass : public QObject, public baseDevice
 {
      Q_OBJECT
 public:
@@ -30,16 +31,12 @@ public:
      * удалить все девайсы
      */
     void removeDevices();
-    /**
-     * @brief setId - установить id
-     * @param _id - объекта
-     */
-    void setId( int16_t _id );
+
     /**
      * @brief setName - установить имя
      * @param _name - имя объекта
      */
-    void setName( QString _name );
+    virtual void setName( QString _name ) override;
     /**
      * @brief SetConf ввести в конфигурацию
      * @param ok
@@ -47,8 +44,6 @@ public:
     void setConf( bool ok = true);
 
     bool getConf( ) const ;
-    int16_t getId() const ;
-    QString getName() const;
     /**
      * @brief emitRefresh если теребуется создает сигнал о перерисовки всего обеъкта
      */
@@ -60,29 +55,18 @@ public:
      * @return
      */
     bool setAlarmDev( const int16_t id_dev, const bool alarm );
-    bool isAlarm() const;
+
 
 signals:
     void change ( int16_t );
 private:
     DevisesType Devices;
     /**
-     * @brief name
-     * название объекта
-     */
-    QString name;
-    /**
-     * @brief id
-     * id объекта
-     */
-    int8_t id;
-    /**
      * @brief conf если true то в конфигурации
      */
     bool conf;
 
     bool rePaint;
-   bool alarm ;
 };
 
 #endif // OBJECTCLASS_H

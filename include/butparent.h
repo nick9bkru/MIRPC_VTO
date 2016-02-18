@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QString>
+#include "include/baseDevice.h"
 //#include <QFont>
 
 class ButParent: public QPushButton
@@ -38,6 +39,7 @@ private :
     CLR color;
     QString defColor;
 protected:
+    baseDevice * dev;
 };
 
 #endif // BUTPARENT_H

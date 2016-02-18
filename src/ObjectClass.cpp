@@ -2,9 +2,11 @@
 #include <algorithm>
 #include <QDebug>
 
-ObjectClass::ObjectClass(QString _name, int16_t _id) :	name ( _name ),id( _id ), conf( false ),
-    rePaint ( false ), alarm ( false )
+ObjectClass::ObjectClass(QString _name, int16_t _id) :	conf( false ),
+    rePaint ( false )
 {
+    name = _name;
+    id = _id ;
      qDebug(  ) << "ObjectClass::ObjectClass id = " << id << " name = " << _name  ;
 }
 
@@ -37,16 +39,6 @@ void ObjectClass::removeDevices()
     } ;
     Devices.clear();
     rePaint = true;
-};
-
-int16_t ObjectClass::getId() const
-{
- return  id;
-};
-
-QString ObjectClass::getName() const
-{
- return name;
 };
 
 bool ObjectClass::getConf( ) const
@@ -109,7 +101,3 @@ bool ObjectClass::setAlarmDev( const int16_t id_dev, const bool alarm )
     return dev != NULL;
 };
 
-bool ObjectClass::isAlarm() const
-{
-  return alarm;
-};

@@ -60,9 +60,16 @@ SOURCES       = src/main.cpp \
 		src/StandBut.cpp \
 		src/db/dbclass.cpp \
 		src/db/dbMainObject.cpp \
-		src/db/dbStandDevice.cpp \
-		src/db/dbStateChan.cpp moc_StateChanFrame.cpp \
+		src/DeviceClass.cpp \
+		src/ObjectClass.cpp \
+		src/ObjectsUpdater.cpp \
+		src/util/MyException.cpp \
+		src/db/dbFinder.cpp \
+		src/notConnectionDb.cpp \
+		src/FaultsClass.cpp \
+		src/UbdaterClass.cpp moc_StateChanFrame.cpp \
 		moc_DeviceBut.cpp \
+		moc_rightWidget.cpp \
 		moc_ClockFrame.cpp \
 		moc_ChanButton.cpp \
 		moc_SetNameDialog.cpp \
@@ -72,7 +79,12 @@ SOURCES       = src/main.cpp \
 		moc_blinkingclass.cpp \
 		moc_butparent.cpp \
 		moc_StandBut.cpp \
-		moc_frameborder.cpp
+		moc_frameborder.cpp \
+		moc_DeviceClass.cpp \
+		moc_ObjectClass.cpp \
+		moc_dbFinder.cpp \
+		moc_notConnectionDb.cpp \
+		moc_UbdaterClass.cpp
 OBJECTS       = main.o \
 		MainWindow.o \
 		StateChanFrame.o \
@@ -88,10 +100,17 @@ OBJECTS       = main.o \
 		StandBut.o \
 		dbclass.o \
 		dbMainObject.o \
-		dbStandDevice.o \
-		dbStateChan.o \
+		DeviceClass.o \
+		ObjectClass.o \
+		ObjectsUpdater.o \
+		MyException.o \
+		dbFinder.o \
+		notConnectionDb.o \
+		FaultsClass.o \
+		UbdaterClass.o \
 		moc_StateChanFrame.o \
 		moc_DeviceBut.o \
+		moc_rightWidget.o \
 		moc_ClockFrame.o \
 		moc_ChanButton.o \
 		moc_SetNameDialog.o \
@@ -101,7 +120,12 @@ OBJECTS       = main.o \
 		moc_blinkingclass.o \
 		moc_butparent.o \
 		moc_StandBut.o \
-		moc_frameborder.o
+		moc_frameborder.o \
+		moc_DeviceClass.o \
+		moc_ObjectClass.o \
+		moc_dbFinder.o \
+		moc_notConnectionDb.o \
+		moc_UbdaterClass.o
 DIST          = /usr/lib/i386-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -191,7 +215,7 @@ first: all
 
 all: Makefile $(TARGET)
 
-$(TARGET): ui_rightWidget.h ui_ClockFrame.h ui_SetName.h ui_StateChanFrame.h ui_mainFrame.h ui_ObjectPA.h $(OBJECTS)  
+$(TARGET): ui_rightWidget.h ui_ClockFrame.h ui_SetName.h ui_StateChanFrame.h ui_mainFrame.h ui_ObjectPA.h ui_notConnectionDb.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: mirpc_vto.pro /usr/lib/i386-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/i386-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -328,7 +352,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/mirpc_vto1.0.0 || mkdir -p .tmp/mirpc_vto1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/mirpc_vto1.0.0/ && $(COPY_FILE) --parents include/StateChanFrame.h include/DeviceBut.h include/rightWidget.h include/ClockFrame.h include/define.h include/ChanButton.h include/SetNameDialog.h include/MainWindow.h include/ObjectPA.h include/MainFrame.h include/util/Singleton.h include/blinkingclass.h include/butparent.h include/db/dbclass.h include/db/dbMainObject.h include/db/dbStandDevice.h include/db/dbStateChan.h include/StandBut.h include/frameborder.h .tmp/mirpc_vto1.0.0/ && $(COPY_FILE) --parents src/main.cpp src/MainWindow.cpp src/StateChanFrame.cpp src/MainFrame.cpp src/rightWidget.cpp src/DeviceBut.cpp src/ClockFrame.cpp src/SetNameDialog.cpp src/ChanButton.cpp src/ObjectPA.cpp src/blinkingclass.cpp src/butparent.cpp src/StandBut.cpp src/db/dbclass.cpp src/db/dbMainObject.cpp src/db/dbStandDevice.cpp src/db/dbStateChan.cpp .tmp/mirpc_vto1.0.0/ && $(COPY_FILE) --parents ui/rightWidget.ui ui/ClockFrame.ui ui/SetName.ui ui/StateChanFrame.ui ui/mainFrame.ui ui/ObjectPA.ui .tmp/mirpc_vto1.0.0/ && (cd `dirname .tmp/mirpc_vto1.0.0` && $(TAR) mirpc_vto1.0.0.tar mirpc_vto1.0.0 && $(COMPRESS) mirpc_vto1.0.0.tar) && $(MOVE) `dirname .tmp/mirpc_vto1.0.0`/mirpc_vto1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/mirpc_vto1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/mirpc_vto1.0.0/ && $(COPY_FILE) --parents include/StateChanFrame.h include/DeviceBut.h include/rightWidget.h include/ClockFrame.h include/define.h include/ChanButton.h include/SetNameDialog.h include/MainWindow.h include/ObjectPA.h include/MainFrame.h include/util/Singleton.h include/blinkingclass.h include/butparent.h include/db/dbclass.h include/db/dbMainObject.h include/StandBut.h include/frameborder.h include/DeviceClass.h include/ObjectClass.h include/ObjectsUpdater.h include/util/MyException.h include/db/dbFinder.h include/notConnectionDb.h include/FaultsClass.h include/UbdaterClass.h .tmp/mirpc_vto1.0.0/ && $(COPY_FILE) --parents src/main.cpp src/MainWindow.cpp src/StateChanFrame.cpp src/MainFrame.cpp src/rightWidget.cpp src/DeviceBut.cpp src/ClockFrame.cpp src/SetNameDialog.cpp src/ChanButton.cpp src/ObjectPA.cpp src/blinkingclass.cpp src/butparent.cpp src/StandBut.cpp src/db/dbclass.cpp src/db/dbMainObject.cpp src/DeviceClass.cpp src/ObjectClass.cpp src/ObjectsUpdater.cpp src/util/MyException.cpp src/db/dbFinder.cpp src/notConnectionDb.cpp src/FaultsClass.cpp src/UbdaterClass.cpp .tmp/mirpc_vto1.0.0/ && $(COPY_FILE) --parents ui/rightWidget.ui ui/ClockFrame.ui ui/SetName.ui ui/StateChanFrame.ui ui/mainFrame.ui ui/ObjectPA.ui ui/notConnectionDb.ui .tmp/mirpc_vto1.0.0/ && (cd `dirname .tmp/mirpc_vto1.0.0` && $(TAR) mirpc_vto1.0.0.tar mirpc_vto1.0.0 && $(COMPRESS) mirpc_vto1.0.0.tar) && $(MOVE) `dirname .tmp/mirpc_vto1.0.0`/mirpc_vto1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/mirpc_vto1.0.0
 
 
 clean:compiler_clean 
@@ -351,9 +375,9 @@ check: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_StateChanFrame.cpp moc_DeviceBut.cpp moc_ClockFrame.cpp moc_ChanButton.cpp moc_SetNameDialog.cpp moc_MainWindow.cpp moc_ObjectPA.cpp moc_MainFrame.cpp moc_blinkingclass.cpp moc_butparent.cpp moc_StandBut.cpp moc_frameborder.cpp
+compiler_moc_header_make_all: moc_StateChanFrame.cpp moc_DeviceBut.cpp moc_rightWidget.cpp moc_ClockFrame.cpp moc_ChanButton.cpp moc_SetNameDialog.cpp moc_MainWindow.cpp moc_ObjectPA.cpp moc_MainFrame.cpp moc_blinkingclass.cpp moc_butparent.cpp moc_StandBut.cpp moc_frameborder.cpp moc_DeviceClass.cpp moc_ObjectClass.cpp moc_dbFinder.cpp moc_notConnectionDb.cpp moc_UbdaterClass.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_StateChanFrame.cpp moc_DeviceBut.cpp moc_ClockFrame.cpp moc_ChanButton.cpp moc_SetNameDialog.cpp moc_MainWindow.cpp moc_ObjectPA.cpp moc_MainFrame.cpp moc_blinkingclass.cpp moc_butparent.cpp moc_StandBut.cpp moc_frameborder.cpp
+	-$(DEL_FILE) moc_StateChanFrame.cpp moc_DeviceBut.cpp moc_rightWidget.cpp moc_ClockFrame.cpp moc_ChanButton.cpp moc_SetNameDialog.cpp moc_MainWindow.cpp moc_ObjectPA.cpp moc_MainFrame.cpp moc_blinkingclass.cpp moc_butparent.cpp moc_StandBut.cpp moc_frameborder.cpp moc_DeviceClass.cpp moc_ObjectClass.cpp moc_dbFinder.cpp moc_notConnectionDb.cpp moc_UbdaterClass.cpp
 moc_StateChanFrame.cpp: include/DeviceBut.h \
 		include/butparent.h \
 		/usr/include/qt5/QtWidgets/QPushButton \
@@ -471,20 +495,16 @@ moc_StateChanFrame.cpp: include/DeviceBut.h \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
 		/usr/include/qt5/QtWidgets/qframe.h \
+		/usr/include/qt5/QtWidgets/QVBoxLayout \
+		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtWidgets/qlayout.h \
+		/usr/include/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/QSignalMapper \
 		/usr/include/qt5/QtCore/qsignalmapper.h \
 		ui_StateChanFrame.h \
 		include/define.h \
-		include/db/dbStateChan.h \
-		include/db/dbclass.h \
-		/usr/include/qt5/QtSql/QSqlQuery \
-		/usr/include/qt5/QtSql/qsqlquery.h \
-		/usr/include/qt5/QtSql/qsql.h \
-		/usr/include/qt5/QtSql/qsqldatabase.h \
-		/usr/include/qt5/QtCore/QString \
-		/usr/include/qt5/QtCore/QDebug \
-		/usr/include/qt5/QtSql/QSqlError \
-		/usr/include/qt5/QtSql/qsqlerror.h \
 		include/StateChanFrame.h
 	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/i386-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/i686-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/i686-linux-gnu/4.8/include-fixed -I/usr/include/i386-linux-gnu -I/usr/include include/StateChanFrame.h -o moc_StateChanFrame.cpp
 
@@ -604,8 +624,145 @@ moc_DeviceBut.cpp: include/butparent.h \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
 		/usr/include/qt5/QtWidgets/qframe.h \
+		/usr/include/qt5/QtWidgets/QVBoxLayout \
+		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtWidgets/qlayout.h \
+		/usr/include/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/qt5/QtCore/QString \
 		include/DeviceBut.h
 	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/i386-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/i686-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/i686-linux-gnu/4.8/include-fixed -I/usr/include/i386-linux-gnu -I/usr/include include/DeviceBut.h -o moc_DeviceBut.cpp
+
+moc_rightWidget.cpp: include/StandBut.h \
+		include/butparent.h \
+		/usr/include/qt5/QtWidgets/QPushButton \
+		/usr/include/qt5/QtWidgets/qpushbutton.h \
+		/usr/include/qt5/QtWidgets/qabstractbutton.h \
+		/usr/include/qt5/QtGui/qicon.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qsize.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtGui/qpixmap.h \
+		/usr/include/qt5/QtGui/qpaintdevice.h \
+		/usr/include/qt5/QtGui/qwindowdefs.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/qt5/QtCore/qrect.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtGui/qcolor.h \
+		/usr/include/qt5/QtGui/qrgb.h \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		/usr/include/qt5/QtGui/qimage.h \
+		/usr/include/qt5/QtGui/qtransform.h \
+		/usr/include/qt5/QtGui/qmatrix.h \
+		/usr/include/qt5/QtGui/qpolygon.h \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtGui/qregion.h \
+		/usr/include/qt5/QtCore/qline.h \
+		/usr/include/qt5/QtGui/qpainterpath.h \
+		/usr/include/qt5/QtGui/qkeysequence.h \
+		/usr/include/qt5/QtWidgets/qwidget.h \
+		/usr/include/qt5/QtCore/qmargins.h \
+		/usr/include/qt5/QtGui/qpalette.h \
+		/usr/include/qt5/QtGui/qbrush.h \
+		/usr/include/qt5/QtGui/qfont.h \
+		/usr/include/qt5/QtGui/qfontmetrics.h \
+		/usr/include/qt5/QtGui/qfontinfo.h \
+		/usr/include/qt5/QtWidgets/qsizepolicy.h \
+		/usr/include/qt5/QtGui/qcursor.h \
+		/usr/include/qt5/QtGui/qevent.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/qt5/QtCore/qurl.h \
+		/usr/include/qt5/QtCore/qurlquery.h \
+		/usr/include/qt5/QtCore/qfile.h \
+		/usr/include/qt5/QtCore/qfiledevice.h \
+		/usr/include/qt5/QtGui/qvector2d.h \
+		/usr/include/qt5/QtGui/qtouchdevice.h \
+		/usr/include/qt5/QtGui/QMouseEvent \
+		/usr/include/qt5/QtWidgets/QLabel \
+		/usr/include/qt5/QtWidgets/qlabel.h \
+		/usr/include/qt5/QtWidgets/qframe.h \
+		/usr/include/qt5/QtWidgets/QVBoxLayout \
+		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtWidgets/qlayout.h \
+		/usr/include/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/qt5/QtCore/QString \
+		include/DeviceClass.h \
+		/usr/include/qt5/QtCore/QObject \
+		ui_rightWidget.h \
+		include/ObjectClass.h \
+		/usr/include/qt5/QtCore/QMap \
+		include/rightWidget.h
+	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/i386-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/i686-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/i686-linux-gnu/4.8/include-fixed -I/usr/include/i386-linux-gnu -I/usr/include include/rightWidget.h -o moc_rightWidget.cpp
 
 moc_ClockFrame.cpp: /usr/include/qt5/QtCore/QTimer \
 		/usr/include/qt5/QtCore/qtimer.h \
@@ -794,16 +951,29 @@ moc_ChanButton.cpp: include/butparent.h \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
 		/usr/include/qt5/QtWidgets/qframe.h \
+		/usr/include/qt5/QtWidgets/QVBoxLayout \
+		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtWidgets/qlayout.h \
+		/usr/include/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/qt5/QtCore/QString \
+		include/ObjectsUpdater.h \
+		include/ObjectClass.h \
+		include/DeviceClass.h \
+		/usr/include/qt5/QtCore/QObject \
+		/usr/include/qt5/QtCore/QMap \
 		include/db/dbMainObject.h \
 		include/db/dbclass.h \
 		/usr/include/qt5/QtSql/QSqlQuery \
 		/usr/include/qt5/QtSql/qsqlquery.h \
 		/usr/include/qt5/QtSql/qsql.h \
 		/usr/include/qt5/QtSql/qsqldatabase.h \
-		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/QDebug \
 		/usr/include/qt5/QtSql/QSqlError \
 		/usr/include/qt5/QtSql/qsqlerror.h \
+		/usr/include/qt5/QtCore/QList \
+		/usr/include/qt5/QtCore/QDate \
+		/usr/include/qt5/QtCore/qdatetime.h \
 		/usr/include/qt5/QtWidgets/QMenu \
 		/usr/include/qt5/QtWidgets/qmenu.h \
 		/usr/include/qt5/QtWidgets/qaction.h \
@@ -950,17 +1120,13 @@ moc_MainWindow.cpp: /usr/include/qt5/QtWidgets/QMainWindow \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
 		/usr/include/qt5/QtWidgets/qframe.h \
-		ui_rightWidget.h \
-		include/db/dbStandDevice.h \
-		include/db/dbclass.h \
-		/usr/include/qt5/QtSql/QSqlQuery \
-		/usr/include/qt5/QtSql/qsqlquery.h \
-		/usr/include/qt5/QtSql/qsql.h \
-		/usr/include/qt5/QtSql/qsqldatabase.h \
+		/usr/include/qt5/QtWidgets/QVBoxLayout \
 		/usr/include/qt5/QtCore/QString \
-		/usr/include/qt5/QtCore/QDebug \
-		/usr/include/qt5/QtSql/QSqlError \
-		/usr/include/qt5/QtSql/qsqlerror.h \
+		include/DeviceClass.h \
+		/usr/include/qt5/QtCore/QObject \
+		ui_rightWidget.h \
+		include/ObjectClass.h \
+		/usr/include/qt5/QtCore/QMap \
 		include/MainFrame.h \
 		/usr/include/qt5/QtCore/QSignalMapper \
 		/usr/include/qt5/QtCore/qsignalmapper.h \
@@ -968,9 +1134,20 @@ moc_MainWindow.cpp: /usr/include/qt5/QtWidgets/QMainWindow \
 		include/StateChanFrame.h \
 		include/DeviceBut.h \
 		ui_StateChanFrame.h \
-		include/db/dbStateChan.h \
 		include/ChanButton.h \
+		include/ObjectsUpdater.h \
 		include/db/dbMainObject.h \
+		include/db/dbclass.h \
+		/usr/include/qt5/QtSql/QSqlQuery \
+		/usr/include/qt5/QtSql/qsqlquery.h \
+		/usr/include/qt5/QtSql/qsql.h \
+		/usr/include/qt5/QtSql/qsqldatabase.h \
+		/usr/include/qt5/QtCore/QDebug \
+		/usr/include/qt5/QtSql/QSqlError \
+		/usr/include/qt5/QtSql/qsqlerror.h \
+		/usr/include/qt5/QtCore/QList \
+		/usr/include/qt5/QtCore/QDate \
+		/usr/include/qt5/QtCore/qdatetime.h \
 		/usr/include/qt5/QtWidgets/QMenu \
 		/usr/include/qt5/QtWidgets/qmenu.h \
 		/usr/include/qt5/QtWidgets/qaction.h \
@@ -979,6 +1156,11 @@ moc_MainWindow.cpp: /usr/include/qt5/QtWidgets/QMainWindow \
 		ui_SetName.h \
 		include/ObjectPA.h \
 		/usr/include/qt5/QtWidgets/QFrame \
+		include/notConnectionDb.h \
+		include/UbdaterClass.h \
+		include/db/dbFinder.h \
+		/usr/include/qt5/QtCore/QStringList \
+		include/FaultsClass.h \
 		include/MainWindow.h
 	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/i386-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/i686-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/i686-linux-gnu/4.8/include-fixed -I/usr/include/i386-linux-gnu -I/usr/include include/MainWindow.h -o moc_MainWindow.cpp
 
@@ -1215,20 +1397,32 @@ moc_MainFrame.cpp: /usr/include/qt5/QtWidgets/QPushButton \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
 		/usr/include/qt5/QtWidgets/qframe.h \
+		/usr/include/qt5/QtWidgets/QVBoxLayout \
+		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtWidgets/qlayout.h \
+		/usr/include/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/qt5/QtCore/QString \
 		ui_StateChanFrame.h \
 		include/define.h \
-		include/db/dbStateChan.h \
+		include/ChanButton.h \
+		include/ObjectsUpdater.h \
+		include/ObjectClass.h \
+		include/DeviceClass.h \
+		/usr/include/qt5/QtCore/QObject \
+		/usr/include/qt5/QtCore/QMap \
+		include/db/dbMainObject.h \
 		include/db/dbclass.h \
 		/usr/include/qt5/QtSql/QSqlQuery \
 		/usr/include/qt5/QtSql/qsqlquery.h \
 		/usr/include/qt5/QtSql/qsql.h \
 		/usr/include/qt5/QtSql/qsqldatabase.h \
-		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/QDebug \
 		/usr/include/qt5/QtSql/QSqlError \
 		/usr/include/qt5/QtSql/qsqlerror.h \
-		include/ChanButton.h \
-		include/db/dbMainObject.h \
+		/usr/include/qt5/QtCore/QList \
+		/usr/include/qt5/QtCore/QDate \
+		/usr/include/qt5/QtCore/qdatetime.h \
 		/usr/include/qt5/QtWidgets/QMenu \
 		/usr/include/qt5/QtWidgets/qmenu.h \
 		/usr/include/qt5/QtWidgets/qaction.h \
@@ -1418,6 +1612,12 @@ moc_butparent.cpp: /usr/include/qt5/QtWidgets/QPushButton \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
 		/usr/include/qt5/QtWidgets/qframe.h \
+		/usr/include/qt5/QtWidgets/QVBoxLayout \
+		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtWidgets/qlayout.h \
+		/usr/include/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/qt5/QtCore/QString \
 		include/butparent.h
 	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/i386-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/i686-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/i686-linux-gnu/4.8/include-fixed -I/usr/include/i386-linux-gnu -I/usr/include include/butparent.h -o moc_butparent.cpp
 
@@ -1537,6 +1737,14 @@ moc_StandBut.cpp: include/butparent.h \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
 		/usr/include/qt5/QtWidgets/qframe.h \
+		/usr/include/qt5/QtWidgets/QVBoxLayout \
+		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtWidgets/qlayout.h \
+		/usr/include/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/qt5/QtCore/QString \
+		include/DeviceClass.h \
+		/usr/include/qt5/QtCore/QObject \
 		include/StandBut.h
 	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/i386-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/i686-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/i686-linux-gnu/4.8/include-fixed -I/usr/include/i386-linux-gnu -I/usr/include include/StandBut.h -o moc_StandBut.cpp
 
@@ -1652,11 +1860,436 @@ moc_frameborder.cpp: /usr/include/qt5/QtWidgets/QFrame \
 		include/frameborder.h
 	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/i386-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/i686-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/i686-linux-gnu/4.8/include-fixed -I/usr/include/i386-linux-gnu -I/usr/include include/frameborder.h -o moc_frameborder.cpp
 
+moc_DeviceClass.cpp: /usr/include/qt5/QtCore/QString \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/QObject \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		include/DeviceClass.h
+	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/i386-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/i686-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/i686-linux-gnu/4.8/include-fixed -I/usr/include/i386-linux-gnu -I/usr/include include/DeviceClass.h -o moc_DeviceClass.cpp
+
+moc_ObjectClass.cpp: include/DeviceClass.h \
+		/usr/include/qt5/QtCore/QString \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/QObject \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/QMap \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h \
+		include/ObjectClass.h
+	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/i386-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/i686-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/i686-linux-gnu/4.8/include-fixed -I/usr/include/i386-linux-gnu -I/usr/include include/ObjectClass.h -o moc_ObjectClass.cpp
+
+moc_dbFinder.cpp: /usr/include/qt5/QtCore/QTimer \
+		/usr/include/qt5/QtCore/qtimer.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qbasictimer.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/QStringList \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtCore/QObject \
+		include/db/dbFinder.h
+	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/i386-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/i686-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/i686-linux-gnu/4.8/include-fixed -I/usr/include/i386-linux-gnu -I/usr/include include/db/dbFinder.h -o moc_dbFinder.cpp
+
+moc_notConnectionDb.cpp: /usr/include/qt5/QtWidgets/QFrame \
+		/usr/include/qt5/QtWidgets/qframe.h \
+		/usr/include/qt5/QtWidgets/qwidget.h \
+		/usr/include/qt5/QtGui/qwindowdefs.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/qmargins.h \
+		/usr/include/qt5/QtCore/qrect.h \
+		/usr/include/qt5/QtCore/qsize.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtGui/qpaintdevice.h \
+		/usr/include/qt5/QtGui/qpalette.h \
+		/usr/include/qt5/QtGui/qcolor.h \
+		/usr/include/qt5/QtGui/qrgb.h \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtGui/qbrush.h \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtGui/qmatrix.h \
+		/usr/include/qt5/QtGui/qpolygon.h \
+		/usr/include/qt5/QtGui/qregion.h \
+		/usr/include/qt5/QtCore/qline.h \
+		/usr/include/qt5/QtGui/qtransform.h \
+		/usr/include/qt5/QtGui/qpainterpath.h \
+		/usr/include/qt5/QtGui/qimage.h \
+		/usr/include/qt5/QtGui/qpixmap.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		/usr/include/qt5/QtGui/qfont.h \
+		/usr/include/qt5/QtGui/qfontmetrics.h \
+		/usr/include/qt5/QtGui/qfontinfo.h \
+		/usr/include/qt5/QtWidgets/qsizepolicy.h \
+		/usr/include/qt5/QtGui/qcursor.h \
+		/usr/include/qt5/QtGui/qkeysequence.h \
+		/usr/include/qt5/QtGui/qevent.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/qt5/QtCore/qurl.h \
+		/usr/include/qt5/QtCore/qurlquery.h \
+		/usr/include/qt5/QtCore/qfile.h \
+		/usr/include/qt5/QtCore/qfiledevice.h \
+		/usr/include/qt5/QtGui/qvector2d.h \
+		/usr/include/qt5/QtGui/qtouchdevice.h \
+		include/notConnectionDb.h
+	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/i386-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/i686-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/i686-linux-gnu/4.8/include-fixed -I/usr/include/i386-linux-gnu -I/usr/include include/notConnectionDb.h -o moc_notConnectionDb.cpp
+
+moc_UbdaterClass.cpp: /usr/include/qt5/QtCore/QObject \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		include/db/dbFinder.h \
+		/usr/include/qt5/QtCore/QTimer \
+		/usr/include/qt5/QtCore/qtimer.h \
+		/usr/include/qt5/QtCore/qbasictimer.h \
+		/usr/include/qt5/QtCore/QStringList \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		include/ObjectsUpdater.h \
+		include/ObjectClass.h \
+		include/DeviceClass.h \
+		/usr/include/qt5/QtCore/QString \
+		/usr/include/qt5/QtCore/QMap \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h \
+		include/db/dbMainObject.h \
+		include/db/dbclass.h \
+		/usr/include/qt5/QtSql/QSqlQuery \
+		/usr/include/qt5/QtSql/qsqlquery.h \
+		/usr/include/qt5/QtSql/qsql.h \
+		/usr/include/qt5/QtSql/qsqldatabase.h \
+		/usr/include/qt5/QtCore/QDebug \
+		/usr/include/qt5/QtSql/QSqlError \
+		/usr/include/qt5/QtSql/qsqlerror.h \
+		/usr/include/qt5/QtCore/QList \
+		/usr/include/qt5/QtCore/QDate \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		include/FaultsClass.h \
+		include/UbdaterClass.h
+	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/i386-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/i686-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/i686-linux-gnu/4.8/include-fixed -I/usr/include/i386-linux-gnu -I/usr/include include/UbdaterClass.h -o moc_UbdaterClass.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_rightWidget.h ui_ClockFrame.h ui_SetName.h ui_StateChanFrame.h ui_mainFrame.h ui_ObjectPA.h
+compiler_uic_make_all: ui_rightWidget.h ui_ClockFrame.h ui_SetName.h ui_StateChanFrame.h ui_mainFrame.h ui_ObjectPA.h ui_notConnectionDb.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_rightWidget.h ui_ClockFrame.h ui_SetName.h ui_StateChanFrame.h ui_mainFrame.h ui_ObjectPA.h
+	-$(DEL_FILE) ui_rightWidget.h ui_ClockFrame.h ui_SetName.h ui_StateChanFrame.h ui_mainFrame.h ui_ObjectPA.h ui_notConnectionDb.h
 ui_rightWidget.h: ui/rightWidget.ui \
 		include/frameborder.h \
 		/usr/include/qt5/QtWidgets/QFrame \
@@ -1777,124 +2410,7 @@ ui_SetName.h: ui/SetName.ui
 	/usr/lib/i386-linux-gnu/qt5/bin/uic ui/SetName.ui -o ui_SetName.h
 
 ui_StateChanFrame.h: ui/StateChanFrame.ui \
-		include/StandBut.h \
 		include/frameborder.h \
-		include/butparent.h \
-		/usr/include/qt5/QtWidgets/QPushButton \
-		/usr/include/qt5/QtWidgets/qpushbutton.h \
-		/usr/include/qt5/QtWidgets/qabstractbutton.h \
-		/usr/include/qt5/QtGui/qicon.h \
-		/usr/include/qt5/QtCore/qglobal.h \
-		/usr/include/qt5/QtCore/qconfig.h \
-		/usr/include/qt5/QtCore/qfeatures.h \
-		/usr/include/qt5/QtCore/qsystemdetection.h \
-		/usr/include/qt5/QtCore/qprocessordetection.h \
-		/usr/include/qt5/QtCore/qcompilerdetection.h \
-		/usr/include/qt5/QtCore/qglobalstatic.h \
-		/usr/include/qt5/QtCore/qatomic.h \
-		/usr/include/qt5/QtCore/qbasicatomic.h \
-		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
-		/usr/include/qt5/QtCore/qgenericatomic.h \
-		/usr/include/qt5/QtCore/qatomic_msvc.h \
-		/usr/include/qt5/QtCore/qatomic_integrity.h \
-		/usr/include/qt5/QtCore/qoldbasicatomic.h \
-		/usr/include/qt5/QtCore/qatomic_vxworks.h \
-		/usr/include/qt5/QtCore/qatomic_power.h \
-		/usr/include/qt5/QtCore/qatomic_alpha.h \
-		/usr/include/qt5/QtCore/qatomic_armv7.h \
-		/usr/include/qt5/QtCore/qatomic_armv6.h \
-		/usr/include/qt5/QtCore/qatomic_armv5.h \
-		/usr/include/qt5/QtCore/qatomic_bfin.h \
-		/usr/include/qt5/QtCore/qatomic_ia64.h \
-		/usr/include/qt5/QtCore/qatomic_mips.h \
-		/usr/include/qt5/QtCore/qatomic_s390.h \
-		/usr/include/qt5/QtCore/qatomic_sh4a.h \
-		/usr/include/qt5/QtCore/qatomic_sparc.h \
-		/usr/include/qt5/QtCore/qatomic_gcc.h \
-		/usr/include/qt5/QtCore/qatomic_x86.h \
-		/usr/include/qt5/QtCore/qatomic_cxx11.h \
-		/usr/include/qt5/QtCore/qatomic_unix.h \
-		/usr/include/qt5/QtCore/qmutex.h \
-		/usr/include/qt5/QtCore/qlogging.h \
-		/usr/include/qt5/QtCore/qflags.h \
-		/usr/include/qt5/QtCore/qtypeinfo.h \
-		/usr/include/qt5/QtCore/qtypetraits.h \
-		/usr/include/qt5/QtCore/qsysinfo.h \
-		/usr/include/qt5/QtCore/qsize.h \
-		/usr/include/qt5/QtCore/qnamespace.h \
-		/usr/include/qt5/QtCore/qlist.h \
-		/usr/include/qt5/QtCore/qalgorithms.h \
-		/usr/include/qt5/QtCore/qiterator.h \
-		/usr/include/qt5/QtCore/qrefcount.h \
-		/usr/include/qt5/QtGui/qpixmap.h \
-		/usr/include/qt5/QtGui/qpaintdevice.h \
-		/usr/include/qt5/QtGui/qwindowdefs.h \
-		/usr/include/qt5/QtCore/qobjectdefs.h \
-		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
-		/usr/include/qt5/QtGui/qwindowdefs_win.h \
-		/usr/include/qt5/QtCore/qrect.h \
-		/usr/include/qt5/QtCore/qpoint.h \
-		/usr/include/qt5/QtGui/qcolor.h \
-		/usr/include/qt5/QtGui/qrgb.h \
-		/usr/include/qt5/QtCore/qstringlist.h \
-		/usr/include/qt5/QtCore/qdatastream.h \
-		/usr/include/qt5/QtCore/qscopedpointer.h \
-		/usr/include/qt5/QtCore/qiodevice.h \
-		/usr/include/qt5/QtCore/qobject.h \
-		/usr/include/qt5/QtCore/qstring.h \
-		/usr/include/qt5/QtCore/qchar.h \
-		/usr/include/qt5/QtCore/qbytearray.h \
-		/usr/include/qt5/QtCore/qarraydata.h \
-		/usr/include/qt5/QtCore/qstringbuilder.h \
-		/usr/include/qt5/QtCore/qcoreevent.h \
-		/usr/include/qt5/QtCore/qmetatype.h \
-		/usr/include/qt5/QtCore/qvarlengtharray.h \
-		/usr/include/qt5/QtCore/qcontainerfwd.h \
-		/usr/include/qt5/QtCore/qisenum.h \
-		/usr/include/qt5/QtCore/qobject_impl.h \
-		/usr/include/qt5/QtCore/qpair.h \
-		/usr/include/qt5/QtCore/qregexp.h \
-		/usr/include/qt5/QtCore/qstringmatcher.h \
-		/usr/include/qt5/QtCore/qsharedpointer.h \
-		/usr/include/qt5/QtCore/qshareddata.h \
-		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
-		/usr/include/qt5/QtCore/qhash.h \
-		/usr/include/qt5/QtGui/qimage.h \
-		/usr/include/qt5/QtGui/qtransform.h \
-		/usr/include/qt5/QtGui/qmatrix.h \
-		/usr/include/qt5/QtGui/qpolygon.h \
-		/usr/include/qt5/QtCore/qvector.h \
-		/usr/include/qt5/QtGui/qregion.h \
-		/usr/include/qt5/QtCore/qline.h \
-		/usr/include/qt5/QtGui/qpainterpath.h \
-		/usr/include/qt5/QtGui/qkeysequence.h \
-		/usr/include/qt5/QtWidgets/qwidget.h \
-		/usr/include/qt5/QtCore/qmargins.h \
-		/usr/include/qt5/QtGui/qpalette.h \
-		/usr/include/qt5/QtGui/qbrush.h \
-		/usr/include/qt5/QtGui/qfont.h \
-		/usr/include/qt5/QtGui/qfontmetrics.h \
-		/usr/include/qt5/QtGui/qfontinfo.h \
-		/usr/include/qt5/QtWidgets/qsizepolicy.h \
-		/usr/include/qt5/QtGui/qcursor.h \
-		/usr/include/qt5/QtGui/qevent.h \
-		/usr/include/qt5/QtCore/qvariant.h \
-		/usr/include/qt5/QtCore/qmap.h \
-		/usr/include/qt5/QtCore/qdebug.h \
-		/usr/include/qt5/QtCore/qtextstream.h \
-		/usr/include/qt5/QtCore/qlocale.h \
-		/usr/include/qt5/QtCore/qset.h \
-		/usr/include/qt5/QtCore/qcontiguouscache.h \
-		/usr/include/qt5/QtCore/qurl.h \
-		/usr/include/qt5/QtCore/qurlquery.h \
-		/usr/include/qt5/QtCore/qfile.h \
-		/usr/include/qt5/QtCore/qfiledevice.h \
-		/usr/include/qt5/QtGui/qvector2d.h \
-		/usr/include/qt5/QtGui/qtouchdevice.h \
-		/usr/include/qt5/QtGui/QMouseEvent \
-		/usr/include/qt5/QtWidgets/QLabel \
-		/usr/include/qt5/QtWidgets/qlabel.h \
-		/usr/include/qt5/QtWidgets/qframe.h \
 		/usr/include/qt5/QtWidgets/QFrame \
 		/usr/include/qt5/QtWidgets/qframe.h \
 		/usr/include/qt5/QtWidgets/qwidget.h \
@@ -2011,6 +2527,9 @@ ui_mainFrame.h: ui/mainFrame.ui
 
 ui_ObjectPA.h: ui/ObjectPA.ui
 	/usr/lib/i386-linux-gnu/qt5/bin/uic ui/ObjectPA.ui -o ui_ObjectPA.h
+
+ui_notConnectionDb.h: ui/notConnectionDb.ui
+	/usr/lib/i386-linux-gnu/qt5/bin/uic ui/notConnectionDb.ui -o ui_notConnectionDb.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -2160,17 +2679,13 @@ main.o: src/main.cpp /usr/include/qt5/QtWidgets/QApplication \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
 		/usr/include/qt5/QtWidgets/qframe.h \
-		ui_rightWidget.h \
-		include/db/dbStandDevice.h \
-		include/db/dbclass.h \
-		/usr/include/qt5/QtSql/QSqlQuery \
-		/usr/include/qt5/QtSql/qsqlquery.h \
-		/usr/include/qt5/QtSql/qsql.h \
-		/usr/include/qt5/QtSql/qsqldatabase.h \
+		/usr/include/qt5/QtWidgets/QVBoxLayout \
 		/usr/include/qt5/QtCore/QString \
-		/usr/include/qt5/QtCore/QDebug \
-		/usr/include/qt5/QtSql/QSqlError \
-		/usr/include/qt5/QtSql/qsqlerror.h \
+		include/DeviceClass.h \
+		/usr/include/qt5/QtCore/QObject \
+		ui_rightWidget.h \
+		include/ObjectClass.h \
+		/usr/include/qt5/QtCore/QMap \
 		include/MainFrame.h \
 		/usr/include/qt5/QtCore/QSignalMapper \
 		/usr/include/qt5/QtCore/qsignalmapper.h \
@@ -2178,9 +2693,20 @@ main.o: src/main.cpp /usr/include/qt5/QtWidgets/QApplication \
 		include/StateChanFrame.h \
 		include/DeviceBut.h \
 		ui_StateChanFrame.h \
-		include/db/dbStateChan.h \
 		include/ChanButton.h \
+		include/ObjectsUpdater.h \
 		include/db/dbMainObject.h \
+		include/db/dbclass.h \
+		/usr/include/qt5/QtSql/QSqlQuery \
+		/usr/include/qt5/QtSql/qsqlquery.h \
+		/usr/include/qt5/QtSql/qsql.h \
+		/usr/include/qt5/QtSql/qsqldatabase.h \
+		/usr/include/qt5/QtCore/QDebug \
+		/usr/include/qt5/QtSql/QSqlError \
+		/usr/include/qt5/QtSql/qsqlerror.h \
+		/usr/include/qt5/QtCore/QList \
+		/usr/include/qt5/QtCore/QDate \
+		/usr/include/qt5/QtCore/qdatetime.h \
 		/usr/include/qt5/QtWidgets/QMenu \
 		/usr/include/qt5/QtWidgets/qmenu.h \
 		/usr/include/qt5/QtWidgets/qaction.h \
@@ -2189,8 +2715,16 @@ main.o: src/main.cpp /usr/include/qt5/QtWidgets/QApplication \
 		ui_SetName.h \
 		include/ObjectPA.h \
 		/usr/include/qt5/QtWidgets/QFrame \
+		include/notConnectionDb.h \
+		include/UbdaterClass.h \
+		include/db/dbFinder.h \
+		/usr/include/qt5/QtCore/QStringList \
+		include/FaultsClass.h \
 		include/util/Singleton.h \
-		/usr/include/qt5/QtCore/QFile
+		include/util/MyException.h \
+		/usr/include/qt5/QtCore/QFile \
+		/usr/include/qt5/QtCore/QSettings \
+		/usr/include/qt5/QtCore/qsettings.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o src/main.cpp
 
 MainWindow.o: src/MainWindow.cpp include/MainWindow.h \
@@ -2324,17 +2858,13 @@ MainWindow.o: src/MainWindow.cpp include/MainWindow.h \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
 		/usr/include/qt5/QtWidgets/qframe.h \
-		ui_rightWidget.h \
-		include/db/dbStandDevice.h \
-		include/db/dbclass.h \
-		/usr/include/qt5/QtSql/QSqlQuery \
-		/usr/include/qt5/QtSql/qsqlquery.h \
-		/usr/include/qt5/QtSql/qsql.h \
-		/usr/include/qt5/QtSql/qsqldatabase.h \
+		/usr/include/qt5/QtWidgets/QVBoxLayout \
 		/usr/include/qt5/QtCore/QString \
-		/usr/include/qt5/QtCore/QDebug \
-		/usr/include/qt5/QtSql/QSqlError \
-		/usr/include/qt5/QtSql/qsqlerror.h \
+		include/DeviceClass.h \
+		/usr/include/qt5/QtCore/QObject \
+		ui_rightWidget.h \
+		include/ObjectClass.h \
+		/usr/include/qt5/QtCore/QMap \
 		include/MainFrame.h \
 		/usr/include/qt5/QtCore/QSignalMapper \
 		/usr/include/qt5/QtCore/qsignalmapper.h \
@@ -2342,9 +2872,20 @@ MainWindow.o: src/MainWindow.cpp include/MainWindow.h \
 		include/StateChanFrame.h \
 		include/DeviceBut.h \
 		ui_StateChanFrame.h \
-		include/db/dbStateChan.h \
 		include/ChanButton.h \
+		include/ObjectsUpdater.h \
 		include/db/dbMainObject.h \
+		include/db/dbclass.h \
+		/usr/include/qt5/QtSql/QSqlQuery \
+		/usr/include/qt5/QtSql/qsqlquery.h \
+		/usr/include/qt5/QtSql/qsql.h \
+		/usr/include/qt5/QtSql/qsqldatabase.h \
+		/usr/include/qt5/QtCore/QDebug \
+		/usr/include/qt5/QtSql/QSqlError \
+		/usr/include/qt5/QtSql/qsqlerror.h \
+		/usr/include/qt5/QtCore/QList \
+		/usr/include/qt5/QtCore/QDate \
+		/usr/include/qt5/QtCore/qdatetime.h \
 		/usr/include/qt5/QtWidgets/QMenu \
 		/usr/include/qt5/QtWidgets/qmenu.h \
 		/usr/include/qt5/QtWidgets/qaction.h \
@@ -2353,7 +2894,14 @@ MainWindow.o: src/MainWindow.cpp include/MainWindow.h \
 		ui_SetName.h \
 		include/ObjectPA.h \
 		/usr/include/qt5/QtWidgets/QFrame \
-		include/blinkingclass.h
+		include/notConnectionDb.h \
+		include/UbdaterClass.h \
+		include/db/dbFinder.h \
+		/usr/include/qt5/QtCore/QStringList \
+		include/FaultsClass.h \
+		include/blinkingclass.h \
+		include/util/Singleton.h \
+		include/util/MyException.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainWindow.o src/MainWindow.cpp
 
 StateChanFrame.o: src/StateChanFrame.cpp include/StateChanFrame.h \
@@ -2474,20 +3022,16 @@ StateChanFrame.o: src/StateChanFrame.cpp include/StateChanFrame.h \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
 		/usr/include/qt5/QtWidgets/qframe.h \
+		/usr/include/qt5/QtWidgets/QVBoxLayout \
+		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtWidgets/qlayout.h \
+		/usr/include/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/QSignalMapper \
 		/usr/include/qt5/QtCore/qsignalmapper.h \
 		ui_StateChanFrame.h \
-		include/define.h \
-		include/db/dbStateChan.h \
-		include/db/dbclass.h \
-		/usr/include/qt5/QtSql/QSqlQuery \
-		/usr/include/qt5/QtSql/qsqlquery.h \
-		/usr/include/qt5/QtSql/qsql.h \
-		/usr/include/qt5/QtSql/qsqldatabase.h \
-		/usr/include/qt5/QtCore/QString \
-		/usr/include/qt5/QtCore/QDebug \
-		/usr/include/qt5/QtSql/QSqlError \
-		/usr/include/qt5/QtSql/qsqlerror.h
+		include/define.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o StateChanFrame.o src/StateChanFrame.cpp
 
 MainFrame.o: src/MainFrame.cpp include/MainFrame.h \
@@ -2612,20 +3156,32 @@ MainFrame.o: src/MainFrame.cpp include/MainFrame.h \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
 		/usr/include/qt5/QtWidgets/qframe.h \
+		/usr/include/qt5/QtWidgets/QVBoxLayout \
+		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtWidgets/qlayout.h \
+		/usr/include/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/qt5/QtCore/QString \
 		ui_StateChanFrame.h \
 		include/define.h \
-		include/db/dbStateChan.h \
+		include/ChanButton.h \
+		include/ObjectsUpdater.h \
+		include/ObjectClass.h \
+		include/DeviceClass.h \
+		/usr/include/qt5/QtCore/QObject \
+		/usr/include/qt5/QtCore/QMap \
+		include/db/dbMainObject.h \
 		include/db/dbclass.h \
 		/usr/include/qt5/QtSql/QSqlQuery \
 		/usr/include/qt5/QtSql/qsqlquery.h \
 		/usr/include/qt5/QtSql/qsql.h \
 		/usr/include/qt5/QtSql/qsqldatabase.h \
-		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/QDebug \
 		/usr/include/qt5/QtSql/QSqlError \
 		/usr/include/qt5/QtSql/qsqlerror.h \
-		include/ChanButton.h \
-		include/db/dbMainObject.h \
+		/usr/include/qt5/QtCore/QList \
+		/usr/include/qt5/QtCore/QDate \
+		/usr/include/qt5/QtCore/qdatetime.h \
 		/usr/include/qt5/QtWidgets/QMenu \
 		/usr/include/qt5/QtWidgets/qmenu.h \
 		/usr/include/qt5/QtWidgets/qaction.h \
@@ -2637,10 +3193,9 @@ MainFrame.o: src/MainFrame.cpp include/MainFrame.h \
 		ui_SetName.h \
 		include/ClockFrame.h \
 		/usr/include/qt5/QtCore/QTime \
-		/usr/include/qt5/QtCore/qdatetime.h \
-		/usr/include/qt5/QtCore/QDate \
 		ui_ClockFrame.h \
-		include/util/Singleton.h
+		include/util/Singleton.h \
+		include/util/MyException.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainFrame.o src/MainFrame.cpp
 
 rightWidget.o: src/rightWidget.cpp include/rightWidget.h \
@@ -2761,18 +3316,32 @@ rightWidget.o: src/rightWidget.cpp include/rightWidget.h \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
 		/usr/include/qt5/QtWidgets/qframe.h \
+		/usr/include/qt5/QtWidgets/QVBoxLayout \
+		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtWidgets/qlayout.h \
+		/usr/include/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/qt5/QtCore/QString \
+		include/DeviceClass.h \
+		/usr/include/qt5/QtCore/QObject \
 		ui_rightWidget.h \
-		include/db/dbStandDevice.h \
+		include/ObjectClass.h \
+		/usr/include/qt5/QtCore/QMap \
+		include/util/Singleton.h \
+		include/util/MyException.h \
+		include/ObjectsUpdater.h \
+		include/db/dbMainObject.h \
 		include/db/dbclass.h \
 		/usr/include/qt5/QtSql/QSqlQuery \
 		/usr/include/qt5/QtSql/qsqlquery.h \
 		/usr/include/qt5/QtSql/qsql.h \
 		/usr/include/qt5/QtSql/qsqldatabase.h \
-		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/QDebug \
 		/usr/include/qt5/QtSql/QSqlError \
 		/usr/include/qt5/QtSql/qsqlerror.h \
-		include/util/Singleton.h
+		/usr/include/qt5/QtCore/QList \
+		/usr/include/qt5/QtCore/QDate \
+		/usr/include/qt5/QtCore/qdatetime.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o rightWidget.o src/rightWidget.cpp
 
 DeviceBut.o: src/DeviceBut.cpp include/DeviceBut.h \
@@ -2892,6 +3461,12 @@ DeviceBut.o: src/DeviceBut.cpp include/DeviceBut.h \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
 		/usr/include/qt5/QtWidgets/qframe.h \
+		/usr/include/qt5/QtWidgets/QVBoxLayout \
+		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtWidgets/qlayout.h \
+		/usr/include/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DeviceBut.o src/DeviceBut.cpp
 
@@ -3087,16 +3662,29 @@ ChanButton.o: src/ChanButton.cpp include/ChanButton.h \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
 		/usr/include/qt5/QtWidgets/qframe.h \
+		/usr/include/qt5/QtWidgets/QVBoxLayout \
+		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtWidgets/qlayout.h \
+		/usr/include/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/qt5/QtCore/QString \
+		include/ObjectsUpdater.h \
+		include/ObjectClass.h \
+		include/DeviceClass.h \
+		/usr/include/qt5/QtCore/QObject \
+		/usr/include/qt5/QtCore/QMap \
 		include/db/dbMainObject.h \
 		include/db/dbclass.h \
 		/usr/include/qt5/QtSql/QSqlQuery \
 		/usr/include/qt5/QtSql/qsqlquery.h \
 		/usr/include/qt5/QtSql/qsql.h \
 		/usr/include/qt5/QtSql/qsqldatabase.h \
-		/usr/include/qt5/QtCore/QString \
 		/usr/include/qt5/QtCore/QDebug \
 		/usr/include/qt5/QtSql/QSqlError \
 		/usr/include/qt5/QtSql/qsqlerror.h \
+		/usr/include/qt5/QtCore/QList \
+		/usr/include/qt5/QtCore/QDate \
+		/usr/include/qt5/QtCore/qdatetime.h \
 		/usr/include/qt5/QtWidgets/QMenu \
 		/usr/include/qt5/QtWidgets/qmenu.h \
 		/usr/include/qt5/QtWidgets/qaction.h \
@@ -3105,7 +3693,9 @@ ChanButton.o: src/ChanButton.cpp include/ChanButton.h \
 		/usr/include/qt5/QtCore/qtimer.h \
 		/usr/include/qt5/QtCore/qbasictimer.h \
 		include/SetNameDialog.h \
-		ui_SetName.h
+		ui_SetName.h \
+		include/util/Singleton.h \
+		include/util/MyException.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ChanButton.o src/ChanButton.cpp
 
 ObjectPA.o: src/ObjectPA.cpp include/ObjectPA.h \
@@ -3342,7 +3932,13 @@ blinkingclass.o: src/blinkingclass.cpp include/blinkingclass.h \
 		/usr/include/qt5/QtGui/QMouseEvent \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
-		/usr/include/qt5/QtWidgets/qframe.h
+		/usr/include/qt5/QtWidgets/qframe.h \
+		/usr/include/qt5/QtWidgets/QVBoxLayout \
+		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtWidgets/qlayout.h \
+		/usr/include/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/qt5/QtCore/QString
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o blinkingclass.o src/blinkingclass.cpp
 
 butparent.o: src/butparent.cpp include/butparent.h \
@@ -3461,12 +4057,13 @@ butparent.o: src/butparent.cpp include/butparent.h \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
 		/usr/include/qt5/QtWidgets/qframe.h \
-		/usr/include/qt5/QtCore/QDebug \
 		/usr/include/qt5/QtWidgets/QVBoxLayout \
 		/usr/include/qt5/QtWidgets/qboxlayout.h \
 		/usr/include/qt5/QtWidgets/qlayout.h \
 		/usr/include/qt5/QtWidgets/qlayoutitem.h \
 		/usr/include/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/qt5/QtCore/QString \
+		/usr/include/qt5/QtCore/QDebug \
 		/usr/include/qt5/QtGui/QFontMetrics
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o butparent.o src/butparent.cpp
 
@@ -3587,6 +4184,14 @@ StandBut.o: src/StandBut.cpp include/StandBut.h \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
 		/usr/include/qt5/QtWidgets/qframe.h \
+		/usr/include/qt5/QtWidgets/QVBoxLayout \
+		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtWidgets/qlayout.h \
+		/usr/include/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/qt5/QtCore/QString \
+		include/DeviceClass.h \
+		/usr/include/qt5/QtCore/QObject \
 		/usr/include/qt5/QtGui/QFont \
 		/usr/include/qt5/QtWidgets/QApplication \
 		/usr/include/qt5/QtWidgets/qapplication.h \
@@ -3594,7 +4199,8 @@ StandBut.o: src/StandBut.cpp include/StandBut.h \
 		/usr/include/qt5/QtCore/qeventloop.h \
 		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
 		/usr/include/qt5/QtGui/qguiapplication.h \
-		/usr/include/qt5/QtGui/qinputmethod.h
+		/usr/include/qt5/QtGui/qinputmethod.h \
+		/usr/include/qt5/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o StandBut.o src/StandBut.cpp
 
 dbclass.o: src/db/dbclass.cpp include/db/dbclass.h \
@@ -3681,7 +4287,10 @@ dbclass.o: src/db/dbclass.cpp include/db/dbclass.h \
 		/usr/include/qt5/QtSql/qsqlerror.h \
 		/usr/include/qt5/QtSql/QSqlDatabase \
 		/usr/include/qt5/QtSql/QSqlRecord \
-		/usr/include/qt5/QtSql/qsqlrecord.h
+		/usr/include/qt5/QtSql/qsqlrecord.h \
+		/usr/include/qt5/QtSql/QSqlDriver \
+		/usr/include/qt5/QtSql/qsqldriver.h \
+		include/util/MyException.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dbclass.o src/db/dbclass.cpp
 
 dbMainObject.o: src/db/dbMainObject.cpp include/db/dbMainObject.h \
@@ -3767,14 +4376,19 @@ dbMainObject.o: src/db/dbMainObject.cpp include/db/dbMainObject.h \
 		/usr/include/qt5/QtCore/qcontiguouscache.h \
 		/usr/include/qt5/QtSql/QSqlError \
 		/usr/include/qt5/QtSql/qsqlerror.h \
-		include/util/Singleton.h
+		/usr/include/qt5/QtCore/QList \
+		/usr/include/qt5/QtCore/QDate \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		include/util/Singleton.h \
+		include/util/MyException.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dbMainObject.o src/db/dbMainObject.cpp
 
-dbStandDevice.o: src/db/dbStandDevice.cpp include/db/dbStandDevice.h \
-		include/db/dbclass.h \
-		/usr/include/qt5/QtSql/QSqlQuery \
-		/usr/include/qt5/QtSql/qsqlquery.h \
-		/usr/include/qt5/QtSql/qsql.h \
+DeviceClass.o: src/DeviceClass.cpp include/DeviceClass.h \
+		/usr/include/qt5/QtCore/QString \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
 		/usr/include/qt5/QtCore/qglobal.h \
 		/usr/include/qt5/QtCore/qconfig.h \
 		/usr/include/qt5/QtCore/qfeatures.h \
@@ -3811,28 +4425,18 @@ dbStandDevice.o: src/db/dbStandDevice.cpp include/db/dbStandDevice.h \
 		/usr/include/qt5/QtCore/qtypeinfo.h \
 		/usr/include/qt5/QtCore/qtypetraits.h \
 		/usr/include/qt5/QtCore/qsysinfo.h \
-		/usr/include/qt5/QtSql/qsqldatabase.h \
-		/usr/include/qt5/QtCore/qstring.h \
-		/usr/include/qt5/QtCore/qchar.h \
 		/usr/include/qt5/QtCore/qbytearray.h \
 		/usr/include/qt5/QtCore/qrefcount.h \
 		/usr/include/qt5/QtCore/qnamespace.h \
 		/usr/include/qt5/QtCore/qarraydata.h \
 		/usr/include/qt5/QtCore/qstringbuilder.h \
-		/usr/include/qt5/QtCore/QString \
-		/usr/include/qt5/QtCore/QDebug \
-		/usr/include/qt5/QtCore/qdebug.h \
-		/usr/include/qt5/QtCore/qalgorithms.h \
-		/usr/include/qt5/QtCore/qhash.h \
-		/usr/include/qt5/QtCore/qiterator.h \
-		/usr/include/qt5/QtCore/qlist.h \
-		/usr/include/qt5/QtCore/qpair.h \
-		/usr/include/qt5/QtCore/qmap.h \
-		/usr/include/qt5/QtCore/qtextstream.h \
-		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/QObject \
 		/usr/include/qt5/QtCore/qobject.h \
 		/usr/include/qt5/QtCore/qobjectdefs.h \
 		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qiterator.h \
 		/usr/include/qt5/QtCore/qcoreevent.h \
 		/usr/include/qt5/QtCore/qscopedpointer.h \
 		/usr/include/qt5/QtCore/qmetatype.h \
@@ -3840,6 +4444,13 @@ dbStandDevice.o: src/db/dbStandDevice.cpp include/db/dbStandDevice.h \
 		/usr/include/qt5/QtCore/qcontainerfwd.h \
 		/usr/include/qt5/QtCore/qisenum.h \
 		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/QDebug \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
 		/usr/include/qt5/QtCore/qlocale.h \
 		/usr/include/qt5/QtCore/qvariant.h \
 		/usr/include/qt5/QtCore/qstringlist.h \
@@ -3850,13 +4461,391 @@ dbStandDevice.o: src/db/dbStandDevice.cpp include/db/dbStandDevice.h \
 		/usr/include/qt5/QtCore/qvector.h \
 		/usr/include/qt5/QtCore/qpoint.h \
 		/usr/include/qt5/QtCore/qset.h \
-		/usr/include/qt5/QtCore/qcontiguouscache.h \
-		/usr/include/qt5/QtSql/QSqlError \
-		/usr/include/qt5/QtSql/qsqlerror.h \
-		include/util/Singleton.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dbStandDevice.o src/db/dbStandDevice.cpp
+		/usr/include/qt5/QtCore/qcontiguouscache.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DeviceClass.o src/DeviceClass.cpp
 
-dbStateChan.o: src/db/dbStateChan.cpp include/db/dbStateChan.h \
+ObjectClass.o: src/ObjectClass.cpp include/ObjectClass.h \
+		include/DeviceClass.h \
+		/usr/include/qt5/QtCore/QString \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/QObject \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/QMap \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/qt5/QtCore/QDebug
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ObjectClass.o src/ObjectClass.cpp
+
+ObjectsUpdater.o: src/ObjectsUpdater.cpp include/ObjectsUpdater.h \
+		include/ObjectClass.h \
+		include/DeviceClass.h \
+		/usr/include/qt5/QtCore/QString \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/QObject \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/QMap \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h \
+		include/db/dbMainObject.h \
+		include/db/dbclass.h \
+		/usr/include/qt5/QtSql/QSqlQuery \
+		/usr/include/qt5/QtSql/qsqlquery.h \
+		/usr/include/qt5/QtSql/qsql.h \
+		/usr/include/qt5/QtSql/qsqldatabase.h \
+		/usr/include/qt5/QtCore/QDebug \
+		/usr/include/qt5/QtSql/QSqlError \
+		/usr/include/qt5/QtSql/qsqlerror.h \
+		/usr/include/qt5/QtCore/QList \
+		/usr/include/qt5/QtCore/QDate \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		include/util/MyException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ObjectsUpdater.o src/ObjectsUpdater.cpp
+
+MyException.o: src/util/MyException.cpp include/util/MyException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MyException.o src/util/MyException.cpp
+
+dbFinder.o: src/db/dbFinder.cpp include/db/dbFinder.h \
+		/usr/include/qt5/QtCore/QTimer \
+		/usr/include/qt5/QtCore/qtimer.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qbasictimer.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/QStringList \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtCore/QObject \
+		/usr/include/qt5/QtCore/QDebug \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/qt5/QtSql/QSqlDriver \
+		/usr/include/qt5/QtSql/qsqldriver.h \
+		/usr/include/qt5/QtSql/qsql.h \
+		/usr/include/qt5/QtSql/QSqlDatabase \
+		/usr/include/qt5/QtSql/qsqldatabase.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dbFinder.o src/db/dbFinder.cpp
+
+notConnectionDb.o: src/notConnectionDb.cpp include/notConnectionDb.h \
+		/usr/include/qt5/QtWidgets/QFrame \
+		/usr/include/qt5/QtWidgets/qframe.h \
+		/usr/include/qt5/QtWidgets/qwidget.h \
+		/usr/include/qt5/QtGui/qwindowdefs.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/qmargins.h \
+		/usr/include/qt5/QtCore/qrect.h \
+		/usr/include/qt5/QtCore/qsize.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtGui/qpaintdevice.h \
+		/usr/include/qt5/QtGui/qpalette.h \
+		/usr/include/qt5/QtGui/qcolor.h \
+		/usr/include/qt5/QtGui/qrgb.h \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtGui/qbrush.h \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtGui/qmatrix.h \
+		/usr/include/qt5/QtGui/qpolygon.h \
+		/usr/include/qt5/QtGui/qregion.h \
+		/usr/include/qt5/QtCore/qline.h \
+		/usr/include/qt5/QtGui/qtransform.h \
+		/usr/include/qt5/QtGui/qpainterpath.h \
+		/usr/include/qt5/QtGui/qimage.h \
+		/usr/include/qt5/QtGui/qpixmap.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		/usr/include/qt5/QtGui/qfont.h \
+		/usr/include/qt5/QtGui/qfontmetrics.h \
+		/usr/include/qt5/QtGui/qfontinfo.h \
+		/usr/include/qt5/QtWidgets/qsizepolicy.h \
+		/usr/include/qt5/QtGui/qcursor.h \
+		/usr/include/qt5/QtGui/qkeysequence.h \
+		/usr/include/qt5/QtGui/qevent.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/qt5/QtCore/qurl.h \
+		/usr/include/qt5/QtCore/qurlquery.h \
+		/usr/include/qt5/QtCore/qfile.h \
+		/usr/include/qt5/QtCore/qfiledevice.h \
+		/usr/include/qt5/QtGui/qvector2d.h \
+		/usr/include/qt5/QtGui/qtouchdevice.h \
+		ui_notConnectionDb.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o notConnectionDb.o src/notConnectionDb.cpp
+
+FaultsClass.o: src/FaultsClass.cpp include/FaultsClass.h \
+		include/db/dbMainObject.h \
 		include/db/dbclass.h \
 		/usr/include/qt5/QtSql/QSqlQuery \
 		/usr/include/qt5/QtSql/qsqlquery.h \
@@ -3939,14 +4928,132 @@ dbStateChan.o: src/db/dbStateChan.cpp include/db/dbStateChan.h \
 		/usr/include/qt5/QtCore/qcontiguouscache.h \
 		/usr/include/qt5/QtSql/QSqlError \
 		/usr/include/qt5/QtSql/qsqlerror.h \
+		/usr/include/qt5/QtCore/QList \
+		/usr/include/qt5/QtCore/QDate \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		include/ObjectsUpdater.h \
+		include/ObjectClass.h \
+		include/DeviceClass.h \
+		/usr/include/qt5/QtCore/QObject \
+		/usr/include/qt5/QtCore/QMap \
+		include/util/Singleton.h \
+		include/util/MyException.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FaultsClass.o src/FaultsClass.cpp
+
+UbdaterClass.o: src/UbdaterClass.cpp include/UbdaterClass.h \
+		/usr/include/qt5/QtCore/QObject \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		include/db/dbFinder.h \
+		/usr/include/qt5/QtCore/QTimer \
+		/usr/include/qt5/QtCore/qtimer.h \
+		/usr/include/qt5/QtCore/qbasictimer.h \
+		/usr/include/qt5/QtCore/QStringList \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		include/ObjectsUpdater.h \
+		include/ObjectClass.h \
+		include/DeviceClass.h \
+		/usr/include/qt5/QtCore/QString \
+		/usr/include/qt5/QtCore/QMap \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h \
+		include/db/dbMainObject.h \
+		include/db/dbclass.h \
+		/usr/include/qt5/QtSql/QSqlQuery \
+		/usr/include/qt5/QtSql/qsqlquery.h \
+		/usr/include/qt5/QtSql/qsql.h \
+		/usr/include/qt5/QtSql/qsqldatabase.h \
+		/usr/include/qt5/QtCore/QDebug \
+		/usr/include/qt5/QtSql/QSqlError \
+		/usr/include/qt5/QtSql/qsqlerror.h \
+		/usr/include/qt5/QtCore/QList \
+		/usr/include/qt5/QtCore/QDate \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		include/FaultsClass.h \
+		include/util/MyException.h \
 		include/util/Singleton.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dbStateChan.o src/db/dbStateChan.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o UbdaterClass.o src/UbdaterClass.cpp
 
 moc_StateChanFrame.o: moc_StateChanFrame.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_StateChanFrame.o moc_StateChanFrame.cpp
 
 moc_DeviceBut.o: moc_DeviceBut.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_DeviceBut.o moc_DeviceBut.cpp
+
+moc_rightWidget.o: moc_rightWidget.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_rightWidget.o moc_rightWidget.cpp
 
 moc_ClockFrame.o: moc_ClockFrame.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_ClockFrame.o moc_ClockFrame.cpp
@@ -3977,6 +5084,21 @@ moc_StandBut.o: moc_StandBut.cpp
 
 moc_frameborder.o: moc_frameborder.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_frameborder.o moc_frameborder.cpp
+
+moc_DeviceClass.o: moc_DeviceClass.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_DeviceClass.o moc_DeviceClass.cpp
+
+moc_ObjectClass.o: moc_ObjectClass.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_ObjectClass.o moc_ObjectClass.cpp
+
+moc_dbFinder.o: moc_dbFinder.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_dbFinder.o moc_dbFinder.cpp
+
+moc_notConnectionDb.o: moc_notConnectionDb.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_notConnectionDb.o moc_notConnectionDb.cpp
+
+moc_UbdaterClass.o: moc_UbdaterClass.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_UbdaterClass.o moc_UbdaterClass.cpp
 
 ####### Install
 
