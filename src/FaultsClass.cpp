@@ -12,7 +12,7 @@ void FaultsClass::update (  )
     FaultsType buf = std::move ( dbMain->getFaults() ) ;
     foreach ( auto it , buf) {
           auto it2 = qFind( std::begin (fault), std::end( fault ), it);
-          if ( it2 != std::end( buf ) )
+          if ( it2 != std::end( fault ) )
           {
             //включаем аварию на кнопке
               objUpd->getObject( it.id_obj )->setAlarmDev( it.id_dev, true ) ;
