@@ -6,8 +6,9 @@
 ChanButton::ChanButton( QWidget *parent, int _id  ) : ButParent (parent), id ( _id )
 {
 
-    obj = Util::Singleton<ObjectsUpdater>::getInstance().getObject( id + 1) ;
-    if ( obj == NULL )
+    qDebug() << "ChanButton::ChanButton id == " <<  id  ;
+    dev = Util::Singleton<ObjectsUpdater>::getInstance().getObject( id + 1) ;
+    if ( dev == NULL )
     {
         qDebug() << "ChanButton::ChanButton don't find object whith id == " <<  id  ;
         throw Util::MyException( "ChanButton::ChanButton don't find object" );
@@ -23,9 +24,9 @@ ChanButton::ChanButton( QWidget *parent, int _id  ) : ButParent (parent), id ( _
     setMaximumWidth( 120 );
 
 
-    connect ( obj, SIGNAL ( change ( int16_t ) ), this, SLOT( refresh() ) );
+    connect ( (ObjectClass* )dev, SIGNAL ( changeState ( int16_t ) ), this, SLOT( refresh() ) );
     refresh();
-    qDebug () << "Create but name == " << obj->getName() << " id == " << obj->getId() ;
+    qDebug () << "Create but name == " << dev->getName() << " id == " << dev->getId() ;
 };
 
 ChanButton::~ChanButton()
@@ -71,20 +72,36 @@ void ChanButton::slotChange(QAction*)
 
 void ChanButton::refresh()
 {
-    qDebug()<< "ChanButton::refresh " << obj->getName();
-
-  if ( obj->getConf() )
+    qDebug()<< "ChanButton::refresh " << dev->getName();
+  if ( dev->getConf() )
   {
-      setText( obj->getName() );
+      setText( dev->getName() );
   } else
   {
 
       setText( "" );
   };
-  setEnabled( obj->getConf() );
+  setEnabled( dev->getConf() );
+
+  if ( ! dev->isBlink() )
+  {
+      if ( !dev->isAlarm() && dev->isClicked() )
+      {
+          setColor( getColor() );
+      } else
+     if ( !dev->isAlarm() && dev->islostErr() )
+          {
+             setColor( RED, true );
+          }
+  }
 }
 
-bool ChanButton::isBlink () const
+void ChanButton::reactClick()
 {
-    return obj->isAlarm(); // ::TODO delete
+    if ( dev->isAlarm()  )
+    {
+       setColor( RED, true );
+    } else {
+         setColor( getColor() );
+    }
 };

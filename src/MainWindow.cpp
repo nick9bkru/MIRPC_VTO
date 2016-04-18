@@ -23,11 +23,11 @@ MainWindow::MainWindow( bool multDisp,UbdaterClass *upb ,  QWidget *parent ) : Q
     connect( updTimer, SIGNAL(timeout()), this, SLOT(start()) ) ;
     updTimer->start( 10000 );
 
-    BlinkingClass * blnk = new BlinkingClass(  1000 );
+//    BlinkingClass * blnk = new BlinkingClass(  1000 );
 
-    blnk->addFrame( rigthFrame );
-    blnk->addFrame( mainF );
-    blnk->addFrame( objpa );
+//    blnk->addFrame( rigthFrame );
+//    blnk->addFrame( mainF );
+//    blnk->addFrame( objpa );
 
     connect( upb,
             SIGNAL(dbConnect ( const bool &)),

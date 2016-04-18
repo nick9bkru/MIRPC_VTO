@@ -33,6 +33,10 @@ public:
     void mousePressEvent ( QMouseEvent * e );
     void setFont( const QFont & f);
     QString text () const;
+private slots:
+    void clickSlot();
+signals:
+    void changeState( int16_t & );
 private :
     QVBoxLayout *layout;
     QLabel *lbl;
@@ -40,6 +44,7 @@ private :
     QString defColor;
 protected:
     baseDevice * dev;
+    virtual void reactClick();
 };
 
 #endif // BUTPARENT_H

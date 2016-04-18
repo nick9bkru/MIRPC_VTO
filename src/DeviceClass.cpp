@@ -1,11 +1,12 @@
 #include "include/DeviceClass.h"
 #include <QDebug>
 
-DeviceClass::DeviceClass( QString _name, int16_t _id )
+DeviceClass::DeviceClass( QString _name, int16_t _id ) :baseDevice()
 {
     name = _name;
     id = _id;
     qDebug(  ) << "DeviceClass::DeviceClass id = " << id << " name = " << _name  ;
+ //   connect( this , SIGNAL (baseDevice::changeState ( int16_t & )), this , SIGNAL (changeState ( int16_t & )) );
 }
 
 void DeviceClass::setId( int16_t _id )
@@ -18,11 +19,16 @@ void DeviceClass::setName( QString _name )
     if ( name != _name )
     {
         name = _name;
-        emit changeState( id );
+        emitSigChange();
     };
 };
 
-void DeviceClass::setAlarm ( const bool _alarm)
+bool DeviceClass::getConf( ) const
 {
-  alarm = _alarm;
+    return true;
+};
+
+void DeviceClass::emitSigChange()
+{
+    emit changeState ( id );
 };

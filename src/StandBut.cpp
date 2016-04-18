@@ -2,9 +2,9 @@
 #include <QFont>
 #include <QApplication>
 #include <QDebug>
-StandBut::StandBut( DeviceClass* _dev, QWidget * parent ): ButParent( parent ), dev( _dev )
+StandBut::StandBut( DeviceClass* _dev, QWidget * parent ): ButParent( parent )
 {
-
+    dev = _dev;
     setFixedHeight( 60 );
     setFixedWidth( 83 );
     QFont f( QApplication::font( ) );
@@ -12,19 +12,33 @@ StandBut::StandBut( DeviceClass* _dev, QWidget * parent ): ButParent( parent ), 
     setFont( f );
     updState();
 
-    connect( dev, SIGNAL (changeState ( int16_t & )), this , SLOT ( updState() ) );
+    connect(  _dev , SIGNAL (changeState ( int16_t & )), this , SLOT ( updState() ) );
 }
 
 void StandBut::updState()
 {
-    //qDebug( ) << "void StandBut::updState() ";
-//    qDebug( ) << "dev->getName() " << dev->getName();
-//    qDebug( ) << "dev->getId() " << dev->getId();
+    qDebug( ) << "void StandBut::updState() ";
     setText( dev->getName() );
+    if ( ! dev->isBlink() )
+    {
+        if ( !dev->isAlarm() && dev->isClicked() )
+        {
+            setColor( getColor() );
+        } else
+       if ( !dev->isAlarm() && dev->islostErr() )
+            {
+               setColor( RED, true );
+            }
+    }
 };
 
-
-bool StandBut::isBlink () const
+void StandBut::reactClick()
 {
-    return dev->isAlarm(); // ::TODO delete
+    if ( dev->isAlarm()  )
+    {
+       setColor( RED, true );
+    } else {
+         setColor( getColor() );
+    }
+
 };

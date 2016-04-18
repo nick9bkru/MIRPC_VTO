@@ -2,8 +2,7 @@
 #include <algorithm>
 #include <QDebug>
 
-ObjectClass::ObjectClass(QString _name, int16_t _id) :	conf( false ),
-    rePaint ( false )
+ObjectClass::ObjectClass(QString _name, int16_t _id) :	rePaint ( false )
 {
     name = _name;
     id = _id ;
@@ -41,18 +40,13 @@ void ObjectClass::removeDevices()
     rePaint = true;
 };
 
-bool ObjectClass::getConf( ) const
-{
- return conf;
-};
-
 void ObjectClass::setName( QString _name )
 {
     if ( _name != name )
     {
 
      name= _name;
-     emit change ( getId() );
+     emitSigChange();
     }
 };
 
@@ -62,7 +56,7 @@ void ObjectClass::setConf( bool ok )
   {
 
    conf = ok;
-   emit change ( getId() );
+   emitSigChange();
   }
 };
 
@@ -77,7 +71,7 @@ void ObjectClass::emitRefresh()
   if ( rePaint )
   {
     rePaint = false;
-    emit change ( -1 );
+    emit changeState ( -1 );
   }
 }
 
@@ -85,19 +79,32 @@ bool ObjectClass::setAlarmDev( const int16_t id_dev, const bool alarm )
 {
     auto dev = getDevice ( id_dev );
 
-    if ( dev != NULL )
-        dev->setAlarm( alarm );
-    this->alarm = alarm;
+    if ( dev == NULL )
+        return false;
+
+    dev->setAlarm( alarm );
     if ( !alarm )
     {
-        foreach (auto &it, Devices) {
+        bool _alarm = false;
+        foreach (auto &it, Devices)
+        {
         if ( it->isAlarm() )
           {
-           this->alarm = true;
+            _alarm = true;
            break;
            }
          };
+        //emitSigChange();
+        setAlarm ( _alarm );
+    } else
+    {
+        setAlarm ( true );
     };
-    return dev != NULL;
+    return true;
+};
+
+void ObjectClass::emitSigChange()
+{
+    emit changeState ( id );
 };
 

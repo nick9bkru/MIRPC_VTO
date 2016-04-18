@@ -22,7 +22,7 @@ rightWidget::rightWidget ( QWidget *parent ): QFrame(parent),Ui::rigthFrame()
   dev = obj->getDevices() ;
 
   refresh( -1 );
-  connect( obj, SIGNAL( change ( int16_t ) ), this, SLOT( refresh( int16_t ) )  );
+  connect( obj, SIGNAL( changeState ( int16_t ) ), this, SLOT( refresh( int16_t ) )  );
 };
 /////////////////////////////////////////////////////
 rightWidget::~rightWidget ( )

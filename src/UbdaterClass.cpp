@@ -23,6 +23,7 @@ UbdaterClass::~UbdaterClass()
 {
     delete f;
     delete objUpd;
+    delete faultUpd;
 }
 
 void UbdaterClass::devNotify(  const QString & name  )
@@ -78,7 +79,7 @@ void UbdaterClass::newStateConn( const bool & b)
 void UbdaterClass::loadNotify()
 {
     qDebug() << "ObjectsUpdater::loadNotify()" ;
-    DBClass::createNotify( tbl [DEVICES] , this, SLOT(devNotify(const QString & )) );
-   DBClass::createNotify( tbl [OBJECTS] , this, SLOT(objNotify(const QString & )) );
-    DBClass::createNotify( tbl [FAULTS] , this, SLOT(faultNotify(const QString & )) );
+    DBClass::createNotify( tbl [DEVICES] , this, SLOT( devNotify(const QString & )) );
+    DBClass::createNotify( tbl [OBJECTS] , this, SLOT( objNotify(const QString & )) );
+    DBClass::createNotify( tbl [FAULTS] , this, SLOT( faultNotify(const QString & )) );
 };

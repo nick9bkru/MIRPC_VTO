@@ -85,8 +85,9 @@ bool DBClass::isValid( QSqlQuery & query )
 
 bool DBClass::createNotify(const QString &notify ,const QObject * receiver, const char * method )
 {
-    QSqlDatabase::database().driver()->unsubscribeFromNotification ( notify ); // переподключаем
-    QSqlDatabase::database().driver()-> disconnect( SIGNAL(notification(const QString&)), receiver );
+    qDebug( ) << "DBClass::createNotify notify = " << notify;
+        QSqlDatabase::database().driver()->unsubscribeFromNotification ( notify ); // переподключаем
+        QSqlDatabase::database().driver()-> disconnect( SIGNAL(notification(const QString&)), receiver );
 
     QSqlDatabase::database().driver()->subscribeToNotification( notify );
   // если не отключать , то сигнал приходит столько раз , сколько его подключили notify

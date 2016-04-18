@@ -4,7 +4,7 @@
 
 #include <QFontMetrics>
 
-ButParent::ButParent( QWidget *parent ): QPushButton (parent), lbl(new QLabel ( parent )) ,color(DEFAULT)
+ButParent::ButParent( QWidget *parent ): QPushButton (parent), lbl(new QLabel ( parent )) ,color(DEFAULT), dev ( NULL )
 {
    setObjectName ( "Button" );
    lbl->setAlignment(Qt::AlignCenter);
@@ -18,6 +18,7 @@ ButParent::ButParent( QWidget *parent ): QPushButton (parent), lbl(new QLabel ( 
 
        setLayout(layout);
        defColor = styleSheet();
+       connect( this, SIGNAL ( clicked() ) , this , SLOT ( clickSlot ()) );
 }
 ButParent::~ButParent()
 {
@@ -28,7 +29,7 @@ ButParent::~ButParent()
 
 bool ButParent::isBlink () const
 {
-    return false; // ::TODO delete
+    return dev->isBlink() ;
 };
 
 ButParent::CLR ButParent::getColor () const
@@ -93,3 +94,21 @@ QString ButParent::text () const
 {
   return lbl->text();
 }
+
+void ButParent::clickSlot()
+{
+ //   qDebug() << "void ButParent::clickSlot()" ;
+    if ( dev )
+    {
+        dev->setClicked( true );
+        reactClick();
+    };
+};
+
+void ButParent::reactClick()
+{
+    if ( dev->isAlarm() )
+    {
+       setColor( RED, true );
+    }
+};

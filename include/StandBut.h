@@ -14,18 +14,14 @@ class StandBut : public ButParent
 public:
     StandBut( DeviceClass* _dev,  QWidget * parent = 0 );
 
-    bool isBlink () const;
 public slots:
     /**
      * @brief updState обновить состояние кнопки
      */
     void updState();
 private:
-    /**
-     * @brief _dev
-     *указатель на класс с состоянием объекта
-     */
-    DeviceClass* dev;
+protected:
+    virtual void reactClick() override;
 };
 
 #endif // STANDBUT_H

@@ -4,8 +4,8 @@
 #include "include/DeviceClass.h"
 #include "include/baseDevice.h"
 #include <QMap>
-#include <QObject>
-class ObjectClass : public QObject, public baseDevice
+
+class ObjectClass : public baseDevice
 {
      Q_OBJECT
 public:
@@ -43,7 +43,6 @@ public:
      */
     void setConf( bool ok = true);
 
-    bool getConf( ) const ;
     /**
      * @brief emitRefresh если теребуется создает сигнал о перерисовки всего обеъкта
      */
@@ -55,16 +54,14 @@ public:
      * @return
      */
     bool setAlarmDev( const int16_t id_dev, const bool alarm );
-
+protected:
+    virtual void emitSigChange() ;
 
 signals:
-    void change ( int16_t );
+    void changeState ( int16_t );
 private:
     DevisesType Devices;
-    /**
-     * @brief conf если true то в конфигурации
-     */
-    bool conf;
+
 
     bool rePaint;
 };
