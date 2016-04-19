@@ -3,6 +3,7 @@
 
 #include "include/DeviceClass.h"
 #include "include/baseDevice.h"
+#include "include/db/dbMainObject.h"
 #include <QMap>
 
 class ObjectClass : public baseDevice
@@ -33,17 +34,6 @@ public:
     void removeDevices();
 
     /**
-     * @brief setName - установить имя
-     * @param _name - имя объекта
-     */
-    virtual void setName( QString _name ) override;
-    /**
-     * @brief SetConf ввести в конфигурацию
-     * @param ok
-     */
-    void setConf( bool ok = true);
-
-    /**
      * @brief emitRefresh если теребуется создает сигнал о перерисовки всего обеъкта
      */
     void emitRefresh()  ;
@@ -51,9 +41,10 @@ public:
      * @brief setAlarmDev установить аварию устройства
      * @param id_dev номер устройства
      * @param alarm true - ключить, false - отключить
+     * @param newf - true то кнопка красная , false - расная рамка
      * @return
      */
-    bool setAlarmDev( const int16_t id_dev, const bool alarm );
+    bool setAlarmDev(const int16_t id_dev, const bool alarm , const bool newf = false );
 protected:
     virtual void emitSigChange() ;
 

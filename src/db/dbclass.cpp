@@ -85,7 +85,7 @@ bool DBClass::isValid( QSqlQuery & query )
 
 bool DBClass::createNotify(const QString &notify ,const QObject * receiver, const char * method )
 {
-    qDebug( ) << "DBClass::createNotify notify = " << notify;
+    qDebug( ) << "DBClass::createNotify notify = " << notify << " slot = " << method ;
         QSqlDatabase::database().driver()->unsubscribeFromNotification ( notify ); // переподключаем
         QSqlDatabase::database().driver()-> disconnect( SIGNAL(notification(const QString&)), receiver );
 

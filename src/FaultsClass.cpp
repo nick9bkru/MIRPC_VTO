@@ -15,7 +15,7 @@ void FaultsClass::update (  )
           if ( it2 == std::end( fault ) )
           {
             //включаем аварию на кнопке
-              objUpd->getObject( it.id_obj )->setAlarmDev( it.id_dev, true ) ;
+              objUpd->getObject( it.id_obj )->setAlarmDev( it.id_dev, true , it.newf ) ;
               qDebug() << "  it.id_obj  ========" << it.id_obj << " = " <<  it.id_dev;
             //  objUpd->getObject( it.id_obj )->set);
 

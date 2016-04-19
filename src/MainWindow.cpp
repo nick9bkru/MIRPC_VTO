@@ -19,10 +19,6 @@ MainWindow::MainWindow( bool multDisp,UbdaterClass *upb ,  QWidget *parent ) : Q
 
     mainF->move( WidthScreen * multDisp, 0);
 
-    updTimer = new QTimer ( this );
-    connect( updTimer, SIGNAL(timeout()), this, SLOT(start()) ) ;
-    updTimer->start( 10000 );
-
 //    BlinkingClass * blnk = new BlinkingClass(  1000 );
 
 //    blnk->addFrame( rigthFrame );
@@ -41,22 +37,7 @@ MainWindow::~MainWindow()
 {
     delete NonConnDB;
 };
-////////////////////////////////////////////////////////////////////
-void MainWindow::start()
-{
-       try
-       {
-       // Util::Singleton<ObjectsUpdater>::getInstance().updateAll(); ;
-      //  qDebug() << " start() :: " ;
-       // mainF->updateState();
-    //    mainF->stateChan->updateState();
-//        rigthFrame-> updateState( );
-       } catch ( std::string &e)
-       {
-           qDebug() << " ERROR on MainWindow::start() :: " << e.c_str();
 
-       }
-};
 ////////////////////////////////////////////////////////////////////
 void MainWindow::ShowNoConn ( const bool & b)
 {

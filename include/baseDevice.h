@@ -1,11 +1,13 @@
 #ifndef BASEDEVICE_H
 #define BASEDEVICE_H
+
 #include <QObject>
 #include <QString>
 class baseDevice : public QObject
 {
     Q_OBJECT
 public:
+
     baseDevice();
     /**
      * @brief setName - установить имя
@@ -13,16 +15,22 @@ public:
      */
     virtual void setName( QString _name );
     virtual bool isAlarm() const;
-    virtual void setAlarm (const bool al );
+    virtual void setAlarm (const bool al, const bool newf = false );
     virtual int16_t getId() const ;
     virtual QString getName() const;
     virtual bool getConf() const;
+    /**
+     * @brief SetConf ввести в конфигурацию
+     * @param ok
+     */
+    virtual void setConf( const bool ok );
     virtual bool isClicked() const;
     virtual void setClicked( const bool cli );
     virtual bool isBlink() const;
     virtual void setBlink( const bool bli ) ;
     virtual void setlostErr( const bool lErr );
-    virtual bool islostErr();
+    virtual bool islostErr() const;
+    virtual bool isNewErr() const ;
 protected:
     virtual void emitSigChange() = 0 ;
     /**
@@ -61,6 +69,12 @@ protected:
      * @brief lErr ропущенная ошибка
      */
     bool lErr;
+
+    /**
+     * @brief newf новое или нет ошибка
+     */
+    bool newf;
+
 
 };
 

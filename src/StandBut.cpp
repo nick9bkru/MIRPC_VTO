@@ -19,17 +19,29 @@ void StandBut::updState()
 {
     qDebug( ) << "void StandBut::updState() ";
     setText( dev->getName() );
-    if ( ! dev->isBlink() )
+    if ( !dev->getConf() )
     {
-        if ( !dev->isAlarm() && dev->isClicked() )
-        {
-            setColor( getColor() );
-        } else
-       if ( !dev->isAlarm() && dev->islostErr() )
-            {
-               setColor( RED, true );
-            }
-    }
+      setEnabled( false );
+      setBorder( false );
+      setColor( GREY );
+      return;
+    } ;
+    if ( dev->isAlarm() ) // если авария
+    {
+        if ( dev->isNewErr() ) // если новая
+        {   setBorder( false );
+            setColor( RED, true );
+        } else // если старая
+          {
+            // красный бортик
+            setColor( getColor(), true );
+            setBorder( true );
+          };
+    } else
+    {
+        setColor( getColor(), true );
+
+    };
 };
 
 void StandBut::reactClick()

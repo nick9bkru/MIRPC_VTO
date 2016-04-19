@@ -52,6 +52,7 @@ public:
     {
       int16_t id;
       QString name;
+      bool conf;
     };
     typedef struct SObjDev ObjDev;
     typedef std::vector < ObjDev> VecObjDev;
@@ -76,6 +77,7 @@ public:
         QDate date;
        int16_t id_obj;
        int16_t id_dev;
+       bool newf;
        bool operator==(const struct SFault& left);
     };
     typedef struct SFault Fault;

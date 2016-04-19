@@ -50,7 +50,7 @@ dbMainObject::VecObjDev dbMainObject::getDev (int id)
     db->isOpened ();
     VecObjDev ret;
     ObjDev buf;
-    QString str = std::move( QString("SELECT num, nazv FROM devices WHERE kod_obj = %1 order by num;" ).arg( id ) );
+    QString str = std::move( QString("SELECT num, nazv, konf FROM devices WHERE kod_obj = %1 order by num;" ).arg( id ) );
 
     QSqlQuery query ( str );
 
@@ -59,6 +59,8 @@ dbMainObject::VecObjDev dbMainObject::getDev (int id)
     {
         buf.id = query.value( 0 ).toInt();
         buf.name = query.value( 1 ).toString();
+        buf.conf = query.value( 2 ).toBool();
+
         ret.push_back( buf );
     }
 
@@ -85,7 +87,7 @@ dbMainObject::FaultsType dbMainObject::getFaults()
 {
     FaultsType ret;
     Fault buf;
-    QString str = "select dt,obj_num, dev_num from tek_faults order by dt;";
+    QString str = "select dt,obj_num, dev_num, newf from tek_faults order by dt;";
     QSqlQuery query ( str );
     db->isValid ( query );
     while (query.next())
@@ -93,6 +95,7 @@ dbMainObject::FaultsType dbMainObject::getFaults()
         buf.date = query.value(0).toDate() ;
         buf.id_obj = query.value(1).toInt() ;
         buf.id_dev = query.value(2).toInt() ;
+        buf.newf = query.value(3).toBool();
         ret.push_back( buf );
     }
     return std::move( ret );
@@ -100,5 +103,8 @@ dbMainObject::FaultsType dbMainObject::getFaults()
 
 bool dbMainObject::Fault::operator==(const dbMainObject::Fault& left)
 {
-  return ( left.date == date ) && ( left.id_dev == id_dev ) && ( left.id_obj == id_obj );
+  return ( left.date == date ) &&
+          ( left.id_dev == id_dev ) &&
+            ( left.id_obj == id_obj ) &&
+             ( left.newf == newf ) ;
 };

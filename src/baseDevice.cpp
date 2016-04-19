@@ -12,13 +12,14 @@ bool baseDevice::isAlarm() const
  return alarm;
 };
 
-void baseDevice::setAlarm ( const bool al )
+void baseDevice::setAlarm (const bool al , const bool newf)
 {
-        setClicked( false );
-        setBlink ( al );
         alarm = al;
-        setlostErr ( true );
-     //   qDebug( ) << "void baseDevice::setAlarm " << al;
+        this->newf = newf;
+        if ( al )
+        {
+              setlostErr ( false );
+        };
         emitSigChange();
 };
 
@@ -34,7 +35,11 @@ QString baseDevice::getName() const
 
 void baseDevice::setName( QString _name )
 {
-    name = _name;
+    if ( name != _name )
+    {
+        name = _name;
+        emitSigChange();
+    };
 };
 
 bool baseDevice::isClicked() const
@@ -57,23 +62,36 @@ bool baseDevice::getConf( ) const
  return conf;
 };
 
- bool baseDevice::isBlink() const
- {
+bool baseDevice::isBlink() const
+{
   return blink;
- };
+};
 
 void baseDevice::setBlink( const bool bli )
 {
   blink = bli;
 };
 
-bool baseDevice::islostErr()
+bool baseDevice::islostErr() const
 {
   return lErr;
-}
+};
 
 void baseDevice::setlostErr( const bool lErr )
 {
   this->lErr = lErr;
-}
+};
 
+bool baseDevice::isNewErr() const
+{
+return newf;
+};
+
+void baseDevice::setConf( const bool ok )
+{
+  if ( conf != ok )
+  {
+   conf = ok;
+   emitSigChange();
+  }
+};

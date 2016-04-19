@@ -40,26 +40,6 @@ void ObjectClass::removeDevices()
     rePaint = true;
 };
 
-void ObjectClass::setName( QString _name )
-{
-    if ( _name != name )
-    {
-
-     name= _name;
-     emitSigChange();
-    }
-};
-
-void ObjectClass::setConf( bool ok )
-{
-  if ( conf != ok )
-  {
-
-   conf = ok;
-   emitSigChange();
-  }
-};
-
 ObjectClass::DevisesType * ObjectClass::getDevices()
 {
   return &Devices;
@@ -75,14 +55,14 @@ void ObjectClass::emitRefresh()
   }
 }
 
-bool ObjectClass::setAlarmDev( const int16_t id_dev, const bool alarm )
+bool ObjectClass::setAlarmDev( const int16_t id_dev, const bool alarm, const bool newf )
 {
     auto dev = getDevice ( id_dev );
 
     if ( dev == NULL )
         return false;
 
-    dev->setAlarm( alarm );
+    dev->setAlarm( alarm, newf );
     if ( !alarm )
     {
         bool _alarm = false;
@@ -107,4 +87,5 @@ void ObjectClass::emitSigChange()
 {
     emit changeState ( id );
 };
+
 

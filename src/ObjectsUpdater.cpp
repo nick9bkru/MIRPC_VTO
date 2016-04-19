@@ -70,10 +70,11 @@ void ObjectsUpdater::updateObjDev(ObjectClass *obj )
          /// UPDATE DEVICE
          //прописываем имя в класс и если еще что то надо в будущем !
          devIt.value()->setName( it.name );
+         devIt.value()->setConf( it.conf );
          /////
         } else
         {
-            DeviceClass* _dev = new DeviceClass ( it.name  , it.id );
+            DeviceClass* _dev = new DeviceClass ( it.name  , it.id, it.conf );
             obj->setDevice( _dev->getId() ,  _dev );
         };
 //        qDebug () << " ID == " << it.id << " name == "<< it.name ;
@@ -96,6 +97,7 @@ ObjectClass* ObjectsUpdater::getObject ( int16_t id) const
 
 void ObjectsUpdater::updateDev( )
 {
+    qDebug() << "ObjectsUpdater::updateDev( )";
     dbMainObject::chngType num = std::move ( dbObj->getChange() );
     for ( auto &it : num )
       {

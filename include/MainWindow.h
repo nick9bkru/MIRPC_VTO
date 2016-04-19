@@ -24,9 +24,7 @@ public:
   MainWindow(bool multDisp , UbdaterClass *upb, QWidget *parent = 0);
   ~MainWindow();
 
-public  slots:
-  void start();
-//private slots:
+private slots:
   void ShowNoConn (const bool &b);
 private:
   MainFrame * mainF ;

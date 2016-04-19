@@ -28,7 +28,7 @@ UbdaterClass::~UbdaterClass()
 
 void UbdaterClass::devNotify(  const QString & name  )
 {
-    qDebug( ) << "Notify == "<< name ;
+    qDebug( ) << "1 Notify == "<< name ;
     try
     {
       objUpd->updateDev( );
@@ -41,7 +41,7 @@ void UbdaterClass::devNotify(  const QString & name  )
 
 void UbdaterClass::objNotify(  const QString & name  )
 {
-    qDebug( ) << "Notify == "<< name ;
+    qDebug( ) << "2 Notify == "<< name ;
     try
     {
         objUpd->updateObj();
@@ -54,7 +54,7 @@ void UbdaterClass::objNotify(  const QString & name  )
 
 void UbdaterClass::faultNotify(const QString & name )
 {
-    qDebug( ) << "Notify == "<< name ;
+    qDebug( ) << "3 Notify == "<< name ;
     try
     {
           faultUpd->update();

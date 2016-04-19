@@ -30,9 +30,11 @@ public:
     void setText (const QString &str);
 
     CLR getColor () const ;
+
     void mousePressEvent ( QMouseEvent * e );
     void setFont( const QFont & f);
     QString text () const;
+    void setBorder( const bool &b );
 private slots:
     void clickSlot();
 signals:

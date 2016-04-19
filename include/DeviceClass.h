@@ -13,13 +13,12 @@ class DeviceClass : public baseDevice
 {
     Q_OBJECT
 public:
-    DeviceClass( QString _name , int16_t _id = 0);
+    DeviceClass( const QString _name , const int16_t _id = 0, const bool conf = 0);
     void setId( int16_t _id );
-    virtual void setName( QString _name ) override;
 signals:
     void changeState( int16_t & );
-private:
-    bool getConf( ) const override;
+//private:
+//    bool getConf( ) const override;
 protected:
     virtual void emitSigChange() ;
 };

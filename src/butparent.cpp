@@ -112,3 +112,16 @@ void ButParent::reactClick()
        setColor( RED, true );
     }
 };
+
+void ButParent::setBorder( const bool &b )
+{
+    QString str;
+    if ( b )
+    {
+        str = "QPushButton {border: 4px solid red;}";
+    } else
+    {
+        str = "QPushButton {border: 0px;}";
+    };
+    setStyleSheet( str );
+};
