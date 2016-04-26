@@ -5,6 +5,7 @@
 #include "include/db/dbFinder.h"
 #include "include/ObjectsUpdater.h"
 #include "include/FaultsClass.h"
+#include "include/ActiveDev.h"
 /**
  * @brief The UbdaterClass class
  * Класс обновляющий все
@@ -12,11 +13,13 @@
 class UbdaterClass: public QObject
 {
     Q_OBJECT
-    const QString tbl[3] = { "OBJECTS" , "DEVICES", "TEK_FAULT" };
+    const QString tbl[5] = { "OBJECTS" , "DEVICES", "TEK_FAULT", "MISSED", "ACTPU" };
     enum table {
         OBJECTS ,
         DEVICES ,
-        FAULTS
+        FAULTS,
+        LOSTFAULTS,
+        ACTPU
     };
 public:
     UbdaterClass(DBClass *bd);
@@ -46,6 +49,7 @@ public slots:
      *
      */
     void faultNotify(const QString & );
+    void Notify(const QString & name );
     /**
      * @brief newStateConn
      * @param b
@@ -54,6 +58,7 @@ public slots:
 private:
     ObjectsUpdater * objUpd;
     FaultsClass * faultUpd;
+    ActiveDev * activedev;
     dbFinder * f;
     /**
      * @brief loadNotify

@@ -23,6 +23,10 @@ public:
       int id;
       QString name;
       int8_t chng;
+      bool reg; //регламент
+      bool fault; // ошибка
+      bool lost_fault; // пропущеная ошибка
+      int8_t active;
      };
 
     typedef struct ObjStruct Obj;
@@ -41,9 +45,6 @@ public:
     ///  получаем состояние состояние объекта
     //////////////////////////////////////////////////////////////////////////
     VecObj getObject ( );
-
-
-
     //////////////////////////////////////////////////////////////////////////
     /// \brief The ObjStruct struct
     ///структура для описания состояния оборудования объекта
@@ -53,6 +54,8 @@ public:
       int16_t id;
       QString name;
       bool conf;
+      bool frag;
+      bool operator==(const struct SObjDev& left);
     };
     typedef struct SObjDev ObjDev;
     typedef std::vector < ObjDev> VecObjDev;
@@ -87,6 +90,44 @@ public:
      * @return получаем вектор с ошибками
      */
     FaultsType getFaults();
+    /**
+     * @brief The SLostFault struct
+     * структура для описания пропущенной ошибки
+     */
+    struct SLostFault
+    {
+        QDate date;
+       int16_t id_obj;
+       int16_t id_dev;
+       bool operator==(const struct SLostFault& left);
+    };
+    typedef struct SLostFault LostFault;
+    /**
+     * @brief LostFaultsType
+     * контейнер с пропущеными ошибками
+     */
+    typedef QList < LostFault> LostFaultsType;
+    /**
+     * @brief getLostFaults
+     * @return получаем вектор с пропущенными ошибками
+     */
+    LostFaultsType getLostFaults();
+
+    /**
+     * @brief The SActive struct
+     * активные
+     */
+    struct SActive
+    {
+        //QDate date;
+       int16_t id_obj;
+       int16_t id_dev;
+       int8_t active;
+       bool operator==(const struct SActive& left);
+    };
+    typedef struct SActive ActiveType;
+    typedef QList < SActive> ListActiveType;
+    ListActiveType getListActive();
 private:
     DBClass * db ;
 

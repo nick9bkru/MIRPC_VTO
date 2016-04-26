@@ -8,6 +8,13 @@ class baseDevice : public QObject
     Q_OBJECT
 public:
 
+    enum CONST_ACTIVE
+    {
+        NOACTIVE = 0,
+        ACTIVE = 1,
+        CONNECT = 2
+    };
+
     baseDevice();
     /**
      * @brief setName - установить имя
@@ -28,9 +35,29 @@ public:
     virtual void setClicked( const bool cli );
     virtual bool isBlink() const;
     virtual void setBlink( const bool bli ) ;
-    virtual void setlostErr( const bool lErr );
-    virtual bool islostErr() const;
+    virtual void setlostAlarm( const bool lErr );
+    virtual bool islostAlarm() const;
     virtual bool isNewErr() const ;
+    /**
+     * @brief setActive становить активность
+     * @param active
+     */
+    void setActive(const int8_t active );
+    /**
+     * @brief isActive активно ли ?
+     * @return
+     */
+    CONST_ACTIVE isActive() const;
+    /**
+     * @brief setReg становить регламент
+     * @param active
+     */
+    void setReg(const bool reg );
+    /**
+     * @brief isReg регламент ли ?
+     * @return
+     */
+    bool isReg() const;
 protected:
     virtual void emitSigChange() = 0 ;
     /**
@@ -75,6 +102,14 @@ protected:
      */
     bool newf;
 
+    /**
+     * @brief reg регламент
+     */
+    bool reg;
+    /**
+     * @brief active ктивность
+     */
+    CONST_ACTIVE active ;
 
 };
 

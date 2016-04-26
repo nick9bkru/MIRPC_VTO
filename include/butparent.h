@@ -18,11 +18,15 @@ public:
         GREEN = 0,
         RED,
         GREY,
+        WHITE,
+        YELLOW,
+        BLUE,
         DEFAULT
     };
     ButParent(QWidget *parent = 0);
     virtual ~ButParent();
     void setColor( CLR color , bool err = false );
+    void setSecondColor( CLR clr );
     virtual bool isBlink() const ;
     /**
      * слот для установки текста на кнопке
@@ -44,6 +48,8 @@ private :
     QLabel *lbl;
     CLR color;
     QString defColor;
+    QString getColotStr( CLR clr );
+    QString secColor;
 protected:
     baseDevice * dev;
     virtual void reactClick();

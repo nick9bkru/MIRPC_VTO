@@ -45,6 +45,20 @@ public:
      * @return
      */
     bool setAlarmDev(const int16_t id_dev, const bool alarm , const bool newf = false );
+    /**
+     * @brief setActive сделать устройство активным
+     * @param id_dev
+     * @param active
+     * @return
+     */
+    bool setActiveDev ( const int16_t id_dev, const int8_t active);
+    /**
+     * @brief setLostAlarmDevпотерянная авария
+     * @param id_dev номер устройства
+     * @param alarm true - ключить, false - отключить
+     * @return
+     */
+    bool setLostAlarmDev( const int16_t id_dev, const bool alarm);
 protected:
     virtual void emitSigChange() ;
 
