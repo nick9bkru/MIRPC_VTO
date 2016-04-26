@@ -73,38 +73,47 @@ void ChanButton::slotChange(QAction*)
 void ChanButton::refresh()
 {
     qDebug()<< "ChanButton::refresh " << dev->getName();
+
   if ( dev->getConf() )
   {
       setText( dev->getName() );
   } else
   {
-
       setText( "" );
   };
   setEnabled( dev->getConf() );
 
+  dev->setBlink( false );
+  setColor( DEFAULT );
+
+  if ( dev->isActive() != baseDevice::NOACTIVE )
+  {
+      if ( dev->isActive() == baseDevice::CONNECT )
+      {
+          setSecondColor( GREEN );
+          dev->setBlink( true );
+
+      } else
+      {
+          setColor( GREEN );
+      }
+  }
+
   if ( dev->isAlarm() ) // если авария
   {
         setBorder( false );
-        setColor( RED, true );
+        setColor( RED );
 
   } else
   {
       if ( dev->islostAlarm() )
       {
-          setColor( YELLOW, true );
+          setColor( YELLOW );
       } else
       if ( dev->isReg() )
       {
-          setColor( BLUE, true );
-      } else
-      if ( dev->isActive() != baseDevice::NOACTIVE )
-      {
-          setColor( GREEN , true );
-      } else
-      {
-          setColor( getColor(), true );
-      };
+          setColor( BLUE );
+      }
   }
 }
 

@@ -10,7 +10,7 @@ MainFrame::MainFrame( QWidget *parent ): QFrame(parent), Ui::mainFrame()
  // setFrameStyle(QFrame::Box | QFrame:: Raised);
   stateChan[0] = new StateChanFrame( StateChanWidget1 );
   stateChan[1] = new StateChanFrame( StateChanWidget2 );
-
+  stateChan[1]->changeDirection( 11 );
 
   ChanButSig = new QSignalMapper ( this );
 //   connect( ChanButSig, SIGNAL(mapped( const int & )),

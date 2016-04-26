@@ -19,12 +19,27 @@ void StandBut::updState()
 {
     qDebug( ) << "void StandBut::updState() " << dev->getName();
     setText( dev->getName() );
+    dev->setBlink( false );
+    setColor( DEFAULT );
     if ( !dev->getConf() )
     {
       setBorder( false );
       setColor( WHITE );
       return;
     } ;
+    if ( dev->isActive() != baseDevice::NOACTIVE )
+    {
+        if ( dev->isActive() == baseDevice::CONNECT )
+        {
+            setSecondColor( GREEN );
+            dev->setBlink( true );
+
+        } else
+        {
+            setColor( GREEN );
+        }
+    }
+
     if ( dev->isAlarm() ) // если авария
     {
         if ( dev->isNewErr() ) // если новая
@@ -39,6 +54,7 @@ void StandBut::updState()
     } else
     {
       //  setColor( getColor(), true );
+
         setBorder( false );
         if ( dev->islostAlarm() )
         {
@@ -47,20 +63,8 @@ void StandBut::updState()
         if ( dev->isReg() )
         {
             setColor( BLUE);
-        } else
-        if ( dev->isActive() != baseDevice::NOACTIVE )
-        {
-            if ( dev->isActive() == baseDevice::CONNECT )
-            {
-                setSecondColor( GREEN );
-            } else
-            {
-                setColor( GREEN );
-            }
-        } else
-        {
-            setColor( DEFAULT );
-        };
+        } ;
+
     };
 
 

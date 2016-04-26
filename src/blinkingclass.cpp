@@ -3,7 +3,7 @@
 #include <QObjectList>
 #include "include/butparent.h"
 
-BlinkingClass::BlinkingClass( int _msec ): red( false )
+BlinkingClass::BlinkingClass( int _msec ): second( false )
 {
     qDebug() << "BlinkingClass::BlinkingClass( |"<< _msec<< "| ";
     t = new QTimer ( );
@@ -26,7 +26,7 @@ void BlinkingClass::blinkingSlot()
         {
             if ( but->isBlink () )
             {
-                ButParent::CLR clr = red ? ButParent::CLR::RED : but->getColor ();
+                ButParent::CLR clr = second ? but->getSecondColor(  ) : but->getColor ();
                 but->setColor ( clr, true );
 
             };
@@ -34,7 +34,7 @@ void BlinkingClass::blinkingSlot()
            // but->setColor (DeviceBut::CLR::RED);
         }
     };
-    red = !red;
+    second = !second;
 };
 
 void BlinkingClass::addFrame ( QObject * frame)

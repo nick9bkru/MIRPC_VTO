@@ -41,6 +41,7 @@ void StateChanFrame::createStateBut( )
       StateBut.push_back( but );
       num++;
   }*/
+
 };
 /////////////////////////////////////////////////////
 void StateChanFrame::deleteAllBut()
@@ -57,7 +58,16 @@ void StateChanFrame::deleteAllBut()
 void StateChanFrame::changeDirection( const int & _id )
 {
   //qDebug( "StateChanFrame::changeDirection %d", _id );
-  id = _id;
+    if ( _id == 0 )
+        return;
+  id = _id + 1;
+  //////////////////////////////////////////////////
+  BSPUR1->setColor( ButParent::DEFAULT  );
+  if ( id == 2 )
+  {
+      BSPUR1->setColor( ButParent::GREEN  );
+  }
+  /////////////////////////////////////////////////
   changeTextDir(  );
     createStateBut();
 };

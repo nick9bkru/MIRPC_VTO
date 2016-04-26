@@ -50,7 +50,12 @@ void ButParent::setColor( CLR clr , bool err)
 
 void ButParent::setSecondColor( CLR clr )
 {
-  secColor =  getColotStr( clr );
+  secColor =  clr ;
+};
+
+ButParent::CLR ButParent::getSecondColor(  ) const
+{
+  return  secColor ;
 };
 
 QString ButParent::getColotStr( CLR clr )

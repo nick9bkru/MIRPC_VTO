@@ -11,7 +11,7 @@ class BlinkingClass : public QObject
     ~BlinkingClass( );
     void addFrame ( QObject * frame);
  private:
-    bool red ;
+    bool second ;
     QTimer * t;
     std::vector < QObject * > GridFrame;
 public slots:
