@@ -37,7 +37,8 @@ SOURCES += \
     src/notConnectionDb.cpp \
     src/FaultsClass.cpp \
     src/UbdaterClass.cpp \
-    src/baseDevice.cpp
+    src/baseDevice.cpp \
+    src/ActiveDev.cpp
 
 HEADERS  += \
     include/StateChanFrame.h \
@@ -65,7 +66,8 @@ HEADERS  += \
     include/notConnectionDb.h \
     include/FaultsClass.h \
     include/UbdaterClass.h \
-    include/baseDevice.h
+    include/baseDevice.h \
+    include/ActiveDev.h
 
 FORMS    += \
     ui/rightWidget.ui \

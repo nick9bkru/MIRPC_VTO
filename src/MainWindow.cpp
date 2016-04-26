@@ -6,7 +6,7 @@
 ////////////////////////////////////////////////////////////////////
 MainWindow::MainWindow( bool multDisp,UbdaterClass *upb ,  QWidget *parent ) : QMainWindow(parent), NonConnDB( nullptr )
 {
-    setGeometry (0 ,0 , ( 1 + multDisp * 1)*WidthScreen, HeightScreen);
+    setGeometry (WidthScreen *multDisp  ,0 ,WidthScreen, HeightScreen);
 
 
     setWindowFlags(Qt::FramelessWindowHint/* | Qt::WindowStaysOnBottomHint*/); // отключаем меню сверху окна
@@ -17,7 +17,7 @@ MainWindow::MainWindow( bool multDisp,UbdaterClass *upb ,  QWidget *parent ) : Q
     rigthFrame = new rightWidget( mainF->RmoWidget );
     objpa = new ObjectPA ( mainF->ObjPAWidget );
 
-    mainF->move( WidthScreen * multDisp, 0);
+//  mainF->move( WidthScreen * multDisp, 0);
 
 //    BlinkingClass * blnk = new BlinkingClass(  1000 );
 

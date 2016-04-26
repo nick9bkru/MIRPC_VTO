@@ -18,7 +18,7 @@ ButParent::ButParent( QWidget *parent ): QPushButton (parent), lbl(new QLabel ( 
 
        setLayout(layout);
        defColor = styleSheet();
-       connect( this, SIGNAL ( clicked() ) , this , SLOT ( clickSlot ()) );
+      // connect( this, SIGNAL ( clicked() ) , this , SLOT ( clickSlot ()) );
 }
 ButParent::~ButParent()
 {
@@ -45,6 +45,16 @@ void ButParent::setColor( CLR clr , bool err)
     if ( !err )
         color = clr ;
  // qDebug( "ChanButton::setText" );
+  setStyleSheet( getColotStr( clr ) );
+};
+
+void ButParent::setSecondColor( CLR clr )
+{
+  secColor =  getColotStr( clr );
+};
+
+QString ButParent::getColotStr( CLR clr )
+{
     QString sclr;
     switch (clr) {
     case GREEN:
@@ -56,6 +66,15 @@ void ButParent::setColor( CLR clr , bool err)
     case GREY:
             sclr = "background-color: rgb(240,240,240);";
         break;
+    case WHITE:
+            sclr = "background-color: rgb(255,255,255);";
+        break;
+    case YELLOW:
+            sclr = "background-color: rgb(255,255,0);";
+        break;
+    case BLUE:
+            sclr = "background-color: rgb(12,155,255);";
+        break;
     case DEFAULT:
             sclr = defColor;
         break;
@@ -63,9 +82,8 @@ void ButParent::setColor( CLR clr , bool err)
         sclr = "background-color: rgb(255,255,255);";
         break;
     }
-  setStyleSheet( sclr );
+    return sclr;
 };
-
 
 void ButParent::mousePressEvent ( QMouseEvent * e )
 {
@@ -121,7 +139,9 @@ void ButParent::setBorder( const bool &b )
         str = "QPushButton {border: 4px solid red;}";
     } else
     {
-        str = "QPushButton {border: 0px;}";
+        str = "QPushButton {border: 2px solid #6593cf;border-color: navy}";
     };
     setStyleSheet( str );
 };
+
+

@@ -13,8 +13,8 @@ MainFrame::MainFrame( QWidget *parent ): QFrame(parent), Ui::mainFrame()
 
 
   ChanButSig = new QSignalMapper ( this );
-   connect( ChanButSig, SIGNAL(mapped( const int & )),
-             this, SLOT( ChanButClicked( const int & )));
+//   connect( ChanButSig, SIGNAL(mapped( const int & )),
+//             this, SLOT( ChanButClicked( const int & )));
   connect( ChanButSig, SIGNAL(mapped( const int & )),
              stateChan[0] , SLOT( changeDirection( const int & )));
 //
@@ -48,7 +48,7 @@ void MainFrame::createChBut()
       j = num % row;
       i = num / row;
     // qDebug() << "id = " << it.id << " Name == " <<(it).name << " err == " << it.err ;
-      ChanButton * b = new ChanButton (  this, num + 1);
+      ChanButton * b = new ChanButton (  this, num );
     //  setButState ( b,  &it);
       ChanBut.push_back( b );
       gridChannel->addWidget( b , i, j);

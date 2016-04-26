@@ -83,6 +83,30 @@ bool ObjectClass::setAlarmDev( const int16_t id_dev, const bool alarm, const boo
     return true;
 };
 
+bool ObjectClass::setLostAlarmDev( const int16_t id_dev, const bool alarm)
+{
+    auto dev = getDevice ( id_dev );
+
+    if ( dev == NULL )
+        return false;
+
+    dev->setlostAlarm( alarm );
+
+    return true;
+};
+
+bool ObjectClass::setActiveDev( const int16_t id_dev, const int8_t active)
+{
+    auto dev = getDevice ( id_dev );
+
+    if ( dev == NULL )
+        return false;
+
+    dev->setActive( active );
+
+    return true;
+};
+
 void ObjectClass::emitSigChange()
 {
     emit changeState ( id );

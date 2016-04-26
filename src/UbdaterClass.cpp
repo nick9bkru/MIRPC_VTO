@@ -12,6 +12,7 @@ UbdaterClass::UbdaterClass( DBClass* bd )
     objUpd = new ObjectsUpdater( dbMain );
     Util::Singleton<ObjectsUpdater>::init(  objUpd ) ;
     faultUpd = new FaultsClass ( dbMain, objUpd );
+    activedev = new ActiveDev ( dbMain, objUpd  );
 
     f = new dbFinder ( 2000 ); //  2 секунды
     connect( f, SIGNAL( dbConnect( const bool & ) ), this, SLOT(newStateConn( const bool & )) );
@@ -24,6 +25,7 @@ UbdaterClass::~UbdaterClass()
     delete f;
     delete objUpd;
     delete faultUpd;
+    delete activedev;
 }
 
 void UbdaterClass::devNotify(  const QString & name  )
@@ -66,20 +68,72 @@ void UbdaterClass::faultNotify(const QString & name )
 
 }
 
+void UbdaterClass::Notify(const QString & name )
+{
+    qDebug( ) << "4 Notify == "<< name ;
+    try
+    {
+        if ( name == tbl [FAULTS])
+        {
+           faultUpd->update();
+        } else
+        if ( name == tbl [OBJECTS])
+        {
+           objUpd->updateObj();
+        }else
+        if ( name == tbl [DEVICES])
+        {
+           objUpd->updateDev( );
+        } else
+        if ( name == tbl [LOSTFAULTS])
+        {
+           faultUpd->updateLostFaults();
+        } else
+        if ( name == tbl [ACTPU])
+        {
+           activedev->update();
+        } ;
+
+    }
+    catch ( Util::MyException & e )
+    {
+           qDebug() << e.what();
+    };
+}
+
 void UbdaterClass::newStateConn( const bool & b)
 {
+    qDebug() << "UbdaterClass::newStateConn(" ;
+   try
+   {
     if ( b )
     {
         objUpd->updateObj( true );
         faultUpd->update();
+        faultUpd->updateLostFaults();
+        activedev->update();
         loadNotify();
     }
+   }
+   catch ( Util::MyException & e )
+   {
+           qDebug() << e.what();
+   };
+
 } ;
 
 void UbdaterClass::loadNotify()
 {
-    qDebug() << "ObjectsUpdater::loadNotify()" ;
+    qDebug() << "UbdaterClass::loadNotify()" ;
+    /*
+     TODO FIX : почему то при вызове нотифая , вызывается последний подключенный слот
     DBClass::createNotify( tbl [DEVICES] , this, SLOT( devNotify(const QString & )) );
     DBClass::createNotify( tbl [OBJECTS] , this, SLOT( objNotify(const QString & )) );
     DBClass::createNotify( tbl [FAULTS] , this, SLOT( faultNotify(const QString & )) );
+*/
+    DBClass::createNotify( tbl [DEVICES] , this, SLOT( Notify(const QString & )) );
+    DBClass::createNotify( tbl [OBJECTS] , this, SLOT( Notify(const QString & )) );
+    DBClass::createNotify( tbl [FAULTS] , this, SLOT( Notify(const QString & )) );
+    DBClass::createNotify( tbl [LOSTFAULTS] , this, SLOT( Notify(const QString & )) );
+    DBClass::createNotify( tbl [ACTPU] , this, SLOT( Notify(const QString & )) );
 };

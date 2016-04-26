@@ -5,6 +5,7 @@ FaultsClass::FaultsClass(dbMainObject *_dbMain, ObjectsUpdater * _objUpd ) : dbM
     objUpd( _objUpd )
 {
  fault.clear();
+ lostFault.clear();
 }
 
 void FaultsClass::update (  )
@@ -31,4 +32,30 @@ void FaultsClass::update (  )
     }
     fault.clear();
     fault.swap( buf );
+};
+
+void FaultsClass::updateLostFaults()
+{
+    qDebug() << " FaultsClass::updateLostFaults() " ;
+    LostFaultsType buf = std::move ( dbMain->getLostFaults() ) ;
+    foreach ( auto it , buf) {
+          auto it2 = qFind( std::begin ( lostFault ), std::end( lostFault ), it);
+          if ( it2 == std::end( lostFault ) )
+          {
+            //включаем аварию на кнопке
+             objUpd->getObject( it.id_obj )->setLostAlarmDev( it.id_dev, true ) ;
+              qDebug() << "  it.id_obj  ========" << it.id_obj << " = " <<  it.id_dev;
+
+          } else
+          {
+              lostFault.erase( it2 );
+          }
+    }
+    foreach ( auto it, lostFault)
+    {
+        //выключаем аварию на кнопке
+        objUpd->getObject( it.id_obj )->setLostAlarmDev( it.id_dev, false ) ;
+    }
+    lostFault.clear();
+    lostFault.swap( buf );
 };

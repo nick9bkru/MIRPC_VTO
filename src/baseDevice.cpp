@@ -2,7 +2,7 @@
 #include <QDebug>
 
 baseDevice::baseDevice(): alarm ( false ), click ( false ), conf( false ),
-    blink ( false ), lErr ( false )
+    blink ( false ), lErr ( false ), newf(false), reg (false), active(NOACTIVE)
 {
 
 }
@@ -18,7 +18,7 @@ void baseDevice::setAlarm (const bool al , const bool newf)
         this->newf = newf;
         if ( al )
         {
-              setlostErr ( false );
+              setlostAlarm ( false );
         };
         emitSigChange();
 };
@@ -50,11 +50,6 @@ bool baseDevice::isClicked() const
 void baseDevice::setClicked( const bool cli )
 {
  click= cli;
- if ( click )
- {
-     setlostErr ( false );
-    setBlink(  false );
- }
 };
 
 bool baseDevice::getConf( ) const
@@ -72,14 +67,32 @@ void baseDevice::setBlink( const bool bli )
   blink = bli;
 };
 
-bool baseDevice::islostErr() const
+bool baseDevice::islostAlarm() const
 {
   return lErr;
 };
 
-void baseDevice::setlostErr( const bool lErr )
+void baseDevice::setActive( const int8_t active )
 {
-  this->lErr = lErr;
+    if ( this->active != active )
+    {
+     this->active = CONST_ACTIVE (active);
+     emitSigChange();
+    };
+};
+
+baseDevice::CONST_ACTIVE baseDevice::isActive() const
+{
+  return active ;
+};
+
+void baseDevice::setlostAlarm( const bool lErr )
+{
+    if ( this->lErr != lErr )
+    {
+     this->lErr = lErr;
+     emitSigChange();
+    };
 };
 
 bool baseDevice::isNewErr() const
@@ -94,4 +107,18 @@ void baseDevice::setConf( const bool ok )
    conf = ok;
    emitSigChange();
   }
+};
+
+void baseDevice::setReg( const bool reg )
+{
+    if ( this->reg != reg )
+    {
+     this->reg = reg;
+     emitSigChange();
+    };
+};
+
+bool baseDevice::isReg() const
+{
+    return reg;
 };

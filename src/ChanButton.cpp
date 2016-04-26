@@ -83,16 +83,28 @@ void ChanButton::refresh()
   };
   setEnabled( dev->getConf() );
 
-  if ( ! dev->isBlink() )
+  if ( dev->isAlarm() ) // если авария
   {
-      if ( !dev->isAlarm() && dev->isClicked() )
+        setBorder( false );
+        setColor( RED, true );
+
+  } else
+  {
+      if ( dev->islostAlarm() )
       {
-          setColor( getColor() );
+          setColor( YELLOW, true );
       } else
-     if ( !dev->isAlarm() && dev->islostErr() )
-          {
-             setColor( RED, true );
-          }
+      if ( dev->isReg() )
+      {
+          setColor( BLUE, true );
+      } else
+      if ( dev->isActive() != baseDevice::NOACTIVE )
+      {
+          setColor( GREEN , true );
+      } else
+      {
+          setColor( getColor(), true );
+      };
   }
 }
 

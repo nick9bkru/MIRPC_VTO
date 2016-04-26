@@ -17,31 +17,53 @@ StandBut::StandBut( DeviceClass* _dev, QWidget * parent ): ButParent( parent )
 
 void StandBut::updState()
 {
-    qDebug( ) << "void StandBut::updState() ";
+    qDebug( ) << "void StandBut::updState() " << dev->getName();
     setText( dev->getName() );
     if ( !dev->getConf() )
     {
-      setEnabled( false );
       setBorder( false );
-      setColor( GREY );
+      setColor( WHITE );
       return;
     } ;
     if ( dev->isAlarm() ) // если авария
     {
         if ( dev->isNewErr() ) // если новая
         {   setBorder( false );
-            setColor( RED, true );
+            setColor( RED );
         } else // если старая
           {
             // красный бортик
-            setColor( getColor(), true );
+            setColor( getColor() );
             setBorder( true );
           };
     } else
     {
-        setColor( getColor(), true );
-
+      //  setColor( getColor(), true );
+        setBorder( false );
+        if ( dev->islostAlarm() )
+        {
+            setColor( YELLOW );
+        } else
+        if ( dev->isReg() )
+        {
+            setColor( BLUE);
+        } else
+        if ( dev->isActive() != baseDevice::NOACTIVE )
+        {
+            if ( dev->isActive() == baseDevice::CONNECT )
+            {
+                setSecondColor( GREEN );
+            } else
+            {
+                setColor( GREEN );
+            }
+        } else
+        {
+            setColor( DEFAULT );
+        };
     };
+
+
 };
 
 void StandBut::reactClick()

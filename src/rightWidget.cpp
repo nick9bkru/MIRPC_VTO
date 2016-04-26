@@ -40,7 +40,7 @@ void rightWidget::deleteAllBut()
     delete it;
   };
   DevBut.clear();
-  qDebug() << "!!!!!!!!!!! == " <<DevBut.size();
+  //qDebug() << "!!!!!!!!!!! == " <<DevBut.size();
 
 };
 
@@ -56,7 +56,7 @@ void rightWidget::refresh( int16_t b )
 
       for ( auto &it : *dev )
      {
-         qDebug() <<  it->getName();
+      //   qDebug() <<  it->getName();
           but =  new StandBut( it, this ) ;
              //  but->setMinimumWidth(70);
               gridPc->addWidget( but, num / CountRow , num % CountRow);

@@ -12,7 +12,7 @@
 #include <memory>
 using namespace std;
 
-const QString confFile = "../mirpc_vto/mir_vto.conf";
+const QString confFile = "/etc/mir_vto.conf";
 void start()
 {
   cout << "=============================" <<endl;
@@ -61,7 +61,7 @@ int main (int argc, char *argv[])
   UbdaterClass updClass ( db.get() );
 
    loadStyle( settings->value( "StyleFile" ).toString() );
-   MainWindow w( argc > 2, &updClass );
+   MainWindow w( argc > 1, &updClass );
     w.show();
   return a->exec();
 

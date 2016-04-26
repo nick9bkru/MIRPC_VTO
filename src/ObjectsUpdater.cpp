@@ -39,8 +39,14 @@ void ObjectsUpdater::updateObj( const bool first )
 
       if ( (itObj != obj.end()) &&  (it->getId() == itObj->id ) )
       {
+       //////////////////////
         it->setConf( true );
         it->setName ( itObj-> name  );
+        it->setReg ( itObj-> reg );
+        it->setAlarm ( itObj-> fault );
+        it->setlostAlarm ( itObj-> lost_fault );
+        it->setActive ( itObj-> active );
+       /////////////////////////////
         if ( itObj-> chng || first )
         {
             updateObjDev ( it );
@@ -71,11 +77,17 @@ void ObjectsUpdater::updateObjDev(ObjectClass *obj )
          //прописываем имя в класс и если еще что то надо в будущем !
          devIt.value()->setName( it.name );
          devIt.value()->setConf( it.conf );
+         devIt.value()->setReg ( it.conf && it.frag );
          /////
         } else
         {
             DeviceClass* _dev = new DeviceClass ( it.name  , it.id, it.conf );
             obj->setDevice( _dev->getId() ,  _dev );
+            /// UPDATE DEVICE
+            //прописываем имя в класс и если еще что то надо в будущем !
+            _dev->setName( it.name );
+            _dev->setConf( it.conf );
+            _dev->setReg ( it.conf && it.frag );
         };
 //        qDebug () << " ID == " << it.id << " name == "<< it.name ;
   };
