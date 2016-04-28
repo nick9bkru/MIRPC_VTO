@@ -14,6 +14,7 @@ dbFinder::dbFinder( int msec ): con( -1 )
 
 void dbFinder::start()
 {
+    timerSlot();
     timer->start();
 };
 
