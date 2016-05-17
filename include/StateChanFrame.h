@@ -7,7 +7,9 @@
 
 #include "ui_StateChanFrame.h"
 #include "include/define.h"
-
+#include "include/db/dbDevices.h"
+#include "include/BSPurWid.h"
+#include "include/OtherDevWid.h"
 
 class StateChanFrame : public QFrame, Ui::ChanFrame
 {
@@ -45,7 +47,7 @@ private:
   std::vector <DeviceBut*> StateBut;
   void changeTextDir( );
   int id;
-
+    dbDevices * db;
   QSignalMapper * ClickerMap;
 };
 

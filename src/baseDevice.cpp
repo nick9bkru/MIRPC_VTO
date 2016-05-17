@@ -7,6 +7,11 @@ baseDevice::baseDevice(): alarm ( false ), click ( false ), conf( false ),
 
 }
 
+baseDevice::~baseDevice()
+{
+
+}
+
 bool baseDevice::isAlarm() const
 {
  return alarm;

@@ -38,7 +38,13 @@ SOURCES += \
     src/FaultsClass.cpp \
     src/UbdaterClass.cpp \
     src/baseDevice.cpp \
-    src/ActiveDev.cpp
+    src/ActiveDev.cpp  \
+    src/db/dbDevices.cpp \
+    src/BSPurWid.cpp \
+    src/PurBut.cpp \
+    src/BSPurBut.cpp \
+    src/OtherDevWid.cpp \
+    src/OtherDevBut.cpp
 
 HEADERS  += \
     include/StateChanFrame.h \
@@ -67,7 +73,13 @@ HEADERS  += \
     include/FaultsClass.h \
     include/UbdaterClass.h \
     include/baseDevice.h \
-    include/ActiveDev.h
+    include/ActiveDev.h \
+    include/db/dbDevices.h \
+    include/BSPurWid.h \
+    include/PurBut.h \
+    include/BSPurBut.h \
+    include/OtherDevWid.h \
+    include/OtherDevBut.h
 
 FORMS    += \
     ui/rightWidget.ui \

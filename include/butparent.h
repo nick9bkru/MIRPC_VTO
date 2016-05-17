@@ -32,7 +32,7 @@ public:
     /**
      * слот для установки текста на кнопке
      */
-    void setText (const QString &str);
+    virtual void setText (const QString &str);
 
     CLR getColor () const ;
 

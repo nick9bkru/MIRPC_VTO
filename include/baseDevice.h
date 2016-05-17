@@ -16,6 +16,7 @@ public:
     };
 
     baseDevice();
+    virtual ~baseDevice();
     /**
      * @brief setName - установить имя
      * @param _name - имя объекта

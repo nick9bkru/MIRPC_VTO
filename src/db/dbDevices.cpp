@@ -62,7 +62,7 @@ dbDevices::DevVect dbDevices::getPur (const int8_t &gr, const QString &ip)
     DevVect ret;
     Device buf;
     QString str = std::move( QString("select num, adr from devices where  adr LIKE '%1;%' and gr = %2 order by num;" ).arg(ip).arg(gr) );
-    qDebug() << str;
+    //qDebug() << str;
     QSqlQuery query ( str );
 
      db->isValid ( query );

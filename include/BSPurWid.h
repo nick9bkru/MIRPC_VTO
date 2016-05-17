@@ -8,28 +8,37 @@
  #include <QVBoxLayout>
  #include <QHBoxLayout>
  #include <QWidget>
- #include <QPushButton>
-
+/**
+ * @brief The BSPurWid class
+ * Класс виджета, отображающий кнопку БС - ПУРа , и его содержание
+ */
 class BSPurWid : public QWidget
 {
     Q_OBJECT
+
+
+public:
     enum GROUP
     {
         BSPUR = 15,
         PUR = 1,
         PUS = 2
     };
-
-public:
-    explicit BSPurWid( QWidget *parent = 0);
+    explicit BSPurWid( dbDevices* _db,  QWidget *parent );
     ~BSPurWid();
     /**
      * @brief refreshWidjet
+     * @param id_obj - id объекта
      * @param id - id БС-ПУР
      */
-    void refreshWidjet(const int8_t &id, const QString &ip);
+    void refreshWidjet(const int8_t &id_obj, const int8_t &id, const QString &ip);
 
 private:
+    /**
+     * @brief deleteBut
+     * удаляем кнопки с виджета
+     */
+    void deleteBut();
     ObjectClass * obj;
     dbDevices * db;
     void getBSPUR();

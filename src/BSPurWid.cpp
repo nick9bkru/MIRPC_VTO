@@ -1,13 +1,14 @@
 #include "include/BSPurWid.h"
 #include "include/ObjectsUpdater.h"
 #include "include/util/Singleton.h"
+#include "include/PurBut.h"
+#include "include/BSPurBut.h"
 
-
-BSPurWid::BSPurWid( QWidget *parent) :
+BSPurWid::BSPurWid(  dbDevices* _db,  QWidget *parent) : db( _db ) ,
     QWidget(parent)
 {
     qDebug() << "BSPurWid::BSPurWid()";
-     db = new dbDevices ( &Util::Singleton<DBClass>::getInstance() );
+    setObjectName ( "BSPurWid" );
     BSPurLayout = new QVBoxLayout ( this );
     PurWid = new QWidget ( this);
     PurWid->setMinimumHeight( 100 );
@@ -21,23 +22,24 @@ BSPurWid::BSPurWid( QWidget *parent) :
 BSPurWid::~BSPurWid()
 {
     qDebug() << "BSPurWid::~BSPurWid()";
-     delete db;
-    delete BSPurLayout;
-    delete PurWid;
+    deleteBut();
 
+    delete PurLayout;
+    delete PurWid;
+    delete BSPurLayout;
 }
 
-void BSPurWid::refreshWidjet( const int8_t &id, const QString &ip)
+void BSPurWid::refreshWidjet( const int8_t &id_obj, const int8_t &id, const QString &ip)
 {
-  obj =  Util::Singleton<ObjectsUpdater>::getInstance().getObject( 12 );
+  deleteBut();
+  qDebug() << "BSPurWid::refreshWidjet()";
+  obj =  Util::Singleton<ObjectsUpdater>::getInstance().getObject( id_obj );
   if ( obj == NULL )
       return;
   this->id = id ;
-  QPushButton *but = new QPushButton ( this );
-  but->setMaximumHeight( 40 );
-  but->setSizePolicy( QSizePolicy::Expanding, QSizePolicy::Expanding );
+  QPushButton *but = new BSPurBut ( obj->getDevice( id ), this ); // кнопка БС-ПУРа
+
   BSPurLayout->addWidget( but );
-  but->setText( obj->getDevice( id)->getName()  );
 
   dbDevices::DevVect vec = std::move ( db->getPur( PUR, ip ) );
   addPurButton( &vec );
@@ -61,18 +63,24 @@ void BSPurWid::addPurButton( const dbDevices::DevVect * vec )
     QPushButton *but;
     for ( auto & it : *vec )
     {
-        QString name  ;
-        for ( auto  it2 :  obj->getDevice( it.id )->getName() )
-        {
-              name += it2 + '\n';
-        };
-        name.truncate( name.size() - 1  );
-        but = new QPushButton ( PurWid );
-        but-> setMinimumHeight( PurWid->minimumHeight() );
+        but = new PurBut ( obj->getDevice( it.id ), PurWid );// кнопка ПУРа, ПУСа
         BSPurLayout->addWidget( but );
 
-        but->setText( name  );
        PurLayout->addWidget( but );
     }
 
+}
+
+void BSPurWid::deleteBut()
+{
+    while (QLayoutItem* item = PurLayout->takeAt(0))
+    {
+            delete item->widget();
+            delete item;
+    }
+    while (QLayoutItem* item = BSPurLayout->takeAt(1))
+    {
+               delete item->widget();
+            delete item;
+    }
 }

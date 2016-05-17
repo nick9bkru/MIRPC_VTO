@@ -1,16 +1,18 @@
 #include "include/StateChanFrame.h"
-
+#include "include/util/Singleton.h"
 
 StateChanFrame::StateChanFrame( QWidget *parent ):  QFrame( parent ), Ui::ChanFrame()
 {
   qDebug( "StateChanFrame::StateChanFrame" );
   setupUi(this);
-  id = 1;
+  id = -1;
   ClickerMap = new QSignalMapper ( this );
   connect( ClickerMap , SIGNAL(mapped(  QObject * )),
              this, SLOT( clickSlot(  QObject * )));
-  changeDirection( id );
+  db = new dbDevices ( &Util::Singleton<DBClass>::getInstance() );
+  Other_frame->setLayout( OtherButLayout );
 
+ // changeDirection( id );
 
   //StateChanGrid->setVerticalSpacing(50);
 //StateChanGrid->setHorizontalSpacing(15);
@@ -24,50 +26,48 @@ StateChanFrame::~StateChanFrame()
 }
 /////////////////////////////////////////////////////
 void StateChanFrame::createStateBut( )
-{/*
-    int num = 0;
+{
     deleteAllBut();
-  Dev = std::move( db->getDev( id ) );
-  for ( auto &it : Dev)
-  {
-      DeviceBut* but = new DeviceBut ( this, it.index  );
-
-
-      connect( but, SIGNAL (released()), ClickerMap , SLOT ( map() ) );
-      ClickerMap->setMapping( but, (QObject * )but );
-      SetButState ( but, &it);
-      but->setBlink( db->getBlink( but->getIndex() ) );
-      StateChanGrid->addWidget( but, num / CountRow , num % CountRow);
-      StateBut.push_back( but );
-      num++;
-  }*/
+    dbDevices::DevVect vec = std::move ( db->getDevices( id, BSPurWid::BSPUR ) );
+    for ( auto & it : vec )
+    {
+        BSPurWid *bs = new BSPurWid (db, BSPUR_frame );
+        bs->refreshWidjet( id, it.id, it.ip );
+        BSPURLayout->addWidget( bs );
+    }
+    OtherDevWid * other = new OtherDevWid ( db, id, OtherDevWid::KLS, Other_frame);
+    OtherButLayout->addWidget( other );
+    other = new OtherDevWid ( db, id, OtherDevWid::KC, Other_frame);
+    OtherButLayout->addWidget( other );
+    other = new OtherDevWid ( db, id, OtherDevWid::SHSS1, Other_frame);
+    OtherButLayout->addWidget( other );
 
 };
 /////////////////////////////////////////////////////
 void StateChanFrame::deleteAllBut()
 {  
-  for( auto &it : StateBut )
-  {
-      ClickerMap->removeMappings( it );
-      it->disconnect();
-     delete it;
-  };
-  StateBut.clear();
+    qDebug() << "StateChanFrame::deleteAllBut()";
+    while (QLayoutItem* item = BSPURLayout->takeAt(0))
+        {
+           // qDebug( ) << item ;
+            delete item->widget();
+            delete item;
+        }
+    while (QLayoutItem* item = OtherButLayout->takeAt(0))
+        {
+           // qDebug( ) << item ;
+            delete item->widget();
+            delete item;
+        }
 };
 /////////////////////////////////////////////////////
 void StateChanFrame::changeDirection( const int & _id )
 {
-  //qDebug( "StateChanFrame::changeDirection %d", _id );
-    if ( _id == 0 )
+  qDebug( "StateChanFrame::changeDirection %d", _id );
+    if ( _id == 0 || id == ( _id + 1 )   )
         return;
   id = _id + 1;
-  //////////////////////////////////////////////////
-  BSPUR1->setColor( ButParent::DEFAULT  );
-  if ( id == 2 )
-  {
-      BSPUR1->setColor( ButParent::GREEN  );
-  }
-  /////////////////////////////////////////////////
+
   changeTextDir(  );
     createStateBut();
 };
