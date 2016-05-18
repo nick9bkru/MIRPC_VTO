@@ -3,8 +3,10 @@
 
 PurBut::PurBut(DeviceClass *_dev, QWidget *parent):StandBut(_dev, parent)
 {
-setMaximumSize(parent->maximumWidth(),parent->maximumHeight());
-setMinimumSize(0,70);
+    qDebug( ) << "PurBut::PurBut()";
+   setMaximumSize(parent->maximumWidth(),parent->maximumHeight());
+   setMinimumSize(0,70);
+   setText  (_dev->getName());
 }
 
 /**

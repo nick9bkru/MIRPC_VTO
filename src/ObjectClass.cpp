@@ -62,7 +62,7 @@ bool ObjectClass::setAlarmDev( const int16_t id_dev, const bool alarm, const boo
     if ( dev == NULL )
         return false;
 
-    dev->setAlarm( alarm, newf );
+    dev->setAlarm( alarm, newf );/*
     if ( !alarm )
     {
         bool _alarm = false;
@@ -79,7 +79,7 @@ bool ObjectClass::setAlarmDev( const int16_t id_dev, const bool alarm, const boo
     } else
     {
         setAlarm ( true );
-    };
+    };*/
     return true;
 };
 
