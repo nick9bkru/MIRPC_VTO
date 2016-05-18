@@ -1,5 +1,6 @@
 #include "include/StateChanFrame.h"
 #include "include/util/Singleton.h"
+#include "include/ObjectsUpdater.h"
 
 StateChanFrame::StateChanFrame( QWidget *parent ):  QFrame( parent ), Ui::ChanFrame()
 {
@@ -74,7 +75,7 @@ void StateChanFrame::changeDirection( const int & _id )
 /////////////////////////////////////////////////////
 void StateChanFrame::changeTextDir(  )
 {
- NumChanLabel->setText( QString::fromUtf8 ("Объект № %1").arg( id  ) );
+ NumChanLabel->setText( Util::Singleton<ObjectsUpdater>::getInstance().getObject( id )->getName());
 };
 /////////////////////////////////////////////////////
 
