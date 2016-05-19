@@ -64,6 +64,8 @@ protected:
 
 signals:
     void changeState ( int16_t );
+private slots:
+
 private:
     DevisesType Devices;
 

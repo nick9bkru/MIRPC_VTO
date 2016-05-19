@@ -8,8 +8,8 @@ StateChanFrame::StateChanFrame( QWidget *parent ):  QFrame( parent ), Ui::ChanFr
   setupUi(this);
   id = -1;
   ClickerMap = new QSignalMapper ( this );
-  connect( ClickerMap , SIGNAL(mapped(  QObject * )),
-             this, SLOT( clickSlot(  QObject * )));
+//  connect( ClickerMap , SIGNAL(mapped(  QObject * )),
+//             this, SLOT( clickSlot(  QObject * )));
   db = new dbDevices ( &Util::Singleton<DBClass>::getInstance() );
   Other_frame->setLayout( OtherButLayout );
 
@@ -68,7 +68,9 @@ void StateChanFrame::changeDirection( const int & _id )
     if ( _id == 0 || id == ( _id + 1 )   )
         return;
   id = _id + 1;
-
+ // disconnect( this,  )
+  ObjectClass * obj = Util::Singleton<ObjectsUpdater>::getInstance().getObject( id );
+  connect ( obj , SIGNAL ( changeState ( int16_t ) ), this, SLOT( updateState( int16_t ) ) ) ;
   changeTextDir(  );
     createStateBut();
 };
@@ -80,31 +82,11 @@ void StateChanFrame::changeTextDir(  )
 /////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////
-void StateChanFrame::updateState( )
+void StateChanFrame::updateState( int16_t id  )
 {
-
-}
-
-/////////////////////////////////////////////////////
-void StateChanFrame::clickSlot( QObject * _but)
-{
-  _but=_but;
-//  qDebug() << "void StateChanFrame::clickSlot( text = " << but->text();
-  if ( !isBlinkMainBut ())
-  {
-      emit signalBlink( id , false );
-  };
+   if ( id != -1 )
+       return;
+   qDebug() << " StateChanFrame::updateState( int16_t id  ) id == " << id;
+   createStateBut();
 };
-/////////////////////////////////////////////////////
-bool StateChanFrame::isBlinkMainBut ()
-{
-    bool _emit = true ;
-//    for( auto &it : StateBut )
-//    {
-//        if ( it -> isErr () && it -> isBlink () )
-//        {
-//            _emit = false ;
-//        };
-//    };
-    return _emit;
-};
+

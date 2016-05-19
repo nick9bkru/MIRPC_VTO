@@ -21,7 +21,7 @@ public:
   };
   StateChanFrame(QWidget *parent = 0);
   ~StateChanFrame();
-  void updateState( );
+
   /**
    * @brief isBlinkMainBut
    * @return
@@ -30,14 +30,8 @@ public:
   bool isBlinkMainBut ();
 public slots:  
   void changeDirection( const int & _id );
-  /**
-  * @brief clickSlot
-  * Нажатие на клавишу , после чего проверяем есть ли мигающие кнопки
-  */
-  void clickSlot(QObject *_but );
-
+  void updateState(int16_t id);
 signals:
-  void signalBlink(const int & _id ,const bool & blink  );
 private:
   /**
    * удаляем все кнопки 
