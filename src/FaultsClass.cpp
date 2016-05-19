@@ -1,16 +1,22 @@
 #include "include/FaultsClass.h"
 #include "include/util/Singleton.h"
 
-FaultsClass::FaultsClass(dbMainObject *_dbMain, ObjectsUpdater * _objUpd ) : dbMain( _dbMain ),
+FaultsClass::FaultsClass(ObjectsUpdater * _objUpd ) :
     objUpd( _objUpd )
 {
+    db = new dbFaults ( &Util::Singleton<DBClass>::getInstance() );
  fault.clear();
  lostFault.clear();
 }
 
+FaultsClass::~FaultsClass( )
+{
+   delete db;
+}
+
 void FaultsClass::update (  )
 {
-    FaultsType buf = std::move ( dbMain->getFaults() ) ;
+    FaultsType buf = std::move ( db->getFaults() ) ;
     foreach ( auto it , buf) {
           auto it2 = qFind( std::begin (fault), std::end( fault ), it);
           if ( it2 == std::end( fault ) )
@@ -37,7 +43,7 @@ void FaultsClass::update (  )
 void FaultsClass::updateLostFaults()
 {
     qDebug() << " FaultsClass::updateLostFaults() " ;
-    LostFaultsType buf = std::move ( dbMain->getLostFaults() ) ;
+    LostFaultsType buf = std::move ( db->getLostFaults() ) ;
     foreach ( auto it , buf) {
           auto it2 = qFind( std::begin ( lostFault ), std::end( lostFault ), it);
           if ( it2 == std::end( lostFault ) )

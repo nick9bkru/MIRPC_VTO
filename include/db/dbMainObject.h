@@ -49,85 +49,10 @@ public:
     /// \brief The ObjStruct struct
     ///структура для описания состояния оборудования объекта
     //////////////////////////////////////////////////////////////////////////
-    struct SObjDev
-    {
-      int16_t id;
-      QString name;
-      bool conf;
-      bool frag;
-      bool operator==(const struct SObjDev& left);
-    };
-    typedef struct SObjDev ObjDev;
-    typedef std::vector < ObjDev> VecObjDev;
-
-    //////////////////////////////////////////////////////////////////////////
-    /// \brief getDev
-    /// \param id номер объекта
-    /// \return VecObjDev
-    ///получаем оборудование объекта
-    //////////////////////////////////////////////////////////////////////////
-    VecObjDev getDev (int id);
 
     typedef std::vector < int16_t> chngType;
     chngType getChange();
 
-    /**
-     * @brief The SFaults struct
-     * структура для описания ошибки
-     */
-    struct SFault
-    {
-        QDate date;
-       int16_t id_obj;
-       int16_t id_dev;
-       bool newf;
-       bool operator==(const struct SFault& left);
-    };
-    typedef struct SFault Fault;
-    typedef QList < Fault> FaultsType;
-    /**
-     * @brief getFaults
-     * @return получаем вектор с ошибками
-     */
-    FaultsType getFaults();
-    /**
-     * @brief The SLostFault struct
-     * структура для описания пропущенной ошибки
-     */
-    struct SLostFault
-    {
-        QDate date;
-       int16_t id_obj;
-       int16_t id_dev;
-       bool operator==(const struct SLostFault& left);
-    };
-    typedef struct SLostFault LostFault;
-    /**
-     * @brief LostFaultsType
-     * контейнер с пропущеными ошибками
-     */
-    typedef QList < LostFault> LostFaultsType;
-    /**
-     * @brief getLostFaults
-     * @return получаем вектор с пропущенными ошибками
-     */
-    LostFaultsType getLostFaults();
-
-    /**
-     * @brief The SActive struct
-     * активные
-     */
-    struct SActive
-    {
-        //QDate date;
-       int16_t id_obj;
-       int16_t id_dev;
-       int8_t active;
-       bool operator==(const struct SActive& left);
-    };
-    typedef struct SActive ActiveType;
-    typedef QList < SActive> ListActiveType;
-    ListActiveType getListActive();
 private:
     DBClass * db ;
 

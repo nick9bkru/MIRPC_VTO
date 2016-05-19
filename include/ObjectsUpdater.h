@@ -3,6 +3,7 @@
 
 #include "include/ObjectClass.h"
 #include "include/db/dbMainObject.h"
+#include "include/db/dbDevices.h"
 #include <vector>
 class ObjectsUpdater
 {
@@ -10,10 +11,10 @@ class ObjectsUpdater
 public:
     /**
      * @brief ObjectsUpdater
-     *конструктор для Singleton
+     *конструктор //// для Singleton
      */
     ObjectsUpdater();
-    ObjectsUpdater( dbMainObject * _dbObj );
+   // ObjectsUpdater( dbMainObject * _dbObj );
     ~ObjectsUpdater();
    // void updateAll();
     void updateObj(const bool first = false);
@@ -32,6 +33,7 @@ private:
     typedef std::vector<ObjectClass* > ObjType;
     ObjType Objects;
     dbMainObject * dbObj;
+    dbDevices * dbDev;
     /**
      * @brief dbCon соединение с БД
      */

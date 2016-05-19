@@ -1,14 +1,20 @@
 #include "include/ActiveDev.h"
+#include "include/util/Singleton.h"
 
-ActiveDev::ActiveDev(dbMainObject *_dbMain, ObjectsUpdater * _objUpd):dbMain( _dbMain ),
-objUpd( _objUpd )
+ActiveDev::ActiveDev(ObjectsUpdater * _objUpd): objUpd( _objUpd )
 {
+    db = new dbActive ( &Util::Singleton<DBClass>::getInstance() );
     list.clear();
+}
+
+ActiveDev::~ActiveDev()
+{
+ delete db;
 }
 
 void ActiveDev::update (  )
 {
-    ListActiveType buf = std::move ( dbMain->getListActive() ) ;
+    ListActiveType buf = std::move ( db->getListActive() ) ;
     foreach ( auto it , buf) {
           auto it2 = qFind( std::begin (list), std::end( list ), it);
           if ( it2 == std::end( list ) )

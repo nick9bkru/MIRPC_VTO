@@ -7,12 +7,12 @@ UbdaterClass::UbdaterClass( DBClass* bd )
 {
     qDebug(  ) <<  "Create UbdaterClass::UbdaterClass()" ;
 
-    dbMainObject * dbMain = new dbMainObject ( bd );
+   // dbMainObject * dbMain = new dbMainObject ( bd );
 
-    objUpd = new ObjectsUpdater( dbMain );
+    objUpd = new ObjectsUpdater( );
     Util::Singleton<ObjectsUpdater>::init(  objUpd ) ;
-    faultUpd = new FaultsClass ( dbMain, objUpd );
-    activedev = new ActiveDev ( dbMain, objUpd  );
+    faultUpd = new FaultsClass ( objUpd );
+    activedev = new ActiveDev ( objUpd  );
 
     f = new dbFinder ( 2000 ); //  2 секунды
     connect( f, SIGNAL( dbConnect( const bool & ) ), this, SLOT(newStateConn( const bool & )) );

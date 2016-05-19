@@ -1,23 +1,24 @@
 #ifndef FAULTSCLASS_H
 #define FAULTSCLASS_H
 
-#include "include/db/dbMainObject.h"
 #include "include/ObjectsUpdater.h"
 #include <QList>
+#include "include/db/dbFaults.h"
 
 class FaultsClass
 {
 public:
-    FaultsClass(dbMainObject * _dbMain , ObjectsUpdater *_objUpd);
+    FaultsClass( ObjectsUpdater *_objUpd );
+    ~FaultsClass( );
     void update ();
     void updateLostFaults();
 private :
-    dbMainObject *dbMain;
-    typedef dbMainObject::FaultsType FaultsType  ;
+    dbFaults *db;
+    typedef dbFaults::FaultsType FaultsType  ;
     FaultsType fault;
     ObjectsUpdater * objUpd;
 
-    typedef dbMainObject::LostFaultsType LostFaultsType;
+    typedef dbFaults::LostFaultsType LostFaultsType;
     LostFaultsType lostFault;
 };
 

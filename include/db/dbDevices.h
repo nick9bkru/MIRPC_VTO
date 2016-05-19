@@ -3,7 +3,6 @@
 
 #include "include/db/dbclass.h"
 #include <QVector>
-#include "include/db/dbclass.h"
 class dbDevices
 {
 public:
