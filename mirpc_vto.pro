@@ -44,7 +44,9 @@ SOURCES += \
     src/PurBut.cpp \
     src/BSPurBut.cpp \
     src/OtherDevWid.cpp \
-    src/OtherDevBut.cpp
+    src/OtherDevBut.cpp \
+    src/db/dbFaults.cpp \
+    src/db/dbActive.cpp
 
 HEADERS  += \
     include/StateChanFrame.h \
@@ -79,7 +81,9 @@ HEADERS  += \
     include/PurBut.h \
     include/BSPurBut.h \
     include/OtherDevWid.h \
-    include/OtherDevBut.h
+    include/OtherDevBut.h \
+    include/db/dbFaults.h \
+    include/db/dbActive.h
 
 FORMS    += \
     ui/rightWidget.ui \

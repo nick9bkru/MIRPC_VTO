@@ -7,9 +7,6 @@ StateChanFrame::StateChanFrame( QWidget *parent ):  QFrame( parent ), Ui::ChanFr
   qDebug( "StateChanFrame::StateChanFrame" );
   setupUi(this);
   id = -1;
-  ClickerMap = new QSignalMapper ( this );
-//  connect( ClickerMap , SIGNAL(mapped(  QObject * )),
-//             this, SLOT( clickSlot(  QObject * )));
   db = new dbDevices ( &Util::Singleton<DBClass>::getInstance() );
   Other_frame->setLayout( OtherButLayout );
 
@@ -22,7 +19,7 @@ StateChanFrame::StateChanFrame( QWidget *parent ):  QFrame( parent ), Ui::ChanFr
 StateChanFrame::~StateChanFrame()
 {
   qDebug( "StateChanFrame::~StateChanFrame" );
-
+  delete   db;
  
 }
 /////////////////////////////////////////////////////

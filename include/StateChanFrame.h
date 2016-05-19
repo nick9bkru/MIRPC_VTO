@@ -3,7 +3,6 @@
 
 #include "DeviceBut.h"
 #include <vector>
-#include <QSignalMapper>
 
 #include "ui_StateChanFrame.h"
 #include "include/define.h"
@@ -42,7 +41,6 @@ private:
   void changeTextDir( );
   int id;
     dbDevices * db;
-  QSignalMapper * ClickerMap;
 };
 
 #endif // STATECHANFRAME_H

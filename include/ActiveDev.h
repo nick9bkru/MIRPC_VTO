@@ -1,19 +1,19 @@
 #ifndef ACTIVEDEV_H
 #define ACTIVEDEV_H
 
-#include "include/db/dbMainObject.h"
+#include "include/db/dbActive.h"
 #include "include/ObjectsUpdater.h"
 #include <QList>
 
 class ActiveDev
 {
 public:
-    ActiveDev(dbMainObject *_dbMain, ObjectsUpdater *_objUpd);
+    ActiveDev( ObjectsUpdater *_objUpd);
     void update ();
 private :
-    dbMainObject *dbMain;
+    dbActive *db;
     ObjectsUpdater * objUpd;
-    typedef dbMainObject::ListActiveType ListActiveType;
+    typedef dbActive::ListActiveType ListActiveType;
     ListActiveType list;
 };
 

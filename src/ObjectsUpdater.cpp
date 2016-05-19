@@ -1,22 +1,18 @@
 #include "include/ObjectsUpdater.h"
 #include "include/util/MyException.h"
-
+#include "include/util/Singleton.h"
 #include <QDebug>
-ObjectsUpdater::ObjectsUpdater()
+ObjectsUpdater::ObjectsUpdater() : dbCon ( false )
 {
- throw Util::MyException(  "ObjectsUpdater::ObjectsUpdater() ERROR !!!!! " ) ;
-}
-
-ObjectsUpdater::ObjectsUpdater(dbMainObject *_dbObj): dbObj ( _dbObj ) , dbCon ( false )
-{
+ //throw Util::MyException(  "ObjectsUpdater::ObjectsUpdater() ERROR !!!!! " ) ;
     qDebug(  ) <<  "Create ObjectsUpdater::ObjectsUpdater()" ;
+    dbObj = new dbMainObject ( &Util::Singleton<DBClass>::getInstance() );
+    dbDev = new dbDevices ( &Util::Singleton<DBClass>::getInstance() );
 //    dbObj = new dbMainObject;
     for ( int i = 1; i < 23; i++ ) // первый это состояние объекта руководителя , остальные 21
     {
         Objects.push_back( new ObjectClass ("", i) );
     };
-
-       //qDebug() << QSqlDatabase::database().driver()->subscribedToNotifications();
 }
 
 ObjectsUpdater::~ObjectsUpdater()
@@ -26,6 +22,7 @@ ObjectsUpdater::~ObjectsUpdater()
         delete it;
     }
     delete dbObj;
+    delete dbDev;
 };
 
 
@@ -61,7 +58,7 @@ void ObjectsUpdater::updateObj( const bool first )
 
 void ObjectsUpdater::updateObjDev(ObjectClass *obj )
 {
-  dbMainObject::VecObjDev dev = std::move ( dbObj->getDev( obj->getId() ) ) ;
+  dbDevices::VecObjDev dev = std::move ( dbDev->getDev( obj->getId() ) ) ;
   ObjectClass::DevisesType * vecDev = obj->getDevices() ;
   qDebug () << "ObjectsUpdater::updateObjDev() ID = " << obj->getId() << " name == " << obj->getName() ;
   if ( int( dev.size()) < vecDev->size() )
