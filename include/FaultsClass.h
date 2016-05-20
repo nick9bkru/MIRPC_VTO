@@ -9,6 +9,8 @@ class FaultsClass
 {
 public:
     FaultsClass( ObjectsUpdater *_objUpd );
+
+    ~FaultsClass( );
     void update ();
     void updateLostFaults();
 private :

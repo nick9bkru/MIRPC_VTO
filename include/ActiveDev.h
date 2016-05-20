@@ -9,6 +9,8 @@ class ActiveDev
 {
 public:
     ActiveDev( ObjectsUpdater *_objUpd);
+    ~ActiveDev();
+
     void update ();
 private :
     dbActive *db;
