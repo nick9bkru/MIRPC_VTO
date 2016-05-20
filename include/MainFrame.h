@@ -7,7 +7,7 @@
 
 #include "ui_mainFrame.h"
 #include "StateChanFrame.h"
-#include "ChanButton.h"
+#include "include/buttom/ChanButton.h"
 #include "SetNameDialog.h"
 #include "include/db/dbMainObject.h"
 #include "define.h"

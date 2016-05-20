@@ -3,7 +3,7 @@
 #include "include/util/Singleton.h"
 #include <QDebug>
 
-UbdaterClass::UbdaterClass( DBClass* bd )
+UbdaterClass::UbdaterClass(  )
 {
     qDebug(  ) <<  "Create UbdaterClass::UbdaterClass()" ;
 

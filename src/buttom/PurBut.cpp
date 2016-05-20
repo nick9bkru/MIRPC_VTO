@@ -1,4 +1,4 @@
-#include "include/PurBut.h"
+#include "include/buttom/PurBut.h"
 #include <QDebug>
 
 PurBut::PurBut(DeviceClass *_dev, QWidget *parent):StandBut(_dev, parent)

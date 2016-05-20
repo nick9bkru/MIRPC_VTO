@@ -3,7 +3,7 @@
 
 #include <list>
 
-#include "include/StandBut.h"
+#include "include/buttom/StandBut.h"
 
 #include "ui_rightWidget.h"
 #include "include/ObjectClass.h"

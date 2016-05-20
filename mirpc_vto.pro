@@ -19,14 +19,10 @@ SOURCES += \
     src/StateChanFrame.cpp \
     src/MainFrame.cpp \
     src/rightWidget.cpp \
-    src/DeviceBut.cpp \
     src/ClockFrame.cpp \
     src/SetNameDialog.cpp \
-    src/ChanButton.cpp \
     src/ObjectPA.cpp \
     src/blinkingclass.cpp \
-    src/butparent.cpp \
-    src/StandBut.cpp \
     src/db/dbclass.cpp \
     src/db/dbMainObject.cpp \
     src/DeviceClass.cpp \
@@ -41,30 +37,30 @@ SOURCES += \
     src/ActiveDev.cpp  \
     src/db/dbDevices.cpp \
     src/BSPurWid.cpp \
-    src/PurBut.cpp \
-    src/BSPurBut.cpp \
     src/OtherDevWid.cpp \
-    src/OtherDevBut.cpp \
     src/db/dbFaults.cpp \
-    src/db/dbActive.cpp
+    src/db/dbActive.cpp \
+    src/buttom/BSPurBut.cpp \
+    src/buttom/butparent.cpp \
+    src/buttom/ChanButton.cpp \
+    src/buttom/DeviceBut.cpp \
+    src/buttom/OtherDevBut.cpp \
+    src/buttom/PurBut.cpp \
+    src/buttom/StandBut.cpp
 
 HEADERS  += \
     include/StateChanFrame.h \
-    include/DeviceBut.h \
     include/rightWidget.h \
     include/ClockFrame.h \
     include/define.h \
-    include/ChanButton.h \
     include/SetNameDialog.h \
     include/MainWindow.h \
     include/ObjectPA.h \
     include/MainFrame.h \
     include/util/Singleton.h \
     include/blinkingclass.h \
-    include/butparent.h \
     include/db/dbclass.h \
     include/db/dbMainObject.h \
-    include/StandBut.h \
     include/frameborder.h \
     include/DeviceClass.h \
     include/ObjectClass.h \
@@ -78,12 +74,16 @@ HEADERS  += \
     include/ActiveDev.h \
     include/db/dbDevices.h \
     include/BSPurWid.h \
-    include/PurBut.h \
-    include/BSPurBut.h \
     include/OtherDevWid.h \
-    include/OtherDevBut.h \
     include/db/dbFaults.h \
-    include/db/dbActive.h
+    include/db/dbActive.h \
+    include/buttom/BSPurBut.h \
+    include/buttom/butparent.h \
+    include/buttom/ChanButton.h \
+    include/buttom/DeviceBut.h \
+    include/buttom/OtherDevBut.h \
+    include/buttom/PurBut.h \
+    include/buttom/StandBut.h
 
 FORMS    += \
     ui/rightWidget.ui \

@@ -1,13 +1,13 @@
 #ifndef CHANBUTTON_H
 #define CHANBUTTON_H
 
-#include "include/butparent.h"
+#include "include/buttom/butparent.h"
 #include "include/ObjectsUpdater.h"
 
 #include <QMenu>
 #include <QTimer>
 
-#include "SetNameDialog.h"
+#include "include/SetNameDialog.h"
 
 class ChanButton : public ButParent
 {	

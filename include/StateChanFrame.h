@@ -1,7 +1,7 @@
 #ifndef STATECHANFRAME_H
 #define STATECHANFRAME_H
 
-#include "DeviceBut.h"
+#include "include/buttom/DeviceBut.h"
 #include <vector>
 
 #include "ui_StateChanFrame.h"

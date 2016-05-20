@@ -57,8 +57,8 @@ int main (int argc, char *argv[])
                                   settings->value( "db_adress" ).toString(), // адрес хоста
                                    settings->value( "db_user" ).toString() ) ) ; // имя пользователя
 
-
-  UbdaterClass updClass ( db.get() );
+  Util::Singleton<DBClass>::init(db.get());
+  UbdaterClass updClass ;
 
    loadStyle( settings->value( "StyleFile" ).toString() );
    MainWindow w( argc > 1, &updClass );

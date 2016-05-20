@@ -1,7 +1,7 @@
 #include "include/blinkingclass.h"
 #include <QDebug>
 #include <QObjectList>
-#include "include/butparent.h"
+#include "include/buttom/butparent.h"
 
 BlinkingClass::BlinkingClass( int _msec ): second( false )
 {

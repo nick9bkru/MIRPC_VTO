@@ -1,4 +1,4 @@
-#include "include/OtherDevBut.h"
+#include "include/buttom/OtherDevBut.h"
 #include <QDebug>
 
 OtherDevBut::OtherDevBut(DeviceClass *_dev, QWidget *parent):StandBut(_dev, parent)

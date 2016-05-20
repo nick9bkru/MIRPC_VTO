@@ -22,7 +22,7 @@ class UbdaterClass: public QObject
         ACTPU
     };
 public:
-    UbdaterClass(DBClass *bd);
+    UbdaterClass();
     ~UbdaterClass();
 signals:
     /**

@@ -1,6 +1,6 @@
 #ifndef PURBUT_H
 #define PURBUT_H
-#include "include/StandBut.h"
+#include "include/buttom/StandBut.h"
 /**
  * @brief The PurBut class
  * кнопка отображения ПУР и ПУС

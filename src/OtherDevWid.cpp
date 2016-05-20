@@ -1,5 +1,5 @@
 #include "include/OtherDevWid.h"
-#include "include/OtherDevBut.h"
+#include "include/buttom/OtherDevBut.h"
 #include "include/ObjectsUpdater.h"
 #include "include/util/Singleton.h"
 

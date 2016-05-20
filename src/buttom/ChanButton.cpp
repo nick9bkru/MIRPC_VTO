@@ -1,4 +1,4 @@
-#include "include/ChanButton.h"
+#include "include/buttom/ChanButton.h"
 #include <QDebug>
 #include "include/util/Singleton.h"
 #include "include/ObjectsUpdater.h"

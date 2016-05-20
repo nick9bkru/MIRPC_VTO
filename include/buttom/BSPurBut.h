@@ -1,6 +1,6 @@
 #ifndef BSPURBUT_H
 #define BSPURBUT_H
-#include "include/StandBut.h"
+#include "include/buttom/StandBut.h"
 /**
  * @brief The BSPurBut class
  * кнопка отображения БС-ПУР

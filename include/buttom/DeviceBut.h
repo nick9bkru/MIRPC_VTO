@@ -1,7 +1,7 @@
 #ifndef DEVICEBUT_H
 #define DEVICEBUT_H
 
-#include "include/butparent.h"
+#include "include/buttom/butparent.h"
 
 /**
  * @brief The DeviceBut class

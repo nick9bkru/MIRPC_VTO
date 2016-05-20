@@ -1,8 +1,8 @@
 #include "include/BSPurWid.h"
 #include "include/ObjectsUpdater.h"
 #include "include/util/Singleton.h"
-#include "include/PurBut.h"
-#include "include/BSPurBut.h"
+#include "include/buttom/PurBut.h"
+#include "include/buttom/BSPurBut.h"
 
 BSPurWid::BSPurWid(  dbDevices* _db,  QWidget *parent) : db( _db ) ,
     QWidget(parent)

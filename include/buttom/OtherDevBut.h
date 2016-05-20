@@ -1,6 +1,6 @@
 #ifndef OTHERDEVBUT_H
 #define OTHERDEVBUT_H
-#include "include/StandBut.h"
+#include "include/buttom/StandBut.h"
 class OtherDevBut : public StandBut
 {
 
