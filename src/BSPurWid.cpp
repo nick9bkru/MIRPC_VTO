@@ -4,8 +4,8 @@
 #include "include/buttom/PurBut.h"
 #include "include/buttom/BSPurBut.h"
 
-BSPurWid::BSPurWid(  dbDevices* _db,  QWidget *parent) : db( _db ) ,
-    QWidget(parent)
+BSPurWid::BSPurWid(  dbDevices* _db,  QWidget *parent) :QWidget(parent), db( _db )
+
 {
     qDebug() << "BSPurWid::BSPurWid()";
     setObjectName ( "BSPurWid" );
