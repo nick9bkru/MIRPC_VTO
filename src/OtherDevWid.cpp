@@ -3,7 +3,7 @@
 #include "include/ObjectsUpdater.h"
 #include "include/util/Singleton.h"
 
-OtherDevWid::OtherDevWid(dbDevices* _db, int8_t _id , GROUP _gr,  QWidget *parent ) :
+OtherDevWid::OtherDevWid(dbDevices* _db, int16_t _id , GROUP _gr,  QWidget *parent ) :
     QWidget(parent), db( _db ), id ( _id ), gr( _gr )
 {
      butLayout = new QVBoxLayout( this );

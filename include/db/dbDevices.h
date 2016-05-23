@@ -31,13 +31,13 @@ public:
 
     struct SDevice
     {
-        int8_t id;
+        int16_t id;
         QString ip;
 
     };
     typedef SDevice Device;
     typedef QVector <Device> DevVect;
-    DevVect getDevices( int8_t id, int8_t gr);
+    DevVect getDevices( int16_t id, int8_t gr);
 
     DevVect getPur (const int8_t &gr, const QString &ip);
 private:

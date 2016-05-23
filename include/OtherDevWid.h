@@ -19,7 +19,7 @@ public:
         SHSS3 = 10,  //ШСС3
         SHSS4 = 11  //ШСС4
     };
-    explicit OtherDevWid( dbDevices* _db,int8_t _id , GROUP _gr,  QWidget *parent );
+    explicit OtherDevWid( dbDevices* _db,int16_t _id , GROUP _gr,  QWidget *parent );
     ~OtherDevWid();
 
 signals:

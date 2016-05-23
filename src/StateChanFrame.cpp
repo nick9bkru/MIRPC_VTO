@@ -62,7 +62,7 @@ void StateChanFrame::deleteAllBut()
 void StateChanFrame::changeDirection( const int & _id )
 {
   qDebug( "StateChanFrame::changeDirection %d", _id );
-    if ( _id == 0 || id == ( _id + 1 )   )
+    if (  id == ( _id + 1 )   )
         return;
   id = _id + 1;
  // disconnect( this,  )

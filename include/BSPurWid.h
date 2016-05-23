@@ -31,7 +31,7 @@ public:
      * @param id_obj - id объекта
      * @param id - id БС-ПУР
      */
-    void refreshWidjet(const int8_t &id_obj, const int8_t &id, const QString &ip);
+    void refreshWidjet(const int8_t &id_obj, const int16_t &id, const QString &ip);
 
 private:
     /**

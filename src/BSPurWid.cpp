@@ -29,7 +29,7 @@ BSPurWid::~BSPurWid()
     delete BSPurLayout;
 }
 
-void BSPurWid::refreshWidjet( const int8_t &id_obj, const int8_t &id, const QString &ip)
+void BSPurWid::refreshWidjet( const int8_t &id_obj, const int16_t &id, const QString &ip)
 {
   deleteBut();
   qDebug() << "BSPurWid::refreshWidjet()";
@@ -37,7 +37,13 @@ void BSPurWid::refreshWidjet( const int8_t &id_obj, const int8_t &id, const QStr
   if ( obj == NULL )
       return;
   this->id = id ;
-  QPushButton *but = new BSPurBut ( obj->getDevice( id ), this ); // кнопка БС-ПУРа
+  DeviceClass* _dev = obj->getDevice( id );
+  if ( _dev == NULL )
+  {
+      qDebug( ) << " ERROR not found device id obf == " << id_obj << " id dev == "<< id ;
+      return;
+  }
+  QPushButton *but = new BSPurBut ( _dev, this ); // кнопка БС-ПУРа
 
   BSPurLayout->addWidget( but );
 
@@ -61,9 +67,16 @@ void BSPurWid::getBSPUR()
 void BSPurWid::addPurButton( const dbDevices::DevVect * vec )
 {
     QPushButton *but;
+    DeviceClass* _dev;
     for ( auto & it : *vec )
     {
-        but = new PurBut ( obj->getDevice( it.id ), PurWid );// кнопка ПУРа, ПУСа
+        _dev = obj->getDevice( it.id );
+        if ( _dev == NULL )
+        {
+            qDebug( ) << " ERROR not found device id ==  "<< it.id ;
+            return;
+        }
+        but = new PurBut ( _dev, PurWid );// кнопка ПУРа, ПУСа
         BSPurLayout->addWidget( but );
 
        PurLayout->addWidget( but );

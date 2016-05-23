@@ -35,7 +35,7 @@ dbDevices::VecObjDev dbDevices::getDev (int id)
                 ( left.name == name ) ;
  };
 
-dbDevices::DevVect dbDevices::getDevices( int8_t id, int8_t gr)
+dbDevices::DevVect dbDevices::getDevices(int16_t id, int8_t gr)
 {
     db->isOpened ();
     DevVect ret;
