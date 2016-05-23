@@ -18,7 +18,7 @@ void start()
   cout << "=============================" <<endl;
   cout << "=============================" <<endl;
   cout << "|                           |" <<endl;
-  cout << "|    Start TESTER program   |" <<endl;
+  cout << "|    Start MIR VTO program  |" <<endl;
   cout << "|                           |" <<endl;
   cout << "=============================" <<endl;
   cout << "=  " << __TIMESTAMP__ << "  =" <<endl;
@@ -32,6 +32,7 @@ std::unique_ptr <QSettings> settings( new QSettings ( confFile , QSettings::Nati
 // загружаем стили
 void loadStyle( QString SFile)
 {
+    qDebug() << " loadStyle from file  == " << SFile;
     QFile * file = new QFile ( SFile );
     file->open( QFile::ReadOnly );
       // qDebug() <<QLatin1String(file->readAll()) ;
@@ -53,6 +54,7 @@ int main (int argc, char *argv[])
     qDebug() << " Setting file not loaded error == " << settings->status() ;
     return -1;
   }
+  loadStyle( settings->value( "StyleFile" ).toString() );
   std::unique_ptr <DBClass> db ( new DBClass ( settings->value( "db_name" ).toString(), // название БД
                                   settings->value( "db_adress" ).toString(), // адрес хоста
                                    settings->value( "db_user" ).toString() ) ) ; // имя пользователя
@@ -60,9 +62,10 @@ int main (int argc, char *argv[])
   Util::Singleton<DBClass>::init(db.get());
   UbdaterClass updClass ;
 
-   loadStyle( settings->value( "StyleFile" ).toString() );
+
    MainWindow w( argc > 1, &updClass );
-    w.show();
+
+   w.show();
   return a->exec();
 
 };

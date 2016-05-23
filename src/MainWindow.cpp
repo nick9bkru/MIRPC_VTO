@@ -11,7 +11,10 @@ MainWindow::MainWindow( bool multDisp,UbdaterClass *upb ,  QWidget *parent ) : Q
 
     setWindowFlags(Qt::FramelessWindowHint/* | Qt::WindowStaysOnBottomHint*/); // отключаем меню сверху окна
 
-
+    if ( multDisp)
+    {
+        setWindowFlags ( this->windowFlags( ) | Qt::X11BypassWindowManagerHint ) ;
+    }
 
     mainF = new MainFrame ( this );
     rigthFrame = new rightWidget( mainF->RmoWidget );
