@@ -13,13 +13,14 @@
 class UbdaterClass: public QObject
 {
     Q_OBJECT
-    const QString tbl[5] = { "OBJECTS" , "DEVICES", "TEK_FAULT", "MISSED", "ACTPU" };
+    const QString tbl[6] = { "OBJECTS" , "DEVICES", "TEK_FAULT", "MISSED", "ACTPU", "SOUND" };
     enum table {
         OBJECTS ,
         DEVICES ,
         FAULTS,
         LOSTFAULTS,
-        ACTPU
+        ACTPU,
+        SOUND
     };
 public:
     UbdaterClass();
@@ -65,6 +66,8 @@ private:
      * загружаем нотифаи
      */
     void loadNotify();
+signals:
+    void ChangeSound();
 
 };
 

@@ -23,8 +23,6 @@ SOURCES += \
     src/SetNameDialog.cpp \
     src/ObjectPA.cpp \
     src/blinkingclass.cpp \
-    src/db/dbclass.cpp \
-    src/db/dbMainObject.cpp \
     src/DeviceClass.cpp \
     src/ObjectClass.cpp \
     src/ObjectsUpdater.cpp \
@@ -35,18 +33,22 @@ SOURCES += \
     src/UbdaterClass.cpp \
     src/baseDevice.cpp \
     src/ActiveDev.cpp  \
-    src/db/dbDevices.cpp \
     src/BSPurWid.cpp \
     src/OtherDevWid.cpp \
     src/db/dbFaults.cpp \
     src/db/dbActive.cpp \
+    src/db/dbSound.cpp \
+    src/db/dbclass.cpp \
+    src/db/dbDevices.cpp \
+    src/db/dbMainObject.cpp \
     src/buttom/BSPurBut.cpp \
     src/buttom/butparent.cpp \
     src/buttom/ChanButton.cpp \
     src/buttom/DeviceBut.cpp \
     src/buttom/OtherDevBut.cpp \
     src/buttom/PurBut.cpp \
-    src/buttom/StandBut.cpp
+    src/buttom/StandBut.cpp \
+    src/buttom/SoundBut.cpp
 
 HEADERS  += \
     include/StateChanFrame.h \
@@ -59,14 +61,11 @@ HEADERS  += \
     include/MainFrame.h \
     include/util/Singleton.h \
     include/blinkingclass.h \
-    include/db/dbclass.h \
-    include/db/dbMainObject.h \
     include/frameborder.h \
     include/DeviceClass.h \
     include/ObjectClass.h \
     include/ObjectsUpdater.h \
     include/util/MyException.h \
-    include/db/dbFinder.h \
     include/notConnectionDb.h \
     include/FaultsClass.h \
     include/UbdaterClass.h \
@@ -77,13 +76,18 @@ HEADERS  += \
     include/OtherDevWid.h \
     include/db/dbFaults.h \
     include/db/dbActive.h \
+    include/db/dbSound.h \
+    include/db/dbFinder.h \
+    include/db/dbclass.h \
+    include/db/dbMainObject.h \
     include/buttom/BSPurBut.h \
     include/buttom/butparent.h \
     include/buttom/ChanButton.h \
     include/buttom/DeviceBut.h \
     include/buttom/OtherDevBut.h \
     include/buttom/PurBut.h \
-    include/buttom/StandBut.h
+    include/buttom/StandBut.h \
+    include/buttom/SoundBut.h
 
 FORMS    += \
     ui/rightWidget.ui \
@@ -97,3 +101,8 @@ FORMS    += \
 OTHER_FILES += \
     style.qss \
     mir_vto.conf
+
+DISTFILES +=
+
+RESOURCES += \
+    imageresourse.qrc

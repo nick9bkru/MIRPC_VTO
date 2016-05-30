@@ -92,6 +92,10 @@ void UbdaterClass::Notify(const QString & name )
         if ( name == tbl [ACTPU])
         {
            activedev->update();
+        }  else
+        if ( name == tbl [SOUND])
+        {
+           emit ChangeSound ();
         } ;
 
     }
@@ -136,4 +140,5 @@ void UbdaterClass::loadNotify()
     DBClass::createNotify( tbl [FAULTS] , this, SLOT( Notify(const QString & )) );
     DBClass::createNotify( tbl [LOSTFAULTS] , this, SLOT( Notify(const QString & )) );
     DBClass::createNotify( tbl [ACTPU] , this, SLOT( Notify(const QString & )) );
+    DBClass::createNotify( tbl [SOUND] , this, SLOT( Notify(const QString & )) );
 };

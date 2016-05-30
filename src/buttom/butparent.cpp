@@ -2,7 +2,7 @@
 
 #include <QDebug>
 
-#include <QFontMetrics>
+//#include <QFontMetrics>
 
 ButParent::ButParent( QWidget *parent ): QPushButton (parent), lbl(new QLabel ( parent )) ,color(DEFAULT), dev ( NULL )
 {

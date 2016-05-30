@@ -32,7 +32,7 @@ MainWindow::MainWindow( bool multDisp,UbdaterClass *upb ,  QWidget *parent ) : Q
             SIGNAL(dbConnect ( const bool &)),
                this, SLOT( ShowNoConn ( const bool &) ) );
 
-
+    connect( upb, SIGNAL ( ChangeSound() ), (mainF->SoundLabel), SLOT ( SoundChange() ) );
 
 };
 ////////////////////////////////////////////////////////////////////

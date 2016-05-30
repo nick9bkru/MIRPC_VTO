@@ -535,24 +535,36 @@ p, li { white-space: pre-wrap; }
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QPushButton" name="pow220">
+    <widget class="QWidget" name="horizontalLayoutWidget">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>283</width>
-       <height>50</height>
+       <x>0</x>
+       <y>0</y>
+       <width>301</width>
+       <height>71</height>
       </rect>
      </property>
-     <property name="maximumSize">
-      <size>
-       <width>16777215</width>
-       <height>50</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>220 В</string>
-     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="leftMargin">
+       <number>10</number>
+      </property>
+      <property name="rightMargin">
+       <number>10</number>
+      </property>
+      <item>
+       <widget class="QPushButton" name="pow220">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>220 В</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </widget>
    <widget class="FrameBorder" name="frame_2">
