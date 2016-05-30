@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/image">
+        <file alias="ON_SOUND">resourse/on_soung.jpg</file>
+        <file alias="OFF_SOUND">resourse/off_soung.jpg</file>
+    </qresource>
+</RCC>
