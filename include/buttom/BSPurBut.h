@@ -8,6 +8,11 @@
 class BSPurBut : public StandBut
 {
 public:
+    /**
+     * @brief BSPurBut конструктор
+     * @param _dev указатель на класс устройства
+     * @param parent отец
+     */
     BSPurBut(DeviceClass *_dev, QWidget *parent);
     ~BSPurBut();
 };

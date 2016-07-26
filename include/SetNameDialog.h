@@ -2,6 +2,9 @@
 #define SETNAMEDIALOG_H
 
 #include "ui_SetName.h"
+/**
+ * @brief The SetNameDialog class сохранить название объекта ( не используется )
+ */
 class SetNameDialog : public QDialog, Ui::SetName
 {
   Q_OBJECT

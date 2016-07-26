@@ -11,16 +11,27 @@
 #include "include/notConnectionDb.h"
 #include "include/UbdaterClass.h"
 
-
+/**
+ * @brief The MainWindow class класс главного объекта
+ */
 class MainWindow: public QMainWindow
 {
   Q_OBJECT
- enum sizeWin
- {
-     WidthScreen = 1280,
-     HeightScreen = 960
- };
+    /**
+    * @brief The sizeWin enum размер окна
+    */
+    enum sizeWin
+    {
+         WidthScreen = 1280, /// ширина
+         HeightScreen = 960  /// высота
+    };
 public:
+    /**
+   * @brief MainWindow конструктор
+   * @param multDispотображать ли на второй экран
+   * @param upb класс следящий за обновлением состояния в системе
+   * @param parent - родитель
+   */
   MainWindow(bool multDisp , UbdaterClass *upb, QWidget *parent = 0);
   ~MainWindow();
 

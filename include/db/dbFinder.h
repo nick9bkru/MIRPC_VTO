@@ -3,11 +3,21 @@
 #include <QTimer>
 #include <QStringList>
 #include <QObject>
+/**
+ * @brief The dbFinder class класс следит за подключением к БД
+ */
 class dbFinder: public QObject
 {
     Q_OBJECT
 public:
+    /**
+     * @brief dbFinder конструктор
+     * @param msec период опроса состояния подключения
+     */
     dbFinder(int msec = 1000);
+    /**
+     * @brief start запуск
+     */
     void start();
 signals:
     /**

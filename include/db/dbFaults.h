@@ -2,9 +2,16 @@
 #define DBFAULTS_H
 #include "include/db/dbclass.h"
 #include <QDate>
+/**
+ * @brief The dbFaults class класс для запроса из бд состояния об ошибках
+ */
 class dbFaults
 {
 public:
+    /**
+     * @brief dbFaults конструктор
+     * @param _db указатель на класс работы с БД
+     */
     dbFaults(DBClass *_db);
 
     /**

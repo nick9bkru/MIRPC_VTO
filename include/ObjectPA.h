@@ -6,7 +6,9 @@
 namespace Ui {
 class ObjectPA;
 }
-
+/**
+ * @brief The ObjectPA class класс для ПА
+ */
 class ObjectPA : public QFrame
 {
     Q_OBJECT

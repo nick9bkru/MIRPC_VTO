@@ -7,13 +7,16 @@
 #include "include/FaultsClass.h"
 #include "include/ActiveDev.h"
 /**
- * @brief The UbdaterClass class
- * Класс обновляющий все
+ * @brief The UbdaterClass class  Класс следит за обновлением всех состояний в программе
  */
 class UbdaterClass: public QObject
 {
     Q_OBJECT
+    /// массив с названиями нотифаев
     const QString tbl[6] = { "OBJECTS" , "DEVICES", "TEK_FAULT", "MISSED", "ACTPU", "SOUND" };
+    /**
+     * @brief The table enum отслеживаемые таблицы
+     */
     enum table {
         OBJECTS ,
         DEVICES ,
@@ -23,6 +26,9 @@ class UbdaterClass: public QObject
         SOUND
     };
 public:
+    /**
+     * @brief UbdaterClass конструктор
+     */
     UbdaterClass();
     ~UbdaterClass();
 signals:

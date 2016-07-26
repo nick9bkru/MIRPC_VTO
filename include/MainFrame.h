@@ -12,20 +12,32 @@
 #include "include/db/dbMainObject.h"
 #include "define.h"
 
+/**
+ * @brief The MainFrame class класс главного фрейма
+ */
 class MainFrame: public QFrame, public Ui::mainFrame
 {
    Q_OBJECT
 public:
+
   enum
   {
-   countCh = 21 
+      ///количество объектов
+   countCh = 21
   };
+    /**
+     * @brief MainFrame конструктор
+     * @param parent - родитель
+     */
     MainFrame( QWidget *parent = 0  );
 
     ~MainFrame();
-    // фрэйм с обородуванием объекта
-   StateChanFrame* stateChan[2] ;
+
 private:
+    /**
+    * @brief stateChan фрэйм с обородуванием объекта
+    */
+   StateChanFrame* stateChan[2] ;
   //рисуем отображение каналов
   void createChBut();
 

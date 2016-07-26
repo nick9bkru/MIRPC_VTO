@@ -6,15 +6,41 @@
 #include <QDebug>
 #include <QSqlError>
 
-
+/**
+ * @brief The DBClass class класс для работы с бозой данных
+ */
 class DBClass
 {
 public:
+    /**
+     * @brief DBClass конструктор для singleton
+     */
     DBClass( );
+    /**
+     * @brief DBClass конструктор
+     * @param _dbName имя БД
+     * @param _host ip адрус хоста
+     * @param _user пользователь
+     * @param _pass пароль
+     */
     DBClass(QString _dbName , QString _host = "127.0.0.1", QString _user = "root", QString _pass = "rootuser" );
     ~DBClass();
+    /**
+     * @brief nonSelectSql запрос
+     * @param sqlStr сторка запроса
+     * @return
+     */
     bool nonSelectSql( QString sqlStr  );
+    /**
+     * @brief isOpened открыто ли ?
+     * @return
+     */
     bool isOpened ();
+    /**
+     * @brief isValid правильно ли закончилось выполнения запроса
+     * @param query
+     * @return
+     */
     bool isValid( QSqlQuery & query );
 
     /**

@@ -5,51 +5,51 @@
 #include <QList>
 #include <QString>
 #include <QDate>
-//////////////////////////////////////////////////
-/// \brief The dbMainObject class
-///класс для чтения из БД информации о объектах ( MainFrame )
-//////////////////////////////////////////////////
+
+         /**
+         * @brief The dbMainObject class класс для чтения из БД информации о объектах ( MainFrame )
+         */
 class dbMainObject
 {
 public:
+    /**
+     * @brief dbMainObject конструктор
+     * @param db указатель на калсс работы с БД
+     */
     dbMainObject( DBClass * db );
 
-    //////////////////////////////////////////////////////////////////////////
-    /// \brief The ObjStruct struct
-    /// структура для описания состояния объктов
-    //////////////////////////////////////////////////////////////////////////
+    /**
+     * @brief The ObjStruct struct структура для описания состояния объктов
+     */
     struct ObjStruct
     {
-      int id;
-      QString name;
-      int8_t chng;
-      bool reg; //регламент
-      bool fault; // ошибка
-      bool lost_fault; // пропущеная ошибка
-      int8_t active;
+      int id; /// id
+      QString name; ///название
+      int8_t chng; ///изменялся ли
+      bool reg; ///регламент
+      bool fault; /// ошибка
+      bool lost_fault; /// пропущеная ошибка
+      int8_t active; /// активен ли
      };
 
     typedef struct ObjStruct Obj;
     typedef std::vector < Obj> VecObj;
 
-    //////////////////////////////////////////////////////////////////////////
-    /// \brief getObject
-    /// \param id
-    /// \return Obj
-    ///  получаем состояние состояние объекта
-    //////////////////////////////////////////////////////////////////////////
+    /**
+     * @brief getObject получаем состояние состояние объекта
+     * @param id id объекта
+     * @return
+     */
     Obj getObject ( int id );
-    //////////////////////////////////////////////////////////////////////////
-    /// \brief getObject
-    /// \return VecObj
-    ///  получаем состояние состояние объекта
-    //////////////////////////////////////////////////////////////////////////
-    VecObj getObject ( );
-    //////////////////////////////////////////////////////////////////////////
-    /// \brief The ObjStruct struct
-    ///структура для описания состояния оборудования объекта
-    //////////////////////////////////////////////////////////////////////////
 
+    /**
+     * @brief getObject получаем состояние состояние объекта
+     * @return
+     */
+    VecObj getObject ( );
+    /**
+     * @brief chngType структура для описания состояния оборудования объект
+     */
     typedef std::vector < int16_t> chngType;
     chngType getChange();
 

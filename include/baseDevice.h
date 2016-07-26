@@ -3,18 +3,27 @@
 
 #include <QObject>
 #include <QString>
+/**
+ * @brief The baseDevice class базовый класс устройства
+ */
 class baseDevice : public QObject
 {
     Q_OBJECT
 public:
 
+    /**
+     * @brief The CONST_ACTIVE enum вид активности
+     */
     enum CONST_ACTIVE
     {
-        NOACTIVE = 0,
-        ACTIVE = 1,
-        CONNECT = 2
+        NOACTIVE = 0, /// не активно
+        ACTIVE = 1,   /// активно
+        CONNECT = 2   ///в соединении
     };
 
+    /**
+     * @brief baseDevice конструктор baseDevice
+     */
     baseDevice();
     virtual ~baseDevice();
     /**
@@ -22,20 +31,61 @@ public:
      * @param _name - имя объекта
      */
     virtual void setName( QString _name );
+    /**
+     * @brief isAlarm есть ли авария
+     * @return true - есть, false - нет
+     */
     virtual bool isAlarm() const;
+    /**
+     * @brief setAlarm установить аварию
+     * @param al - авария
+     * @param newf новое или нет ошибка
+     */
     virtual void setAlarm (const bool al, const bool newf = false );
+    /**
+     * @brief getId получить id
+     * @return id
+     */
     virtual int16_t getId() const ;
+    /**
+     * @brief getName получить название
+     * @return название
+     */
     virtual QString getName() const;
+    /**
+     * @brief getConf в конфигурации или нет
+     * @return true - да, false - нет
+     */
     virtual bool getConf() const;
     /**
      * @brief SetConf ввести в конфигурацию
-     * @param ok
+     * @param ok true - ввести, false - вывести
      */
     virtual void setConf( const bool ok );
+    /**
+     * @brief isClicked нажимали ли на кнопку
+     * @return  true - да, false - нет
+     */
     virtual bool isClicked() const;
+    /**
+     * @brief setClicked установить нажатие
+     * @param cli true - да, false - нет
+     */
     virtual void setClicked( const bool cli );
+    /**
+     * @brief isBlink мигает ли кнопка
+     * @return true - да, false - нет
+     */
     virtual bool isBlink() const;
+    /**
+     * @brief setBlink установить  мигание кнопки
+     * @param bli
+     */
     virtual void setBlink( const bool bli ) ;
+    /**
+     * @brief setlostAlarm
+     * @param lErr
+     */
     virtual void setlostAlarm( const bool lErr );
     virtual bool islostAlarm() const;
     virtual bool isNewErr() const ;
@@ -56,7 +106,7 @@ public:
     void setReg(const bool reg );
     /**
      * @brief isReg регламент ли ?
-     * @return
+     * @return true - да, false - нет
      */
     bool isReg() const;
 protected:

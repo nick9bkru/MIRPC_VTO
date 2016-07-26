@@ -5,13 +5,26 @@
 #include <QList>
 #include "include/db/dbFaults.h"
 
+/**
+ * @brief The FaultsClass class класс содержащий аварийные устройства
+ */
 class FaultsClass
 {
 public:
+    /**
+     * @brief FaultsClass конструктор
+     * @param _objUpd указатель на класс для работы с БД
+     */
     FaultsClass( ObjectsUpdater *_objUpd );
 
     ~FaultsClass( );
+    /**
+     * @brief update обновить состояния аварий
+     */
     void update ();
+    /**
+     * @brief updateLostFaults обновить состояния пропущенных аварий
+     */
     void updateLostFaults();
 private :
     dbFaults *db;

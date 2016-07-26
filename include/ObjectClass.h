@@ -6,14 +6,25 @@
 #include "include/db/dbMainObject.h"
 #include <QMap>
 
+/**
+ * @brief The ObjectClass class класс объектов
+ */
 class ObjectClass : public baseDevice
 {
      Q_OBJECT
 public:
     typedef QMap< int16_t , DeviceClass* > DevisesType ;
 
+    /**
+     * @brief ObjectClass конструктор
+     * @param _name название
+     * @param _id id
+     */
     ObjectClass(QString _name , int16_t _id );
-
+    /**
+     * @brief getDevices указатель на карту со всеми устройствами
+     * @return
+     */
     DevisesType* getDevices( );
     /**
      * @brief getDevice - получить устройство
@@ -60,6 +71,9 @@ public:
      */
     bool setLostAlarmDev( const int16_t id_dev, const bool alarm);
 protected:
+    /**
+     * @brief emitSigChange сигнал о смене состояний
+     */
     virtual void emitSigChange() ;
 
 signals:

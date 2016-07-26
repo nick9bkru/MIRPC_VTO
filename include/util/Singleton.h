@@ -5,21 +5,26 @@
 namespace Util
 {
     template < typename S>
+    /**
+     * @brief The SingletonDestroyer class
+     * Вспомогательный класс для реализции Singleton
+     */
     class SingletonDestroyer
     {
       private:
-	S* p_instance;
+        S* p_instance;
       public:    
-	~SingletonDestroyer() 
-	{
-	  delete p_instance;
-	};
-	void initialize( S* p ) 
-	{
-	  p_instance = p;
-	};
+        ~SingletonDestroyer()
+        {
+            delete p_instance;
+        };
+      void initialize( S* p )
+        {
+            p_instance = p;
+        };
     };
     
+
     /** class singleton
 	    @brief Реализация шаблона проектирования "Одиночка"
     */
@@ -27,20 +32,23 @@ namespace Util
     class Singleton
     {
       protected:
-	static T* p_instance;
-	static SingletonDestroyer<T> destroyer;
+        static T* p_instance;
+        static SingletonDestroyer<T> destroyer;
       private:
-	
-	Singleton();
-	Singleton(const Singleton& );
-	~Singleton();
- 	Singleton& operator=(const Singleton& ) ;
+        Singleton();
+        Singleton(const Singleton& );
+        ~Singleton();
+        Singleton& operator=(const Singleton& ) ;
       public:
-	static T& getInstance( );
-	static void init ( T * p );
+        static T& getInstance( );
+        static void init ( T * p );
 	
     };
     
+
+
+
+
     template < typename T>
     T* Singleton<T>::p_instance = 0;
     

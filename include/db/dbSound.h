@@ -9,6 +9,10 @@
 class dbSound
 {
 public:
+    /**
+     * @brief dbSound конструктор
+     * @param _db указатель на класс работы с БД
+     */
     dbSound(DBClass *_db);
     /**
      * @brief isMute
@@ -18,6 +22,11 @@ public:
      *  false - есть звук
      */
     bool isMute();
+    /**
+     * @brief isMute есть ли звук ?
+     * @param db указатель на класс работы с БД
+     * @return
+     */
     static bool isMute(DBClass *db );
 private:
     DBClass *db;

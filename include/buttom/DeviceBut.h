@@ -11,15 +11,6 @@ class DeviceBut : public ButParent
 {
     Q_OBJECT
 public:
-    enum STATE
-    {
-        NORM= 0,
-        CALL
-    };
-    enum
-    {
-        ERR = 1
-    };
 
   DeviceBut(QWidget * parent = 0 , int8_t _index = 0);
   int8_t getIndex();

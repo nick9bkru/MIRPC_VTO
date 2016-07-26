@@ -3,6 +3,9 @@
 
 #include <QFrame>
 
+/**
+ * @brief The FrameBorder class просто фрейм для отрисовки
+ */
 class FrameBorder : public QFrame
 {
     Q_OBJECT

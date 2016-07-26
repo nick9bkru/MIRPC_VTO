@@ -21,6 +21,9 @@ public slots:
     void updState();
 private:
 protected:
+    /**
+     * @brief reactClick реакция на нажатие кнопки
+     */
     virtual void reactClick() override;
 };
 

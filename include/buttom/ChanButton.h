@@ -9,13 +9,26 @@
 
 #include "include/SetNameDialog.h"
 
+/**
+ * @brief The ChanButton class
+ * Класс кнопки для отображения объектов системы
+ */
+
 class ChanButton : public ButParent
 {	
   Q_OBJECT
 public:
-
+    /**
+   * @brief ChanButton Конструктор
+   * @param parent
+   * @param _id id объекта
+   */
   ChanButton(QWidget *parent = 0, int _id = 0 );
   ~ChanButton();
+  /**
+   * @brief getId получить объект
+   * @return
+   */
   int getId();
 private :
   int id;

@@ -10,25 +10,42 @@
 #include "include/BSPurWid.h"
 #include "include/OtherDevWid.h"
 
+/**
+ * @brief The StateChanFrame class класс с состояниями устройств объекта
+ */
 class StateChanFrame : public QFrame, Ui::ChanFrame
 {
   Q_OBJECT
 public:
+    /**
+   * столбцы
+   */
   enum
   {
-    CountRow = 4
+    CountRow = 4 ///столбцы
   };
+  /**
+   * @brief StateChanFrame конструктор класса
+   * @param parent
+   */
   StateChanFrame(QWidget *parent = 0);
   ~StateChanFrame();
 
   /**
-   * @brief isBlinkMainBut
-   * @return
-   * мигать или нет кнопкой на MainFrame
+   * @brief isBlinkMainBut мигать или нет кнопкой на MainFrame
+   * @return мигать или нет кнопкой на MainFrame
    */
   bool isBlinkMainBut ();
 public slots:  
+  /**
+   * @brief changeDirection меняем объект на другой
+   * @param _id id объекта
+   */
   void changeDirection( const int & _id );
+  /**
+   * @brief updateState обновляем состояние
+   * @param id
+   */
   void updateState(int16_t id);
 signals:
 private:

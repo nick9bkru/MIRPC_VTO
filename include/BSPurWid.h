@@ -24,6 +24,11 @@ public:
         PUR = 1,
         PUS = 2
     };
+    /**
+     * @brief BSPurWid конструктор
+     * @param _db класс для ззапроса из БД
+     * @param parent батя
+     */
     explicit BSPurWid( dbDevices* _db,  QWidget *parent );
     ~BSPurWid();
     /**

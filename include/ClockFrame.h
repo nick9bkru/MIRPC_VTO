@@ -6,19 +6,25 @@
 #include <QDate>
 
 #include "ui_ClockFrame.h"
-
+/**
+ * @brief The ClockFrame class фрейм с часами
+ */
 class ClockFrame : public QFrame, Ui::TimeFrame
 {
   Q_OBJECT
 public:
-ClockFrame( QWidget *parent = 0 );
-~ClockFrame();
+    /**
+     * @brief ClockFrame конструктор
+     * @param parent батя
+     */
+    ClockFrame( QWidget *parent = 0 );
+    ~ClockFrame();
 
 private:
-  QTime time;
-  QString getStrMonth( int num);
+    QTime time;
+    QString getStrMonth( int num);
 private slots:
-  void UpdateClock();
+    void UpdateClock();
 };
 
 #endif // CLOCKFRAME_H
